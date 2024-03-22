@@ -16,9 +16,9 @@ function App() {
 
         <div>
           <Routes>
-            <Route path='/' element={<AuthenticationPage />} />
-            <Route path='register' element={<Register />} />
-            <Route path='home' element={<HomePage />} />
+            <Route path='todo-list-vite/' element={<AuthenticationPage />} />
+            <Route path='todo-list-vite/register' element={<Register />} />
+            <Route path='todo-list-vite/home' element={<HomePage />} />
           </Routes>
         </div>
       </>

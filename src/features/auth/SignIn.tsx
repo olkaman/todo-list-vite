@@ -25,7 +25,7 @@ export default function SignIn() {
       <h2>Sign in</h2>
       <AuthForm onSubmit={onSubmit} buttonLabel='Sign in' email={email} password={password} setEmail={setEmail} setPassword={setPassword} />
       <div>{error}</div>
-      Are you new user? <Link to='../register'>Register</Link>
+      Are you new user? <Link to='register'>Register</Link>
     </>
   );
 }
