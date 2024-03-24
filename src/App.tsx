@@ -9,7 +9,7 @@ import ProtectedRoute from './features/auth/ProtectedRoute';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { auth } from '../firebase';
-import NotFound404Page from './components-layout/NotFound404Page';
+import NotFound404Page from './components-layout/PageNotFound';
 
 function App() {
   const [currentUser, setCurrentUser] = useState<boolean | null>(null);
