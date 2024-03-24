@@ -33,7 +33,7 @@ export default function Register() {
       <h2>Register</h2>
       <AuthForm onSubmit={onSubmit} buttonLabel='Register account' email={email} password={password} setEmail={setEmail} setPassword={setPassword} />
       <div>{error}</div>
-      Already have account? <Link to='../todo-list-vite/'>Sign in</Link>
+      Already have account? <Link to='/'>Sign in</Link>
     </>
   );
 }

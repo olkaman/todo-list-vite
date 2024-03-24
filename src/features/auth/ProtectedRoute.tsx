@@ -13,6 +13,6 @@ export default function ProtectedRoute(props: Props) {
   if (user) {
     return children;
   } else {
-    navigate('todo-list-vite/');
+    navigate('/');
   }
 }
