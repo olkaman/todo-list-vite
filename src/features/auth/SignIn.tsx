@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 export default function SignIn() {
   const [email, setEmail] = useState<string>('');
+
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState('');
 
@@ -16,7 +17,9 @@ export default function SignIn() {
         console.log(result);
       })
       .catch((error) => {
-        setError(error.message);
+        if (error.code === 'auth/invalid-credential') {
+          setError('Invalid email or password');
+        }
       });
   };
 
