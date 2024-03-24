@@ -4,8 +4,6 @@ import useAuthStore from '../stores/authStore';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../firebase';
 
-type UserState = { isCurrentUser: boolean | null; isLoading: boolean };
-
 type Props = {
   children: ReactElement;
 };
@@ -13,7 +11,7 @@ type Props = {
 export default function AuthContainer(props: Props) {
   const { children } = props;
 
-  const [userState, setUserState] = useState<UserState>({ isCurrentUser: null, isLoading: true });
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
   const setUserEmail = useAuthStore((state) => state.updateUserEmail);
   const setIsCurrentUser = useAuthStore((state) => state.setIsCurrentUser);
@@ -24,11 +22,11 @@ export default function AuthContainer(props: Props) {
         console.log(user);
         navigate('/home');
         setIsCurrentUser(true);
-        setUserState({ isCurrentUser: true, isLoading: false });
+        setIsLoading(false);
         setUserEmail(user.email ?? '');
       } else {
         setIsCurrentUser(false);
-        setUserState({ isCurrentUser: null, isLoading: false });
+        setIsLoading(false);
         navigate('../');
       }
 
@@ -36,9 +34,7 @@ export default function AuthContainer(props: Props) {
     });
   }, []);
 
-  console.log();
-
-  if (userState.isLoading) {
+  if (isLoading) {
     return <div>Loading ...</div>;
   }
 
