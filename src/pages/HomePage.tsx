@@ -1,3 +1,14 @@
+import { signOut } from 'firebase/auth';
+import { auth } from '../../firebase';
+
 export default function HomePage() {
-  return <div>HomePage</div>;
+  const onSignOut = () => {
+    signOut(auth);
+  };
+  return (
+    <>
+      <div>HomePage</div>
+      <button onClick={onSignOut}>Sign out</button>
+    </>
+  );
 }

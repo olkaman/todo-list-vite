@@ -1,7 +1,7 @@
 import { FormEventHandler, useState } from 'react';
 import AuthForm from './AuthForm';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../firebase';
+import { auth } from '../../../firebase';
 import { Link } from 'react-router-dom';
 
 export default function SignIn() {
@@ -25,7 +25,7 @@ export default function SignIn() {
       <h2>Sign in</h2>
       <AuthForm onSubmit={onSubmit} buttonLabel='Sign in' email={email} password={password} setEmail={setEmail} setPassword={setPassword} />
       <div>{error}</div>
-      Are you new user? <Link to='register'>Register</Link>
+      New user? <Link to='register'>Register</Link>
     </>
   );
 }
