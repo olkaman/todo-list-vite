@@ -1,7 +1,7 @@
 import { FormEventHandler, useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../../firebase';
-import AuthForm from './AuthForm';
+import { auth } from '../../firebase';
+import AuthForm from '../features/auth/AuthForm';
 import { Link } from 'react-router-dom';
 
 export default function Register() {

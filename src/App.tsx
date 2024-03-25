@@ -1,12 +1,12 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import AuthenticationPage from './pages/AuthenticationPage';
-import Register from './features/auth/Register';
+import Register from './pages/Register';
 import HomePage from './pages/HomePage';
 import ProtectedRoute from './features/auth/ProtectedRoute';
-import NotFound404Page from './components-layout/PageNotFound';
+import PageNotFound from './pages/PageNotFound';
 import AuthContainer from './components-layout/AuthContainer';
 import useAuthStore from './stores/authStore';
+import SignIn from './pages/SignIn';
 
 function App() {
   const isCurrentUser = useAuthStore((state) => state.isCurrentUser);
@@ -16,7 +16,7 @@ function App() {
       <>
         <div>
           <Routes>
-            <Route path='/' element={<AuthenticationPage />} />
+            <Route path='/' element={<SignIn />} />
             <Route path='register' element={<Register />} />
             <Route
               path='home'
@@ -26,7 +26,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route path='*' element={<NotFound404Page />} />
+            <Route path='*' element={<PageNotFound />} />
           </Routes>
         </div>
       </>

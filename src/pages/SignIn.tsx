@@ -1,7 +1,7 @@
 import { FormEventHandler, useState } from 'react';
-import AuthForm from './AuthForm';
+import AuthForm from '../features/auth/AuthForm';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../../firebase';
+import { auth } from '../../firebase';
 import { Link } from 'react-router-dom';
 
 export default function SignIn() {
