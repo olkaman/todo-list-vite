@@ -7,6 +7,7 @@ import PageNotFound from './pages/PageNotFound';
 import AuthContainer from './components-layout/AuthContainer';
 import useAuthStore from './stores/authStore';
 import SignIn from './pages/SignIn';
+import TodoPage from './pages/TodoPage';
 
 function App() {
   const isCurrentUser = useAuthStore((state) => state.isCurrentUser);
@@ -25,7 +26,9 @@ function App() {
                   <HomePage />
                 </ProtectedRoute>
               }
-            />
+            >
+              <Route path=':listId' element={<TodoPage />} />
+            </Route>
             <Route path='*' element={<PageNotFound />} />
           </Routes>
         </div>
