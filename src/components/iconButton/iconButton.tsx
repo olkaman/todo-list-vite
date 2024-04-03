@@ -1,12 +1,12 @@
 import { ReactElement } from 'react';
-import styles from './Button.module.scss';
+import styles from './IconButton.module.scss';
 
 type Props = {
-  handleOnClick: () => void;
+  handleOnClick?: () => void;
   icon: ReactElement;
 };
 
-function Button(props: Props) {
+function IconButton(props: Props) {
   const { handleOnClick, icon } = props;
   return (
     <button onClick={handleOnClick} className={styles.iconButton}>
@@ -14,4 +14,4 @@ function Button(props: Props) {
     </button>
   );
 }
-export default Button;
+export default IconButton;

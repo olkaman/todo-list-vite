@@ -1,4 +1,4 @@
-@import '../GlobalStyles.scss';
+// @import '../GlobalStyles.scss';
 
 button {
   cursor: pointer;
@@ -10,11 +10,11 @@ button {
     opacity: 0.7;
 
     svg {
-      color: $light-gray;
+      // color: $light-gray;
     }
 
     &:hover svg {
-      color: $accent-color;
+      // color: $accent-color;
     }
   }
 }
