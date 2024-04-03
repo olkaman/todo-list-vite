@@ -1,4 +1,6 @@
 import Header from '../components-layout/Header';
+import { Outlet } from 'react-router-dom';
+import ListsPanel from '../features/lists/ListsPanel';
 
 export default function HomePage() {
   return (
@@ -6,7 +8,11 @@ export default function HomePage() {
       <div>
         <Header />
       </div>
-      <div>HomePage</div>
+      <div>
+        <h2>HomePage</h2>
+        <ListsPanel />
+        <Outlet />
+      </div>
     </>
   );
 }
