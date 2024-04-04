@@ -30,13 +30,13 @@ export default function List(props: Props) {
       {!isEdited ? (
         <>
           <div>{list.listName}</div>
-          <IconButton handleOnClick={() => setIsEdited(!isEdited)} icon={<Pencil />} />
+          <IconButton handleOnClick={() => setIsEdited(!isEdited)} icon={<Pencil strokeWidth={1.25} />} />
         </>
       ) : (
         <>
           <input value={listName} onChange={(e) => setListName(e.currentTarget.value)} />
-          <IconButton handleOnClick={onSaveListName} icon={<Check />} />
-          <IconButton handleOnClick={() => setIsEdited(!isEdited)} icon={<X />} />
+          <IconButton handleOnClick={onSaveListName} icon={<Check strokeWidth={1.25} />} />
+          <IconButton handleOnClick={() => setIsEdited(!isEdited)} icon={<X strokeWidth={1.25} />} />
         </>
       )}
     </div>

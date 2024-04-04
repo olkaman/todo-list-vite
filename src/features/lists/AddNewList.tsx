@@ -29,7 +29,7 @@ export default function AddNewList() {
     <form onSubmit={addNewList}>
       <h3>Add new list</h3>
       <input value={listName} onChange={(e) => setListName(e.currentTarget.value)} placeholder={'Enter list name'} />
-      <IconButton icon={<CirclePlus />} />
+      <IconButton icon={<CirclePlus strokeWidth={1.25} />} />
     </form>
   );
 }
