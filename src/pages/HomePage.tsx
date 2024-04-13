@@ -1,18 +1,8 @@
 import Header from '../components-layout/Header';
 import { Outlet } from 'react-router-dom';
 import ListsPanel from '../features/lists/ListsPanel';
+import Layout from '../components-layout/Layout';
 
 export default function HomePage() {
-  return (
-    <>
-      <div>
-        <Header />
-      </div>
-      <div>
-        <h2>HomePage</h2>
-        <ListsPanel />
-        <Outlet />
-      </div>
-    </>
-  );
+  return <Layout header={<Header />} sidebar={<ListsPanel />} content={<Outlet />} />;
 }
