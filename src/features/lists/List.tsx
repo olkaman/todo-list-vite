@@ -1,19 +1,28 @@
 import { useState } from 'react';
-import { TodoList } from '../../utils/models';
+import { Pencil, Trash } from 'lucide-react';
+import IconButton from '../../components/IconButton';
+import { iconSize, strokeWidth } from '../../utils/iconSettings';
+import { ref, remove } from 'firebase/database';
+import { database } from '../../../firebase';
+import EditTextForm from '../../components/EditTextForm';
+import { useListById } from '../../stores/listStore';
+import { NavLink } from 'react-router-dom';
 import { updateListName } from '../../services/lists.service';
-import { Check, X, Pencil } from 'lucide-react';
-import IconButton from '../../components/iconButton/IconButton';
 
 type Props = {
-  list: TodoList;
+  listKey: number;
 };
 
 export default function List(props: Props) {
-  const { list } = props;
+  const { listKey } = props;
+  const list = useListById(listKey);
   const [isEdited, setIsEdited] = useState<boolean>(false);
-  const [listName, setListName] = useState<string>(list.listName);
+  const [listName, setListName] = useState(list?.listName || '');
 
   const onSaveListName = () => {
+    console.log('1');
+    if (!listName || !list) return;
+    console.log('2');
     updateListName(listName, list)
       .then(() => {
         setIsEdited(false);
@@ -25,19 +34,28 @@ export default function List(props: Props) {
       });
   };
 
+  const handleDelete = () => {
+    if (!list) return;
+
+    const dbRef = ref(database, '/todos/' + list.listId);
+    remove(dbRef);
+    window.location.reload();
+  };
+
   return (
     <div>
       {!isEdited ? (
-        <>
-          <div>{list.listName}</div>
-          <IconButton handleOnClick={() => setIsEdited(!isEdited)} icon={<Pencil strokeWidth={1.25} />} />
-        </>
+        <NavLink to={listKey.toString()} className='flex items-center justify-between p-3 hover:bg-accent dark:hover:bg-gray rounded-lg globalTransition'>
+          <div className='w-5/7'>{list?.listName}</div>
+          <div className='w-2/7 flex flex-row'>
+            <IconButton handleOnClick={() => setIsEdited(!isEdited)} icon={<Pencil strokeWidth={strokeWidth} size={iconSize} />} />
+            <IconButton handleOnClick={() => handleDelete()} icon={<Trash strokeWidth={strokeWidth} size={iconSize} />} />
+          </div>
+        </NavLink>
       ) : (
-        <>
-          <input value={listName} onChange={(e) => setListName(e.currentTarget.value)} />
-          <IconButton handleOnClick={onSaveListName} icon={<Check strokeWidth={1.25} />} />
-          <IconButton handleOnClick={() => setIsEdited(!isEdited)} icon={<X strokeWidth={1.25} />} />
-        </>
+        <div className='flex items-center justify-between p-3 bg-accent dark:bg-gray rounded-lg'>
+          <EditTextForm isEdited={isEdited} setIsEdited={setIsEdited} onSubmit={onSaveListName} listName={listName} setListName={setListName} />
+        </div>
       )}
     </div>
   );
