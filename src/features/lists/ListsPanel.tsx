@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useState } from 'react';
 import AddNewList from '../../components/AddNewForm';
 import { TodoList } from '../../utils/models';
-import { fetchAllLists, saveList } from '../../services/lists.service';
+import { fetchAllLists, saveList, saveNewList } from '../../services/lists.service';
 import List from './List';
 import useListsStore from '../../stores/listStore';
 import { useNavigate } from 'react-router-dom';
@@ -19,7 +19,7 @@ export default function ListsPanel() {
     fetchAllLists().then((allLists: TodoList[]) => {
       setLists(allLists);
       if (!currentSelectedListId && allLists.length > 0) {
-        setCurrentSelectedListId(allLists[0].listId);
+        setCurrentSelectedListId(allLists[0].key);
       }
     });
   }, []);
@@ -27,13 +27,15 @@ export default function ListsPanel() {
   const addNewList = (e: FormEvent<HTMLInputElement>) => {
     e.preventDefault();
     const newList: TodoList = {
-      key: Math.floor(Math.random() * 10000),
+      key: Math.floor(Math.random() * 10000).toString(),
       listId: '',
       listName: newListName,
     };
 
     addList(newList);
-    saveList(newList);
+    saveNewList(newList);
+    setCurrentSelectedListId(newList.key);
+    navigate(`${newList.key}`);
     setNewListName('');
   };
 

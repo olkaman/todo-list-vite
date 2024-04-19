@@ -12,7 +12,8 @@ type State = {
 
 type Action = {
   setLists: (lists: TodoList[]) => void;
-  addList: (list: TodoList) => void;
+  addList: (listKey: TodoList) => void;
+  removeList: (list: string) => void;
   setCurrentSelectedListId: (listId: string) => void;
   addTodosToCurrentList: (todo: TodoItemType) => void;
   loadTodosToCurrentList: (todos: TodoItemType[]) => void;
@@ -31,6 +32,7 @@ const useListsStore = create<State & Action, [['zustand/devtools', never]]>(
     ...initialState,
     setLists: (lists) => set(() => ({ lists }), false, 'Set lists'),
     addList: (list) => set(addList(list), false, 'Add list'),
+    removeList: (listKey) => set(removeList(listKey), false, 'Add list'),
     setCurrentSelectedListId: (listId) => set(setCurrentSelectedListId(listId), false, 'Add list'),
     addTodosToCurrentList: (todo) => set(addTodosToCurrentList(todo), false, 'Add todo'),
     loadTodosToCurrentList: (todos) => set(loadTodosToCurrentList(todos), false, 'Load todos to current list'),
@@ -65,6 +67,14 @@ function setCurrentSelectedListId(listId: string): ListStoreType {
 function addList(list: TodoList): ListStoreType {
   return (state) => {
     return { ...state, lists: [...state.lists, list] };
+  };
+}
+
+function removeList(listKey: string): ListStoreType {
+  return (state) => {
+    const lists = state.lists.filter((list) => list.key !== listKey);
+
+    return { ...state, lists };
   };
 }
 

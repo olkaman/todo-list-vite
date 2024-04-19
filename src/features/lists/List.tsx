@@ -18,8 +18,9 @@ export default function List(props: Props) {
   const [isEdited, setIsEdited] = useState<boolean>(false);
   const [updatedListName, setUpdatedListName] = useState(list.listName);
   const setCurrentSelectedListId = useListsStore((state) => state.setCurrentSelectedListId);
+  const removeCurrentList = useListsStore((state) => state.removeList);
   const currentSelectedList = useListsStore((state) => state.currentSelectedListId);
-  const isSelected = currentSelectedList === list.listId;
+  const isSelected = currentSelectedList === list.key;
   const navigate = useNavigate();
 
   const onUpdateListName = () => {
@@ -37,12 +38,12 @@ export default function List(props: Props) {
 
   const onRemoveList = () => {
     removeList(list.listId);
-    location.reload();
+    removeCurrentList(list.key);
   };
 
   const onNavigateToList = () => {
-    navigate(list.listId);
-    setCurrentSelectedListId(list.listId);
+    navigate(list.key);
+    setCurrentSelectedListId(list.key);
   };
 
   return (

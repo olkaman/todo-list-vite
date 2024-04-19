@@ -9,7 +9,7 @@ import TodoPage from './TodoPage';
 export default function HomePage() {
   const navigate = useNavigate();
   const currentSelectedList = useListsStore((state) => state.currentSelectedListId);
-  console.log(currentSelectedList);
+  console.log('home', currentSelectedList);
   useEffect(() => {
     navigate(`${currentSelectedList}`);
   }, []);

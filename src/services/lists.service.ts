@@ -10,7 +10,6 @@ export const fetchAllLists = async () => {
     const listsWithId = Object.keys(snapshot.val()).map((listId, index) => {
       return { ...allLists[index], listId };
     });
-    console.log(listsWithId);
     return listsWithId;
   } else {
     alert('there are no lists');
@@ -23,7 +22,7 @@ export const updateListName = (newListName: string, list: TodoList) => {
   return set(newRef, { ...list, listName: newListName });
 };
 
-export const saveList = (newList: TodoList) => {
+export const saveNewList = (newList: TodoList) => {
   const newRef = push(ref(database, `/lists/`));
   set(newRef, newList)
     .then(() => {
