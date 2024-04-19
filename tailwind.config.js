@@ -15,7 +15,7 @@ export default {
         bgColor: {
           darkMode: '#373737',
           DEFAULT: '#fff',
-          appBg: '#fcfcfc',
+          appBg: '#eff0eb',
         },
         gray: {
           light: '#808080',
@@ -26,7 +26,6 @@ export default {
       },
       height: {
         lists: 'calc(100vh - 200px)',
-        // other properties...
       },
     },
   },
