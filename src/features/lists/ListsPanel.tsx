@@ -15,13 +15,17 @@ export default function ListsPanel() {
   const [newListName, setNewListName] = useState('');
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const fetchLists = () => {
     fetchAllLists().then((allLists: TodoList[]) => {
       setLists(allLists);
       if (!currentSelectedListId && allLists.length > 0) {
         setCurrentSelectedListId(allLists[0].key);
       }
     });
+  };
+
+  useEffect(() => {
+    fetchLists();
   }, []);
 
   const addNewList = (e: FormEvent<HTMLInputElement>) => {
@@ -37,6 +41,7 @@ export default function ListsPanel() {
     setCurrentSelectedListId(newList.key);
     navigate(`${newList.key}`);
     setNewListName('');
+    fetchLists();
   };
 
   return (

@@ -21,7 +21,7 @@ export default function TodoPage() {
         loadTodosToCurrentList(allTodos ?? []);
       })
       .catch(() => {});
-  }, [listId]);
+  }, [listKey]);
 
   const userId = 3234342342;
 
@@ -45,7 +45,7 @@ export default function TodoPage() {
       checked: false,
       date: Date.now(),
     };
-
+    console.log('ppp', listId);
     addTodoToCurrentList(newTodo);
     saveNewTodo(newTodo, listId);
     setNewTaskName('');

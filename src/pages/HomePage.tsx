@@ -4,14 +4,14 @@ import ListsPanel from '../features/lists/ListsPanel';
 import Layout from '../components-layout/Layout';
 import useListsStore from '../stores/listStore';
 import { useEffect } from 'react';
-import TodoPage from './TodoPage';
 
 export default function HomePage() {
   const navigate = useNavigate();
   const currentSelectedList = useListsStore((state) => state.currentSelectedListId);
-  console.log('home', currentSelectedList);
+
   useEffect(() => {
     navigate(`${currentSelectedList}`);
-  }, []);
+  }, [currentSelectedList]);
+
   return <Layout header={<Header />} sidebar={<ListsPanel />} content={<Outlet />} />;
 }
