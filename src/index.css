@@ -26,8 +26,20 @@
   @apply transition-all duration-300;
 }
 
-.iconButtonWithBackground {
-  @apply shadow-md dark:shadow-lg p-2 rounded-lg bg-bgColor dark:bg-bgColor-darkMode;
+.boxShadow {
+  @apply shadow-md dark:shadow-lg;
+}
+
+.containerStyles {
+  @apply bg-bgColor dark:bg-gray-dark;
+}
+
+.formField {
+  @apply border rounded p-2 border-gray-light dark:bg-gray-dark focus:outline-none focus:ring-accent focus:ring-1;
+}
+
+.active {
+  @apply bg-accent dark:bg-gray;
 }
 
 /* @layer components {
