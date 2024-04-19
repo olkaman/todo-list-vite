@@ -27,7 +27,7 @@ function App() {
                 </ProtectedRoute>
               }
             >
-              <Route path=':listId' element={<TodoPage />} />
+              <Route path=':listKey' element={<TodoPage />} />
             </Route>
             <Route path='*' element={<PageNotFound />} />
           </Routes>

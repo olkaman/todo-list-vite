@@ -13,5 +13,5 @@ export default function HomePage() {
   useEffect(() => {
     navigate(`${currentSelectedList}`);
   }, []);
-  return <Layout header={<Header />} sidebar={<ListsPanel />} content={<TodoPage />} />;
+  return <Layout header={<Header />} sidebar={<ListsPanel />} content={<Outlet />} />;
 }

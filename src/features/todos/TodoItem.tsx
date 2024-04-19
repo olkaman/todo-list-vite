@@ -13,21 +13,17 @@ type Props = {
 
 export default function TodoItem(props: Props) {
   const { editTaskValue, todo } = props;
-  // const todo = useTodoById(todoId);
+
   const [isTaskEdited, setIsTaskEdited] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [isChecked, setIsChecked] = useState(false);
-  console.log(isChecked);
-  const handleOnSave = () => {
-    if (!todo) return;
 
+  const handleOnSave = () => {
     setIsTaskEdited(!isTaskEdited);
     editTaskValue({ ...todo, task: inputValue });
   };
 
   const handleOnCheck = () => {
-    if (!todo) return;
-
     setIsChecked(!isChecked);
     editTaskValue({ ...todo, checked: !isChecked });
   };

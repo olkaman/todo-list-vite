@@ -4,14 +4,14 @@ import TodoItem from '../features/todos/TodoItem';
 import { FormEvent, useEffect, useState } from 'react';
 import { TodoItemType } from '../utils/models';
 import AddNewForm from '../components/AddNewForm';
-import useTodosStore from '../stores/todoStore';
 import { useParams } from 'react-router-dom';
-import useListsStore, { useCurrentListTodos } from '../stores/listStore';
+import useListsStore, { useCurrentListTodos, useListIdByKey } from '../stores/listStore';
 
 export default function TodoPage() {
-  const setTodos = useTodosStore((state) => state.setTodos);
   const todos = useCurrentListTodos();
-  const { listId } = useParams();
+  const { listKey } = useParams();
+
+  const listId = useListIdByKey(listKey ?? '');
   const addTodosToCurrentList = useListsStore((state) => state.addTodosToCurrentList);
   const loadTodosToCurrentList = useListsStore((state) => state.loadTodosToCurrentList);
   const [newTaskName, setNewTaskName] = useState('');
@@ -19,7 +19,7 @@ export default function TodoPage() {
   const updateTodoItemInCurrentList = useListsStore((state) => state.updateTodoItemInCurrentList);
 
   const fetchTodos = async () => {
-    const dbRef = ref(database, '/lists/' + currentSelectedListId + '/todos');
+    const dbRef = ref(database, '/lists/' + listId + '/todos');
     const snapshot = await get(dbRef);
 
     if (snapshot.exists()) {
@@ -51,7 +51,7 @@ export default function TodoPage() {
 
   const saveNewTodo = (newTodo: TodoItemType) => {
     console.log('newTodo', newTodo);
-    const newRef = push(ref(database, `/lists/` + currentSelectedListId + '/todos'));
+    const newRef = push(ref(database, `/lists/` + listId + '/todos'));
     set(newRef, newTodo)
       .then(() => {
         alert('todo was saved');
@@ -69,7 +69,7 @@ export default function TodoPage() {
       checked: false,
       date: Date.now(),
     };
-    console.log(newTodo);
+
     addTodosToCurrentList(newTodo);
     saveNewTodo(newTodo);
     setNewTaskName('');
@@ -77,11 +77,6 @@ export default function TodoPage() {
 
   const editTaskValue = (updatedTodo: TodoItemType) => {
     console.log('iii', updatedTodo);
-    // const newList = todos.map((todo) => {
-    //   if (updatedTodo.key === todo.key) return updatedTodo;
-    //   else return todo;
-    // });
-    //  console.log('newList', newList);
     updateTodoItemInCurrentList(updatedTodo);
   };
 
