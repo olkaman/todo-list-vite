@@ -20,7 +20,7 @@ export default function InputField(props: Props) {
   return (
     <>
       <input
-        className={`${customStyles} border rounded h-8 p-2 border-gray-light dark:bg-gray-dark focus:outline-none focus:ring-accent focus:ring-1`}
+        className={`${customStyles} border rounded p-2 border-gray-light dark:bg-gray-dark focus:outline-none focus:ring-accent focus:ring-1`}
         value={inputValue}
         onChange={handleOnEditTask}
         placeholder={placeholder}

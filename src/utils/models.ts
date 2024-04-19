@@ -1,3 +1,3 @@
-export type TodoList = { key: number; listId?: string; listName: string; todoList?: TodoItemType[] };
+export type TodoList = { key: number; listId: string; listName: string };
 
-export type TodoItemType = { key: string; task: string; checked: boolean; date: number };
+export type TodoItemType = { key: number; task: string; checked: boolean; date: number };

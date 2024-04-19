@@ -14,7 +14,7 @@ export default function Layout(props: Props) {
       <section className='p-3 bg-bgColor dark:bg-gray-dark shadow-lg dark:shadow-black dark:shadow-xl w-80 h-screen'>{sidebar}</section>
       <div className='w-full'>
         <section>{header}</section>
-        <section className='p-6 mx-auto'>{content}</section>
+        <section className='py-6 px-20'>{content}</section>
       </div>
     </main>
   );

@@ -8,8 +8,8 @@ type Props = {
 
 export default function ProtectedRoute(props: Props) {
   const navigate = useNavigate();
-
   const { children, user } = props;
+
   if (user) {
     return children;
   } else {

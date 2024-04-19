@@ -1,60 +1,65 @@
 import { useState } from 'react';
 import { Pencil, Trash } from 'lucide-react';
 import IconButton from '../../components/IconButton';
-import { iconSize, strokeWidth } from '../../utils/iconSettings';
-import { ref, remove } from 'firebase/database';
-import { database } from '../../../firebase';
+import { iconSize, strokeWidth } from '../../utils/settings';
 import EditTextForm from '../../components/EditTextForm';
-import { useListById } from '../../stores/listStore';
-import { NavLink } from 'react-router-dom';
-import { updateListName } from '../../services/lists.service';
+import { useNavigate } from 'react-router-dom';
+import { removeList, updateListName } from '../../services/lists.service';
+import { TodoList } from '../../utils/models';
+import useListsStore from '../../stores/listStore';
+import clsx from 'clsx';
 
 type Props = {
-  listKey: number;
+  list: TodoList;
 };
 
 export default function List(props: Props) {
-  const { listKey } = props;
-  const list = useListById(listKey);
+  const { list } = props;
   const [isEdited, setIsEdited] = useState<boolean>(false);
-  const [listName, setListName] = useState(list?.listName || '');
+  const [updatedListName, setUpdatedListName] = useState(list.listName);
+  const setCurrentSelectedListId = useListsStore((state) => state.setCurrentSelectedListId);
+  const currentSelectedList = useListsStore((state) => state.currentSelectedListId);
+  const isSelected = currentSelectedList === list.listId;
+  const navigate = useNavigate();
 
-  const onSaveListName = () => {
-    console.log('1');
-    if (!listName || !list) return;
-    console.log('2');
-    updateListName(listName, list)
+  const onUpdateListName = () => {
+    if (!updatedListName) return;
+
+    setIsEdited(false);
+    updateListName(updatedListName, list)
       .then(() => {
-        setIsEdited(false);
         alert('list name was saved');
-        location.reload();
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  const handleDelete = () => {
-    if (!list) return;
+  const onRemoveList = () => {
+    removeList(list.listId);
+    location.reload();
+  };
 
-    const dbRef = ref(database, '/todos/' + list.listId);
-    remove(dbRef);
-    window.location.reload();
+  const onNavigateToList = () => {
+    navigate(list.listId);
+    setCurrentSelectedListId(list.listId);
   };
 
   return (
     <div>
       {!isEdited ? (
-        <NavLink to={listKey.toString()} className='flex items-center justify-between p-3 hover:bg-accent dark:hover:bg-gray rounded-lg globalTransition'>
-          <div className='w-5/7'>{list?.listName}</div>
+        <div className={clsx(isSelected && 'active', 'flex items-center justify-between px-3 hover:bg-accent dark:hover:bg-gray rounded-lg globalTransition w-full mb-1')}>
+          <button onClick={onNavigateToList} className='w-5/7 w-full text-left py-4'>
+            {updatedListName}
+          </button>
           <div className='w-2/7 flex flex-row'>
             <IconButton handleOnClick={() => setIsEdited(!isEdited)} icon={<Pencil strokeWidth={strokeWidth} size={iconSize} />} />
-            <IconButton handleOnClick={() => handleDelete()} icon={<Trash strokeWidth={strokeWidth} size={iconSize} />} />
+            <IconButton handleOnClick={onRemoveList} icon={<Trash strokeWidth={strokeWidth} size={iconSize} />} />
           </div>
-        </NavLink>
+        </div>
       ) : (
         <div className='flex items-center justify-between p-3 bg-accent dark:bg-gray rounded-lg'>
-          <EditTextForm isEdited={isEdited} setIsEdited={setIsEdited} onSubmit={onSaveListName} listName={listName} setListName={setListName} />
+          <EditTextForm isEdited={isEdited} setIsEdited={setIsEdited} onSubmit={onUpdateListName} listName={updatedListName} setListName={setUpdatedListName} />
         </div>
       )}
     </div>
