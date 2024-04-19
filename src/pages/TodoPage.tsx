@@ -9,9 +9,8 @@ import { fetchAllTodos, saveNewTodo } from '../services/todos.service';
 export default function TodoPage() {
   const todos = useCurrentListTodos();
   const { listKey } = useParams();
-
   const listId = useListIdByKey(listKey ?? '');
-  const addTodosToCurrentList = useListsStore((state) => state.addTodosToCurrentList);
+  const addTodoToCurrentList = useListsStore((state) => state.addTodosToCurrentList);
   const loadTodosToCurrentList = useListsStore((state) => state.loadTodosToCurrentList);
   const [newTaskName, setNewTaskName] = useState('');
   const updateTodoItemInCurrentList = useListsStore((state) => state.updateTodoItemInCurrentList);
@@ -47,7 +46,7 @@ export default function TodoPage() {
       date: Date.now(),
     };
 
-    addTodosToCurrentList(newTodo);
+    addTodoToCurrentList(newTodo);
     saveNewTodo(newTodo, listId);
     setNewTaskName('');
   };
