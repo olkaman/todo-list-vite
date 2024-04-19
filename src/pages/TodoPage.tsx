@@ -1,11 +1,10 @@
-import { get, push, ref, set } from 'firebase/database';
-import { database } from '../../firebase';
 import TodoItem from '../features/todos/TodoItem';
 import { FormEvent, useEffect, useState } from 'react';
 import { TodoItemType } from '../utils/models';
 import AddNewForm from '../components/AddNewForm';
 import { useParams } from 'react-router-dom';
 import useListsStore, { useCurrentListTodos, useListIdByKey } from '../stores/listStore';
+import { fetchAllTodos, saveNewTodo } from '../services/todos.service';
 
 export default function TodoPage() {
   const todos = useCurrentListTodos();
@@ -15,25 +14,15 @@ export default function TodoPage() {
   const addTodosToCurrentList = useListsStore((state) => state.addTodosToCurrentList);
   const loadTodosToCurrentList = useListsStore((state) => state.loadTodosToCurrentList);
   const [newTaskName, setNewTaskName] = useState('');
-  const currentSelectedListId = useListsStore((state) => state.currentSelectedListId);
   const updateTodoItemInCurrentList = useListsStore((state) => state.updateTodoItemInCurrentList);
 
-  const fetchTodos = async () => {
-    const dbRef = ref(database, '/lists/' + listId + '/todos');
-    const snapshot = await get(dbRef);
-
-    if (snapshot.exists()) {
-      const newTodos = Object.values(snapshot.val()) as TodoItemType[];
-      loadTodosToCurrentList(newTodos);
-    } else {
-      loadTodosToCurrentList([]);
-      console.log('No todos exist');
-    }
-  };
-
   useEffect(() => {
-    fetchTodos();
-  }, [currentSelectedListId]);
+    fetchAllTodos(listId)
+      .then((allTodos) => {
+        loadTodosToCurrentList(allTodos ?? []);
+      })
+      .catch(() => {});
+  }, [listId]);
 
   const userId = 3234342342;
 
@@ -49,18 +38,6 @@ export default function TodoPage() {
   //     });
   // };
 
-  const saveNewTodo = (newTodo: TodoItemType) => {
-    console.log('newTodo', newTodo);
-    const newRef = push(ref(database, `/lists/` + listId + '/todos'));
-    set(newRef, newTodo)
-      .then(() => {
-        alert('todo was saved');
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   const onAddNewTodo = (e: FormEvent<HTMLInputElement>) => {
     e.preventDefault();
     const newTodo: TodoItemType = {
@@ -71,7 +48,7 @@ export default function TodoPage() {
     };
 
     addTodosToCurrentList(newTodo);
-    saveNewTodo(newTodo);
+    saveNewTodo(newTodo, listId);
     setNewTaskName('');
   };
 
