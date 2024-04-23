@@ -28,3 +28,8 @@ export const saveNewTodo = (newTodo: TodoItemType, listId: string) => {
       console.log(error);
     });
 };
+
+export const updateTodo = async (updatedTodo: TodoItemType, listId: string) => {
+  const newRef = ref(database, `/lists/${listId}/todos/${updatedTodo.id}`);
+  return set(newRef, updatedTodo);
+};

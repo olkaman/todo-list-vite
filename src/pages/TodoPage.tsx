@@ -5,8 +5,6 @@ import AddNewForm from '../components/AddNewForm';
 import { useParams } from 'react-router-dom';
 import useListsStore, { useCurrentListTodos, useListIdByKey } from '../stores/listStore';
 import { fetchAllTodos, saveNewTodo } from '../services/todos.service';
-import { ref, set } from 'firebase/database';
-import { database } from '../../firebase';
 
 export default function TodoPage() {
   const todos = useCurrentListTodos();
@@ -15,7 +13,6 @@ export default function TodoPage() {
   const addTodoToCurrentList = useListsStore((state) => state.addTodosToCurrentList);
   const loadTodosToCurrentList = useListsStore((state) => state.loadTodosToCurrentList);
   const [newTaskName, setNewTaskName] = useState('');
-  const updateTodoItemInCurrentList = useListsStore((state) => state.updateTodoItemInCurrentList);
 
   useEffect(() => {
     fetchAllTodos(listId)
@@ -24,21 +21,6 @@ export default function TodoPage() {
       })
       .catch(() => {});
   }, [listKey]);
-
-  const userId = 3234342342;
-
-  const saveData = async (updatedTodo: TodoItemType) => {
-    console.log('uuuu', updatedTodo);
-    const newRef = ref(database, `/lists/${listId}/todos/${updatedTodo.id}`);
-    set(newRef, updatedTodo)
-      .then(() => {
-        alert('todos were saved');
-        // fetchTodos();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
   const onAddNewTodo = (e: FormEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -55,17 +37,11 @@ export default function TodoPage() {
     setNewTaskName('');
   };
 
-  const editTaskValue = (updatedTodo: TodoItemType) => {
-    console.log('iii', updatedTodo);
-    updateTodoItemInCurrentList(updatedTodo);
-    saveData(updatedTodo);
-  };
-
   return (
     <section>
       <AddNewForm onSubmit={onAddNewTodo} inputValue={newTaskName} setInputValue={setNewTaskName} />
       {todos.map((todo) => {
-        return <TodoItem key={todo.key} editTaskValue={editTaskValue} todo={todo}></TodoItem>;
+        return <TodoItem key={todo.key} todo={todo} listId={listId} />;
       })}
     </section>
   );

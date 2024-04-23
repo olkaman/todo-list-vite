@@ -5,18 +5,21 @@ import { useState } from 'react';
 import TextAreaField from '../../components/TextAreaField';
 import { TodoItemType } from '../../utils/models';
 import clsx from 'clsx';
+import useListsStore from '../../stores/listStore';
+import { updateTodo } from '../../services/todos.service';
 
 type Props = {
-  editTaskValue: (todo: TodoItemType) => void;
   todo: TodoItemType;
+  listId: string;
 };
 
 export default function TodoItem(props: Props) {
-  const { editTaskValue, todo } = props;
+  const { todo, listId } = props;
 
   const [isTaskEdited, setIsTaskEdited] = useState(false);
   const [inputValue, setInputValue] = useState('');
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(todo.checked);
+  const updateTodoItemInCurrentList = useListsStore((state) => state.updateTodoItemInCurrentList);
 
   const handleOnSave = () => {
     setIsTaskEdited(!isTaskEdited);
@@ -28,6 +31,17 @@ export default function TodoItem(props: Props) {
     editTaskValue({ ...todo, checked: !isChecked });
   };
   const handleRemove = () => {};
+
+  const editTaskValue = (updatedTodo: TodoItemType) => {
+    updateTodoItemInCurrentList(updatedTodo);
+    updateTodo(updatedTodo, listId)
+      .then(() => {
+        alert('todos were saved');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div
