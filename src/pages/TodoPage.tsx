@@ -14,12 +14,16 @@ export default function TodoPage() {
   const loadTodosToCurrentList = useListsStore((state) => state.loadTodosToCurrentList);
   const [newTaskName, setNewTaskName] = useState('');
 
-  useEffect(() => {
+  const fetchTodos = () => {
     fetchAllTodos(listId)
       .then((allTodos) => {
         loadTodosToCurrentList(allTodos ?? []);
       })
       .catch(() => {});
+  };
+
+  useEffect(() => {
+    fetchTodos();
   }, [listKey]);
 
   const onAddNewTodo = (e: FormEvent<HTMLInputElement>) => {
@@ -35,6 +39,7 @@ export default function TodoPage() {
     addTodoToCurrentList(newTodo);
     saveNewTodo(newTodo, listId);
     setNewTaskName('');
+    fetchTodos();
   };
 
   return (

@@ -36,7 +36,7 @@ export default function TodoItem(props: Props) {
     updateTodoItemInCurrentList(updatedTodo);
     updateTodo(updatedTodo, listId)
       .then(() => {
-        alert('todos were saved');
+        // alert('todos were saved');
       })
       .catch((error) => {
         console.log(error);
