@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useState } from 'react';
 import AddNewList from '../../components/AddNewForm';
 import { TodoList } from '../../utils/models';
-import { fetchAllLists, saveList, saveNewList } from '../../services/lists.service';
+import { fetchAllLists, saveNewList } from '../../services/lists.service';
 import List from './List';
 import useListsStore from '../../stores/listStore';
 import { useNavigate } from 'react-router-dom';

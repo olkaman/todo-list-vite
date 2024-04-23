@@ -7,7 +7,11 @@ export const fetchAllTodos = async (listId: string) => {
   const snapshot = await get(dbRef);
 
   if (snapshot.exists()) {
-    return Object.values(snapshot.val()) as TodoItemType[];
+    const todos = Object.values(snapshot.val()) as TodoItemType[];
+    const todosWithId = Object.keys(snapshot.val()).map((id, index) => {
+      return { ...todos[index], id };
+    });
+    return todosWithId;
   } else {
     console.log('No daksdlskd');
     return null;
