@@ -1,4 +1,4 @@
-import { get, push, ref, set } from 'firebase/database';
+import { get, push, ref, remove, set } from 'firebase/database';
 import { database } from '../../firebase';
 import { TodoItemType } from '../utils/models';
 
@@ -32,4 +32,9 @@ export const saveNewTodo = (newTodo: TodoItemType, listId: string) => {
 export const updateTodo = async (updatedTodo: TodoItemType, listId: string) => {
   const newRef = ref(database, `/lists/${listId}/todos/${updatedTodo.id}`);
   return set(newRef, updatedTodo);
+};
+
+export const removeTodo = (todo: TodoItemType, listId: string) => {
+  const dbRef = ref(database, `/lists/${listId}/todos/${todo.id}`);
+  remove(dbRef);
 };

@@ -6,7 +6,7 @@ import TextAreaField from '../../components/TextAreaField';
 import { TodoItemType } from '../../utils/models';
 import clsx from 'clsx';
 import useListsStore from '../../stores/listStore';
-import { updateTodo } from '../../services/todos.service';
+import { removeTodo, updateTodo } from '../../services/todos.service';
 
 type Props = {
   todo: TodoItemType;
@@ -20,6 +20,7 @@ export default function TodoItem(props: Props) {
   const [inputValue, setInputValue] = useState('');
   const [isChecked, setIsChecked] = useState(todo.checked);
   const updateTodoItemInCurrentList = useListsStore((state) => state.updateTodoItemInCurrentList);
+  const removeTodosFromCurrentList = useListsStore((state) => state.removeTodosFromCurrentList);
 
   const handleOnSave = () => {
     setIsTaskEdited(!isTaskEdited);
@@ -30,7 +31,10 @@ export default function TodoItem(props: Props) {
     setIsChecked(!isChecked);
     editTaskValue({ ...todo, checked: !isChecked });
   };
-  const handleRemove = () => {};
+  const handleRemove = () => {
+    removeTodo(todo, listId);
+    removeTodosFromCurrentList(todo.key);
+  };
 
   const editTaskValue = (updatedTodo: TodoItemType) => {
     updateTodoItemInCurrentList(updatedTodo);

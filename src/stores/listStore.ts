@@ -18,6 +18,7 @@ type Action = {
   addTodosToCurrentList: (todo: TodoItemType) => void;
   loadTodosToCurrentList: (todos: TodoItemType[]) => void;
   updateTodoItemInCurrentList: (todo: TodoItemType) => void;
+  removeTodosFromCurrentList: (todoKey: string) => void;
   reset: () => void;
 };
 
@@ -36,7 +37,8 @@ const useListsStore = create<State & Action, [['zustand/devtools', never]]>(
     setCurrentSelectedListId: (listId) => set(setCurrentSelectedListId(listId), false, 'Add list'),
     addTodosToCurrentList: (todo) => set(addTodosToCurrentList(todo), false, 'Add todo'),
     loadTodosToCurrentList: (todos) => set(loadTodosToCurrentList(todos), false, 'Load todos to current list'),
-    updateTodoItemInCurrentList: (todoId) => set(updateTodoItemInCurrentList(todoId), false, 'Update todo in current list'),
+    updateTodoItemInCurrentList: (todo) => set(updateTodoItemInCurrentList(todo), false, 'Update todo in current list'),
+    removeTodosFromCurrentList: (todoKey) => set(removeTodosFromCurrentList(todoKey), false, 'Remove todo in current list'),
     reset: () => {
       set(initialState);
     },
@@ -101,6 +103,14 @@ function updateTodoItemInCurrentList(newTodo: TodoItemType): ListStoreType {
       }
       return todo;
     });
+
+    return { ...state, currentListTodos };
+  };
+}
+
+function removeTodosFromCurrentList(todoKey: string): ListStoreType {
+  return (state) => {
+    const currentListTodos = state.currentListTodos.filter((todo) => todo.key !== todoKey);
 
     return { ...state, currentListTodos };
   };

@@ -29,7 +29,7 @@ export default function TodoPage() {
   const onAddNewTodo = (e: FormEvent<HTMLInputElement>) => {
     e.preventDefault();
     const newTodo: TodoItemType = {
-      key: Math.floor(Math.random() * 10000),
+      key: Math.floor(Math.random() * 10000).toString(),
       task: newTaskName,
       checked: false,
       date: Date.now(),
