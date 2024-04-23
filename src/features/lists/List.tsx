@@ -37,8 +37,11 @@ export default function List(props: Props) {
   };
 
   const onRemoveList = () => {
+    console.log(list);
     removeList(list.listId);
     removeCurrentList(list.key);
+    navigate('/home');
+    window.location.reload();
   };
 
   const onNavigateToList = () => {
