@@ -8,11 +8,15 @@ import { iconSize, strokeWidth } from '../utils/settings';
 
 export default function Header() {
   const userEmail = useAuthStore((state) => state.userEmail);
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const value = window.localStorage.getItem('darkMode');
+    return value === 'true';
+  });
 
   useEffect(() => {
-    const html = document.querySelector('html');
-    html?.classList.toggle('dark');
+    const body = document.querySelector('body');
+    isDarkMode ? body?.classList.add('dark') : body?.classList.remove('dark');
+    window.localStorage.setItem('darkMode', isDarkMode.toString());
   }, [isDarkMode]);
 
   const onSignOut = () => {
