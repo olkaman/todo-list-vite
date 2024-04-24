@@ -1,5 +1,6 @@
 import { FormEvent, useEffect, useRef } from 'react';
 import { maxNoOfChar } from '../utils/settings';
+import clsx from 'clsx';
 
 type Props = {
   placeholder: string;
@@ -35,7 +36,15 @@ export default function TextAreaField(props: Props) {
 
   return (
     <form onSubmit={handleOnSave} className='relative w-full'>
-      <textarea ref={ref} value={inputValue} onChange={handleOnEditTask} placeholder={placeholder} maxLength={maxNoOfChar} rows={1} className='w-full formField' />
+      <textarea
+        ref={ref}
+        value={inputValue}
+        onChange={handleOnEditTask}
+        placeholder={placeholder}
+        maxLength={maxNoOfChar}
+        rows={1}
+        className={clsx(className, 'w-full formField')}
+      />
       <div className='absolute right-0 text-xs'>{`${currentNoOfChar} / ${maxNoOfChar}`}</div>
     </form>
   );
