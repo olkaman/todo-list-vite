@@ -17,7 +17,7 @@ export default function TodoItem(props: Props) {
   const { todo, listId } = props;
 
   const [isTaskEdited, setIsTaskEdited] = useState(false);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState(todo.task);
   const [isChecked, setIsChecked] = useState(todo.checked);
   const updateTodoItemInCurrentList = useListsStore((state) => state.updateTodoItemInCurrentList);
   const removeTodosFromCurrentList = useListsStore((state) => state.removeTodosFromCurrentList);
@@ -31,10 +31,6 @@ export default function TodoItem(props: Props) {
     setIsChecked(!isChecked);
     editTaskValue({ ...todo, checked: !isChecked });
   };
-  const handleRemove = () => {
-    removeTodo(todo, listId);
-    removeTodosFromCurrentList(todo.key);
-  };
 
   const editTaskValue = (updatedTodo: TodoItemType) => {
     updateTodoItemInCurrentList(updatedTodo);
@@ -47,6 +43,11 @@ export default function TodoItem(props: Props) {
       });
   };
 
+  const handleRemove = () => {
+    removeTodo(todo, listId);
+    removeTodosFromCurrentList(todo.key);
+  };
+
   return (
     <div
       className={clsx(
@@ -57,7 +58,7 @@ export default function TodoItem(props: Props) {
       {!isTaskEdited && <CustomCheckbox checked={todo?.checked || false} handleOnCheck={handleOnCheck} disabled={todo?.task === ''} />}
       {isTaskEdited ? (
         <div className='w-full flex flex-row items-center justify-between'>
-          <TextAreaField handleOnSave={handleOnSave} inputValue={inputValue} placeholder='Edit task name' className={todo?.key.toString() || ''} setInputValue={setInputValue} />
+          <TextAreaField handleOnSave={handleOnSave} inputValue={inputValue} placeholder='Edit task name' className={todo.key} setInputValue={setInputValue} />
           <div className='flex flex-row items-center'>
             <IconButton handleOnClick={handleOnSave} icon={<Check />} />
             <IconButton handleOnClick={() => setIsTaskEdited(!isTaskEdited)} icon={<X />} />
@@ -65,7 +66,7 @@ export default function TodoItem(props: Props) {
         </div>
       ) : (
         <div className='flex flex-row justify-between items-center w-full'>
-          <button onClick={() => setIsTaskEdited(!isTaskEdited)} disabled={todo?.checked}>
+          <button onClick={() => setIsTaskEdited(!isTaskEdited)} disabled={todo?.checked} className='text-left'>
             {todo?.task !== '' ? todo?.task : <i>Enter task name</i>}
           </button>
           <div className='flex items-center'>
