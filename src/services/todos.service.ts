@@ -3,7 +3,7 @@ import { database } from '../../firebase';
 import { TodoItemType } from '../utils/models';
 
 export const fetchAllTodos = async (listId: string) => {
-  const dbRef = ref(database, '/lists/' + listId + '/todos');
+  const dbRef = ref(database, `/lists/${listId}/todos`);
   const snapshot = await get(dbRef);
 
   if (snapshot.exists()) {
@@ -19,7 +19,7 @@ export const fetchAllTodos = async (listId: string) => {
 };
 
 export const saveNewTodo = (newTodo: TodoItemType, listId: string) => {
-  const newRef = push(ref(database, `/lists/` + listId + '/todos'));
+  const newRef = push(ref(database, `/lists/${listId}/todos`));
   set(newRef, newTodo)
     .then(() => {
       alert('todo was saved');

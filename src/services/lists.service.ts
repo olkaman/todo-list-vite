@@ -18,12 +18,12 @@ export const fetchAllLists = async () => {
 };
 
 export const updateListName = (newListName: string, list: TodoList) => {
-  const newRef = ref(database, '/lists/' + list.listId);
+  const newRef = ref(database, `/lists/${list.listId}`);
   return set(newRef, { ...list, listName: newListName });
 };
 
 export const saveNewList = (newList: TodoList) => {
-  const newRef = push(ref(database, `/lists/`));
+  const newRef = push(ref(database, '/lists/'));
   set(newRef, newList)
     .then(() => {
       alert('list was saved');
@@ -34,6 +34,6 @@ export const saveNewList = (newList: TodoList) => {
 };
 
 export const removeList = (listId: string) => {
-  const dbRef = ref(database, '/lists/' + listId);
+  const dbRef = ref(database, `/lists/${listId}`);
   remove(dbRef);
 };
