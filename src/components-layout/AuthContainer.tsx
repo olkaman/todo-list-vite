@@ -13,17 +13,18 @@ export default function AuthContainer(props: Props) {
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
-  const setUserEmail = useAuthStore((state) => state.updateUserEmail);
+  const setUserEmail = useAuthStore((state) => state.setUserEmail);
   const setIsCurrentUser = useAuthStore((state) => state.setIsCurrentUser);
+  const setUserId = useAuthStore((state) => state.setUserId);
 
   useEffect(() => {
     const subscribeToUserAuthChange = onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log(user);
         navigate('/home');
         setIsCurrentUser(true);
         setIsLoading(false);
         setUserEmail(user.email ?? '');
+        setUserId(user.uid);
       } else {
         setIsCurrentUser(false);
         setIsLoading(false);
