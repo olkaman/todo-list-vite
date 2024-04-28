@@ -2,8 +2,8 @@ import { get, push, ref, remove, set } from 'firebase/database';
 import { database } from '../../firebase';
 import { TodoItemType } from '../utils/models';
 
-export const fetchAllTodos = async (listId: string) => {
-  const dbRef = ref(database, `/lists/${listId}/todos`);
+export const fetchAllTodos = async (userId: string, listId: string) => {
+  const dbRef = ref(database, `/lists/${userId}/${listId}/todos`);
   const snapshot = await get(dbRef);
 
   if (snapshot.exists()) {
@@ -18,8 +18,8 @@ export const fetchAllTodos = async (listId: string) => {
   }
 };
 
-export const saveNewTodo = (newTodo: TodoItemType, listId: string) => {
-  const newRef = push(ref(database, `/lists/${listId}/todos`));
+export const saveNewTodo = (userId: string, newTodo: TodoItemType, listId: string) => {
+  const newRef = push(ref(database, `/lists/${userId}/${listId}/todos`));
   set(newRef, newTodo)
     .then(() => {
       alert('todo was saved');
@@ -29,12 +29,12 @@ export const saveNewTodo = (newTodo: TodoItemType, listId: string) => {
     });
 };
 
-export const updateTodo = async (updatedTodo: TodoItemType, listId: string) => {
-  const newRef = ref(database, `/lists/${listId}/todos/${updatedTodo.id}`);
+export const updateTodo = async (userId: string, updatedTodo: TodoItemType, listId: string) => {
+  const newRef = ref(database, `/lists/${userId}/${listId}/todos/${updatedTodo.id}`);
   return set(newRef, updatedTodo);
 };
 
-export const removeTodo = (todo: TodoItemType, listId: string) => {
-  const dbRef = ref(database, `/lists/${listId}/todos/${todo.id}`);
+export const removeTodo = (userId: string, todo: TodoItemType, listId: string) => {
+  const dbRef = ref(database, `/lists/${userId}/${listId}/todos/${todo.id}`);
   remove(dbRef);
 };

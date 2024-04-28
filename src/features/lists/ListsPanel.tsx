@@ -5,6 +5,7 @@ import { fetchAllLists, saveNewList } from '../../services/lists.service';
 import List from './List';
 import useListsStore from '../../stores/listStore';
 import { useNavigate } from 'react-router-dom';
+import { useUserId } from '../../stores/authStore';
 
 export default function ListsPanel() {
   const setLists = useListsStore((state) => state.setLists);
@@ -14,9 +15,10 @@ export default function ListsPanel() {
   const currentSelectedListId = useListsStore((state) => state.currentSelectedListId);
   const [newListName, setNewListName] = useState('');
   const navigate = useNavigate();
+  const userId = useUserId();
 
   const fetchLists = () => {
-    fetchAllLists().then((allLists: TodoList[]) => {
+    fetchAllLists(userId).then((allLists: TodoList[]) => {
       setLists(allLists);
       if (!currentSelectedListId && allLists.length > 0) {
         setCurrentSelectedListId(allLists[0].key);
@@ -26,7 +28,7 @@ export default function ListsPanel() {
 
   useEffect(() => {
     fetchLists();
-  }, []);
+  }, [userId]);
 
   const addNewList = (e: FormEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -37,7 +39,7 @@ export default function ListsPanel() {
     };
 
     addList(newList);
-    saveNewList(newList);
+    saveNewList(userId, newList);
     setCurrentSelectedListId(newList.key);
     navigate(`${newList.key}`);
     setNewListName('');

@@ -8,6 +8,7 @@ import { removeList, updateListName } from '../../services/lists.service';
 import { TodoList } from '../../utils/models';
 import useListsStore from '../../stores/listStore';
 import clsx from 'clsx';
+import { useUserId } from '../../stores/authStore';
 
 type Props = {
   list: TodoList;
@@ -22,12 +23,13 @@ export default function List(props: Props) {
   const currentSelectedList = useListsStore((state) => state.currentSelectedListId);
   const isSelected = currentSelectedList === list.key;
   const navigate = useNavigate();
+  const userId = useUserId();
 
   const onUpdateListName = () => {
     if (!updatedListName) return;
 
     setIsEdited(false);
-    updateListName(updatedListName, list)
+    updateListName(userId, updatedListName, list)
       .then(() => {
         alert('list name was saved');
       })
@@ -38,7 +40,7 @@ export default function List(props: Props) {
 
   const onRemoveList = () => {
     console.log(list);
-    removeList(list.listId);
+    removeList(userId, list.listId);
     removeCurrentList(list.key);
     navigate('/home');
     window.location.reload();

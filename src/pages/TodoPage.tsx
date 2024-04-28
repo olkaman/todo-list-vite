@@ -5,6 +5,7 @@ import AddNewForm from '../components/AddNewForm';
 import { useParams } from 'react-router-dom';
 import useListsStore, { useCurrentListTodos, useListIdByKey } from '../stores/listStore';
 import { fetchAllTodos, saveNewTodo } from '../services/todos.service';
+import { useUserId } from '../stores/authStore';
 
 export default function TodoPage() {
   const todos = useCurrentListTodos();
@@ -13,9 +14,10 @@ export default function TodoPage() {
   const addTodoToCurrentList = useListsStore((state) => state.addTodosToCurrentList);
   const loadTodosToCurrentList = useListsStore((state) => state.loadTodosToCurrentList);
   const [newTaskName, setNewTaskName] = useState('');
+  const userId = useUserId();
 
   const fetchTodos = () => {
-    fetchAllTodos(listId)
+    fetchAllTodos(userId, listId)
       .then((allTodos) => {
         loadTodosToCurrentList(allTodos ?? []);
       })
@@ -24,7 +26,7 @@ export default function TodoPage() {
 
   useEffect(() => {
     fetchTodos();
-  }, [listKey]);
+  }, [listId, userId]);
 
   const onAddNewTodo = (e: FormEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -37,7 +39,7 @@ export default function TodoPage() {
     };
     console.log('ppp', listId);
     addTodoToCurrentList(newTodo);
-    saveNewTodo(newTodo, listId);
+    saveNewTodo(userId, newTodo, listId);
     setNewTaskName('');
     fetchTodos();
   };

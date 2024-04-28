@@ -1,13 +1,13 @@
 import { signOut } from 'firebase/auth';
 import { auth } from '../../firebase';
-import useAuthStore from '../stores/authStore';
+import { useUserEmail } from '../stores/authStore';
 import { useEffect, useState } from 'react';
 import { LogOut, Moon, Sun } from 'lucide-react';
 import IconButton from '../components/IconButton';
 import { iconSize, strokeWidth } from '../utils/settings';
 
 export default function Header() {
-  const userEmail = useAuthStore((state) => state.userEmail);
+  const userEmail = useUserEmail();
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const value = window.localStorage.getItem('darkMode');
     return value === 'true';

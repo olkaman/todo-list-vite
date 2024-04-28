@@ -7,6 +7,7 @@ import { TodoItemType } from '../../utils/models';
 import clsx from 'clsx';
 import useListsStore from '../../stores/listStore';
 import { removeTodo, updateTodo } from '../../services/todos.service';
+import { useUserId } from '../../stores/authStore';
 
 type Props = {
   todo: TodoItemType;
@@ -21,6 +22,7 @@ export default function TodoItem(props: Props) {
   const [isChecked, setIsChecked] = useState(todo.checked);
   const updateTodoItemInCurrentList = useListsStore((state) => state.updateTodoItemInCurrentList);
   const removeTodosFromCurrentList = useListsStore((state) => state.removeTodosFromCurrentList);
+  const userId = useUserId();
 
   const handleOnSave = () => {
     setIsTaskEdited(!isTaskEdited);
@@ -34,7 +36,7 @@ export default function TodoItem(props: Props) {
 
   const editTaskValue = (updatedTodo: TodoItemType) => {
     updateTodoItemInCurrentList(updatedTodo);
-    updateTodo(updatedTodo, listId)
+    updateTodo(userId, updatedTodo, listId)
       .then(() => {
         // alert('todos were saved');
       })
@@ -44,7 +46,7 @@ export default function TodoItem(props: Props) {
   };
 
   const handleRemove = () => {
-    removeTodo(todo, listId);
+    removeTodo(userId, todo, listId);
     removeTodosFromCurrentList(todo.key);
   };
 
