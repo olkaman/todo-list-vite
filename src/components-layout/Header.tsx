@@ -27,7 +27,7 @@ export default function Header() {
     <header className='p-6 flex flex-row justify-between'>
       <div>
         <IconButton
-          icon={isDarkMode ? <Moon strokeWidth={strokeWidth} size={iconSize} /> : <Sun strokeWidth={strokeWidth} size={iconSize} />}
+          icon={isDarkMode ? <Sun strokeWidth={strokeWidth} size={iconSize} /> : <Moon strokeWidth={strokeWidth} size={iconSize} />}
           handleOnClick={() => setIsDarkMode(!isDarkMode)}
           customStyles='boxShadow containerStyles p-2 rounded-lg'
         />
