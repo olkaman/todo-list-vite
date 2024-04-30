@@ -47,7 +47,7 @@ export default function ListsPanel() {
   };
 
   return (
-    <section className=''>
+    <>
       <h2>Todos</h2>
       <h3 className='p-3'>Your lists:</h3>
       <AddNewList onSubmit={addNewList} inputValue={newListName} setInputValue={setNewListName} />
@@ -56,6 +56,6 @@ export default function ListsPanel() {
           return <List key={list.key} list={list} />;
         })}
       </nav>
-    </section>
+    </>
   );
 }

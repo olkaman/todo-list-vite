@@ -1,11 +1,11 @@
-import { FormEvent, useEffect, useRef } from 'react';
+import { Dispatch, FormEvent, SetStateAction, useEffect, useRef } from 'react';
 import { maxNoOfChar } from '../utils/settings';
 import clsx from 'clsx';
 
 type Props = {
   placeholder: string;
   handleOnSave: () => void;
-  setInputValue: (inputValue: string) => void;
+  setInputValue: Dispatch<SetStateAction<string>>;
   inputValue: string;
   className: string;
 };
