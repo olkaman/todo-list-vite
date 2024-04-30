@@ -1,15 +1,15 @@
-import clsx from 'clsx';
-import { Check } from 'lucide-react';
-import { iconSize, strokeWidth } from '../../utils/settings';
+import clsx from 'clsx'
+import { Check } from 'lucide-react'
+import { iconSize, strokeWidth } from '../../utils/settings'
 
 type Props = {
-  checked: boolean;
-  handleOnCheck: () => void;
-  disabled: boolean;
-};
+  checked: boolean
+  handleOnCheck: () => void
+  disabled: boolean
+}
 
 function CustomCheckbox(props: Props) {
-  const { checked, handleOnCheck, disabled } = props;
+  const { checked, handleOnCheck, disabled } = props
 
   return (
     <button
@@ -23,7 +23,7 @@ function CustomCheckbox(props: Props) {
     >
       {checked ? <Check strokeWidth={strokeWidth} size={iconSize} className='text-gray-dark ml-1' /> : null}
     </button>
-  );
+  )
 }
 
-export default CustomCheckbox;
+export default CustomCheckbox

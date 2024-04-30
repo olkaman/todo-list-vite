@@ -1,55 +1,55 @@
-import { useState } from 'react';
-import { Pencil, Trash } from 'lucide-react';
-import IconButton from '../../components/IconButton';
-import { iconSize, strokeWidth } from '../../utils/settings';
-import EditTextForm from '../../components/EditTextForm';
-import { useNavigate } from 'react-router-dom';
-import { removeList, updateListName } from '../../services/lists.service';
-import { TodoList } from '../../utils/models';
-import useListsStore from '../../stores/listStore';
-import clsx from 'clsx';
-import { useUserId } from '../../stores/authStore';
+import { useState } from 'react'
+import { Pencil, Trash } from 'lucide-react'
+import IconButton from '../../components/IconButton'
+import { iconSize, strokeWidth } from '../../utils/settings'
+import EditTextForm from '../../components/EditTextForm'
+import { useNavigate } from 'react-router-dom'
+import { removeList, updateListName } from '../../services/lists.service'
+import { TodoList } from '../../utils/models'
+import useListsStore from '../../stores/listStore'
+import clsx from 'clsx'
+import { useUserId } from '../../stores/authStore'
 
 type Props = {
-  list: TodoList;
-};
+  list: TodoList
+}
 
 export default function List(props: Props) {
-  const { list } = props;
-  const [isEdited, setIsEdited] = useState<boolean>(false);
-  const [updatedListName, setUpdatedListName] = useState(list.listName);
-  const setCurrentSelectedListId = useListsStore((state) => state.setCurrentSelectedListId);
-  const removeCurrentList = useListsStore((state) => state.removeList);
-  const currentSelectedList = useListsStore((state) => state.currentSelectedListId);
-  const isSelected = currentSelectedList === list.key;
-  const navigate = useNavigate();
-  const userId = useUserId();
+  const { list } = props
+  const [isEdited, setIsEdited] = useState<boolean>(false)
+  const [updatedListName, setUpdatedListName] = useState(list.listName)
+  const setCurrentSelectedListId = useListsStore((state) => state.setCurrentSelectedListId)
+  const removeCurrentList = useListsStore((state) => state.removeList)
+  const currentSelectedList = useListsStore((state) => state.currentSelectedListId)
+  const isSelected = currentSelectedList === list.key
+  const navigate = useNavigate()
+  const userId = useUserId()
 
   const onUpdateListName = () => {
-    if (!updatedListName) return;
+    if (!updatedListName) return
 
-    setIsEdited(false);
+    setIsEdited(false)
     updateListName(userId, updatedListName, list)
       .then(() => {
-        alert('list name was saved');
+        alert('list name was saved')
       })
       .catch((error) => {
-        console.log(error);
-      });
-  };
+        console.log(error)
+      })
+  }
 
   const onRemoveList = () => {
-    console.log(list);
-    removeList(userId, list.listId);
-    removeCurrentList(list.key);
-    navigate('/home');
-    window.location.reload();
-  };
+    console.log(list)
+    removeList(userId, list.listId)
+    removeCurrentList(list.key)
+    navigate('/home')
+    window.location.reload()
+  }
 
   const onNavigateToList = () => {
-    navigate(list.key);
-    setCurrentSelectedListId(list.key);
-  };
+    navigate(list.key)
+    setCurrentSelectedListId(list.key)
+  }
 
   return (
     <div>
@@ -69,5 +69,5 @@ export default function List(props: Props) {
         </div>
       )}
     </div>
-  );
+  )
 }

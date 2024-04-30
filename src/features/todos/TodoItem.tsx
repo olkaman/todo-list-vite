@@ -1,54 +1,54 @@
-import { Check, Trash, X } from 'lucide-react';
-import IconButton from '../../components/IconButton';
-import CustomCheckbox from './CustomCheckbox';
-import { useState } from 'react';
-import TextAreaField from '../../components/TextAreaField';
-import { TodoItemType } from '../../utils/models';
-import clsx from 'clsx';
-import useListsStore from '../../stores/listStore';
-import { removeTodo, updateTodo } from '../../services/todos.service';
-import { useUserId } from '../../stores/authStore';
+import { Check, Trash, X } from 'lucide-react'
+import IconButton from '../../components/IconButton'
+import CustomCheckbox from './CustomCheckbox'
+import { useState } from 'react'
+import TextAreaField from '../../components/TextAreaField'
+import { TodoItemType } from '../../utils/models'
+import clsx from 'clsx'
+import useListsStore from '../../stores/listStore'
+import { removeTodo, updateTodo } from '../../services/todos.service'
+import { useUserId } from '../../stores/authStore'
 
 type Props = {
-  todo: TodoItemType;
-  listId: string;
-};
+  todo: TodoItemType
+  listId: string
+}
 
 export default function TodoItem(props: Props) {
-  const { todo, listId } = props;
+  const { todo, listId } = props
 
-  const [isTaskEdited, setIsTaskEdited] = useState(false);
-  const [inputValue, setInputValue] = useState(todo.task);
-  const [isChecked, setIsChecked] = useState(todo.checked);
-  const updateTodoItemInCurrentList = useListsStore((state) => state.updateTodoItemInCurrentList);
-  const removeTodosFromCurrentList = useListsStore((state) => state.removeTodosFromCurrentList);
-  const userId = useUserId();
+  const [isTaskEdited, setIsTaskEdited] = useState(false)
+  const [inputValue, setInputValue] = useState(todo.task)
+  const [isChecked, setIsChecked] = useState(todo.checked)
+  const updateTodoItemInCurrentList = useListsStore((state) => state.updateTodoItemInCurrentList)
+  const removeTodosFromCurrentList = useListsStore((state) => state.removeTodosFromCurrentList)
+  const userId = useUserId()
 
   const handleOnSave = () => {
-    setIsTaskEdited(!isTaskEdited);
-    editTaskValue({ ...todo, task: inputValue });
-  };
+    setIsTaskEdited(!isTaskEdited)
+    editTaskValue({ ...todo, task: inputValue })
+  }
 
   const handleOnCheck = () => {
-    setIsChecked(!isChecked);
-    editTaskValue({ ...todo, checked: !isChecked });
-  };
+    setIsChecked(!isChecked)
+    editTaskValue({ ...todo, checked: !isChecked })
+  }
 
   const editTaskValue = (updatedTodo: TodoItemType) => {
-    updateTodoItemInCurrentList(updatedTodo);
+    updateTodoItemInCurrentList(updatedTodo)
     updateTodo(userId, updatedTodo, listId)
       .then(() => {
         // alert('todos were saved');
       })
       .catch((error) => {
-        console.log(error);
-      });
-  };
+        console.log(error)
+      })
+  }
 
   const handleRemove = () => {
-    removeTodo(userId, todo, listId);
-    removeTodosFromCurrentList(todo.key);
-  };
+    removeTodo(userId, todo, listId)
+    removeTodosFromCurrentList(todo.key)
+  }
 
   return (
     <div
@@ -78,5 +78,5 @@ export default function TodoItem(props: Props) {
         </div>
       )}
     </div>
-  );
+  )
 }

@@ -1,16 +1,16 @@
-import { FormEvent, FormEventHandler } from 'react';
+import { FormEvent, FormEventHandler } from 'react'
 
 type Props = {
-  onSubmit: FormEventHandler<HTMLFormElement>;
-  buttonLabel: string;
-  email: string;
-  password: string;
-  setEmail: (value: string) => void;
-  setPassword: (value: string) => void;
-};
+  onSubmit: FormEventHandler<HTMLFormElement>
+  buttonLabel: string
+  email: string
+  password: string
+  setEmail: (value: string) => void
+  setPassword: (value: string) => void
+}
 
 export default function AuthForm(props: Props) {
-  const { onSubmit, buttonLabel, email, password, setEmail, setPassword } = props;
+  const { onSubmit, buttonLabel, email, password, setEmail, setPassword } = props
 
   return (
     <form onSubmit={onSubmit}>
@@ -22,5 +22,5 @@ export default function AuthForm(props: Props) {
 
       <button type='submit'>{buttonLabel}</button>
     </form>
-  );
+  )
 }

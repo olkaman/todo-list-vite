@@ -1,38 +1,38 @@
-import { Dispatch, FormEvent, SetStateAction, useEffect, useRef } from 'react';
-import { maxNoOfChar } from '../utils/settings';
-import clsx from 'clsx';
+import { Dispatch, FormEvent, SetStateAction, useEffect, useRef } from 'react'
+import { maxNoOfChar } from '../utils/settings'
+import clsx from 'clsx'
 
 type Props = {
-  placeholder: string;
-  handleOnSave: () => void;
-  setInputValue: Dispatch<SetStateAction<string>>;
-  inputValue: string;
-  className: string;
-};
+  placeholder: string
+  handleOnSave: () => void
+  setInputValue: Dispatch<SetStateAction<string>>
+  inputValue: string
+  className: string
+}
 
 export default function TextAreaField(props: Props) {
-  const { handleOnSave, inputValue, setInputValue, placeholder, className } = props;
-  const currentNoOfChar = inputValue.length;
-  const ref = useRef<HTMLTextAreaElement>(null);
+  const { handleOnSave, inputValue, setInputValue, placeholder, className } = props
+  const currentNoOfChar = inputValue.length
+  const ref = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
-    setTextArea();
-  });
+    setTextArea()
+  })
 
   const setTextArea = () => {
-    const node = ref.current;
+    const node = ref.current
 
     if (node && ref.current.classList.contains(className)) {
-      const height = ref.current.scrollHeight;
-      ref.current.style.height = height + 'px';
-      ref.current.style.overflow = 'hidden';
+      const height = ref.current.scrollHeight
+      ref.current.style.height = height + 'px'
+      ref.current.style.overflow = 'hidden'
     }
-  };
+  }
 
   const handleOnEditTask = (e: FormEvent<HTMLTextAreaElement>) => {
-    setInputValue(e.currentTarget.value.trim());
-    setTextArea();
-  };
+    setInputValue(e.currentTarget.value.trim())
+    setTextArea()
+  }
 
   return (
     <form onSubmit={handleOnSave} className='relative w-full'>
@@ -47,5 +47,5 @@ export default function TextAreaField(props: Props) {
       />
       <div className='absolute right-0 text-xs'>{`${currentNoOfChar} / ${maxNoOfChar}`}</div>
     </form>
-  );
+  )
 }

@@ -1,32 +1,32 @@
-import { create } from 'zustand';
-import { devtools } from 'zustand/middleware';
-import { TodoItemType, TodoList } from '../utils/models';
+import { create } from 'zustand'
+import { devtools } from 'zustand/middleware'
+import { TodoItemType, TodoList } from '../utils/models'
 
-type ListStoreType = State | Partial<State> | ((state: State) => State | Partial<State>);
+type ListStoreType = State | Partial<State> | ((state: State) => State | Partial<State>)
 
 type State = {
-  lists: TodoList[];
-  currentSelectedListId: string;
-  currentListTodos: TodoItemType[];
-};
+  lists: TodoList[]
+  currentSelectedListId: string
+  currentListTodos: TodoItemType[]
+}
 
 type Action = {
-  setLists: (lists: TodoList[]) => void;
-  addList: (listKey: TodoList) => void;
-  removeList: (list: string) => void;
-  setCurrentSelectedListId: (listId: string) => void;
-  addTodosToCurrentList: (todo: TodoItemType) => void;
-  loadTodosToCurrentList: (todos: TodoItemType[]) => void;
-  updateTodoItemInCurrentList: (todo: TodoItemType) => void;
-  removeTodosFromCurrentList: (todoKey: string) => void;
-  reset: () => void;
-};
+  setLists: (lists: TodoList[]) => void
+  addList: (listKey: TodoList) => void
+  removeList: (list: string) => void
+  setCurrentSelectedListId: (listId: string) => void
+  addTodosToCurrentList: (todo: TodoItemType) => void
+  loadTodosToCurrentList: (todos: TodoItemType[]) => void
+  updateTodoItemInCurrentList: (todo: TodoItemType) => void
+  removeTodosFromCurrentList: (todoKey: string) => void
+  reset: () => void
+}
 
 const initialState = {
   lists: [],
   currentSelectedListId: '',
   currentListTodos: [],
-};
+}
 
 const useListsStore = create<State & Action, [['zustand/devtools', never]]>(
   devtools((set) => ({
@@ -40,25 +40,25 @@ const useListsStore = create<State & Action, [['zustand/devtools', never]]>(
     updateTodoItemInCurrentList: (todo) => set(updateTodoItemInCurrentList(todo), false, 'Update todo in current list'),
     removeTodosFromCurrentList: (todoKey) => set(removeTodosFromCurrentList(todoKey), false, 'Remove todo in current list'),
     reset: () => {
-      set(initialState);
+      set(initialState)
     },
   }))
-);
+)
 
-export const useLists = () => useListsStore((state) => state.lists);
+export const useLists = () => useListsStore((state) => state.lists)
 
 export const useListIdByKey = (listKey: string) =>
   useListsStore((state) => {
-    const list = state.lists.find((list) => list.key === listKey);
+    const list = state.lists.find((list) => list.key === listKey)
 
     if (!list) {
-      throw new Error(`The list with key ${listKey} was not found`);
+      throw new Error(`The list with key ${listKey} was not found`)
     }
 
-    return list.listId;
-  });
+    return list.listId
+  })
 
-export const useCurrentListTodos = () => useListsStore((state) => state.currentListTodos);
+export const useCurrentListTodos = () => useListsStore((state) => state.currentListTodos)
 
 // function setLists(lists: TodoList[]): ListStoreType {
 //   return (state) => ({ ...state, lists });
@@ -66,54 +66,54 @@ export const useCurrentListTodos = () => useListsStore((state) => state.currentL
 
 function setCurrentSelectedListId(listId: string): ListStoreType {
   return (state) => {
-    console.log('wwww', listId);
-    return { ...state, currentSelectedListId: listId };
-  };
+    console.log('wwww', listId)
+    return { ...state, currentSelectedListId: listId }
+  }
 }
 
 function addList(list: TodoList): ListStoreType {
   return (state) => {
-    return { ...state, lists: [...state.lists, list] };
-  };
+    return { ...state, lists: [...state.lists, list] }
+  }
 }
 
 function removeList(listKey: string): ListStoreType {
   return (state) => {
-    const lists = state.lists.filter((list) => list.key !== listKey);
+    const lists = state.lists.filter((list) => list.key !== listKey)
 
-    return { ...state, lists };
-  };
+    return { ...state, lists }
+  }
 }
 
 function addTodosToCurrentList(todo: TodoItemType): ListStoreType {
   return (state) => {
-    return { ...state, currentListTodos: [...state.currentListTodos, todo] };
-  };
+    return { ...state, currentListTodos: [...state.currentListTodos, todo] }
+  }
 }
 
 function loadTodosToCurrentList(todos: TodoItemType[]): ListStoreType {
-  return (state) => ({ ...state, currentListTodos: todos });
+  return (state) => ({ ...state, currentListTodos: todos })
 }
 
 function updateTodoItemInCurrentList(newTodo: TodoItemType): ListStoreType {
   return (state) => {
     const currentListTodos = state.currentListTodos.map((todo) => {
       if (newTodo.key === todo.key) {
-        return newTodo;
+        return newTodo
       }
-      return todo;
-    });
+      return todo
+    })
 
-    return { ...state, currentListTodos };
-  };
+    return { ...state, currentListTodos }
+  }
 }
 
 function removeTodosFromCurrentList(todoKey: string): ListStoreType {
   return (state) => {
-    const currentListTodos = state.currentListTodos.filter((todo) => todo.key !== todoKey);
+    const currentListTodos = state.currentListTodos.filter((todo) => todo.key !== todoKey)
 
-    return { ...state, currentListTodos };
-  };
+    return { ...state, currentListTodos }
+  }
 }
 
-export default useListsStore;
+export default useListsStore

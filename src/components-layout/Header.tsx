@@ -1,27 +1,27 @@
-import { signOut } from 'firebase/auth';
-import { auth } from '../../firebase';
-import { useUserEmail } from '../stores/authStore';
-import { useEffect, useState } from 'react';
-import { LogOut, Moon, Sun } from 'lucide-react';
-import IconButton from '../components/IconButton';
-import { iconSize, strokeWidth } from '../utils/settings';
+import { signOut } from 'firebase/auth'
+import { auth } from '../../firebase'
+import { useUserEmail } from '../stores/authStore'
+import { useEffect, useState } from 'react'
+import { LogOut, Moon, Sun } from 'lucide-react'
+import IconButton from '../components/IconButton'
+import { iconSize, strokeWidth } from '../utils/settings'
 
 export default function Header() {
-  const userEmail = useUserEmail();
+  const userEmail = useUserEmail()
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    const value = window.localStorage.getItem('darkMode');
-    return value === 'true';
-  });
+    const value = window.localStorage.getItem('darkMode')
+    return value === 'true'
+  })
 
   useEffect(() => {
-    const body = document.querySelector('body');
-    isDarkMode ? body?.classList.add('dark') : body?.classList.remove('dark');
-    window.localStorage.setItem('darkMode', isDarkMode.toString());
-  }, [isDarkMode]);
+    const body = document.querySelector('body')
+    isDarkMode ? body?.classList.add('dark') : body?.classList.remove('dark')
+    window.localStorage.setItem('darkMode', isDarkMode.toString())
+  }, [isDarkMode])
 
   const onSignOut = () => {
-    signOut(auth);
-  };
+    signOut(auth)
+  }
 
   return (
     <header className='p-6 flex flex-row justify-between'>
@@ -37,5 +37,5 @@ export default function Header() {
         <IconButton icon={<LogOut strokeWidth={strokeWidth} size={iconSize} />} handleOnClick={onSignOut} customStyles='boxShadow containerStyles p-2 rounded-lg' />
       </div>
     </header>
-  );
+  )
 }

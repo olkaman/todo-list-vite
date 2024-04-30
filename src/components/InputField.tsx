@@ -1,21 +1,21 @@
-import { FormEvent } from 'react';
+import { FormEvent } from 'react'
 
 type Props = {
-  hasCounter: boolean;
-  inputValue: string;
-  setInputValue: (inputValue: string) => void;
-  placeholder?: string;
-  customStyles: string;
-};
+  hasCounter: boolean
+  inputValue: string
+  setInputValue: (inputValue: string) => void
+  placeholder?: string
+  customStyles: string
+}
 
 export default function InputField(props: Props) {
-  const { hasCounter, inputValue, setInputValue, placeholder, customStyles } = props;
-  const currentNoOfChar = inputValue.length;
-  const maxNoOfChar = 200;
+  const { hasCounter, inputValue, setInputValue, placeholder, customStyles } = props
+  const currentNoOfChar = inputValue.length
+  const maxNoOfChar = 200
 
   const handleOnEditTask = (e: FormEvent<HTMLInputElement>) => {
-    setInputValue(e.currentTarget.value);
-  };
+    setInputValue(e.currentTarget.value)
+  }
 
   return (
     <>
@@ -29,5 +29,5 @@ export default function InputField(props: Props) {
       />
       {hasCounter && <div>{`${currentNoOfChar} / ${maxNoOfChar}`}</div>}
     </>
-  );
+  )
 }

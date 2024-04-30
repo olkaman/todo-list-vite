@@ -1,13 +1,13 @@
-import { ReactElement } from 'react';
+import { ReactElement } from 'react'
 
 type Props = {
-  header: ReactElement;
-  sidebar: ReactElement;
-  content: ReactElement;
-};
+  header: ReactElement
+  sidebar: ReactElement
+  content: ReactElement
+}
 
 export default function Layout(props: Props) {
-  const { header, sidebar, content } = props;
+  const { header, sidebar, content } = props
 
   return (
     <main className='flex flex-row text-textColor dark:text-textColor-darkMode'>
@@ -17,5 +17,5 @@ export default function Layout(props: Props) {
         <section className='py-6 px-20'>{content}</section>
       </div>
     </main>
-  );
+  )
 }
