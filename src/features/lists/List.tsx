@@ -9,6 +9,7 @@ import { TodoList } from '../../utils/models'
 import useListsStore from '../../stores/listStore'
 import clsx from 'clsx'
 import { useUserId } from '../../stores/userStore'
+import MenuItem from '../../components/MenuItem'
 
 type Props = {
   list: TodoList
@@ -18,7 +19,6 @@ export default function List(props: Props) {
   const { list } = props
   const [isEdited, setIsEdited] = useState<boolean>(false)
   const [updatedListName, setUpdatedListName] = useState(list.listName)
-  const setCurrentSelectedListId = useListsStore((state) => state.setCurrentSelectedListId)
   const removeCurrentList = useListsStore((state) => state.removeList)
   const currentSelectedList = useListsStore((state) => state.currentSelectedListId)
   const isSelected = currentSelectedList === list.key
@@ -46,18 +46,11 @@ export default function List(props: Props) {
     window.location.reload()
   }
 
-  const onNavigateToList = () => {
-    navigate(list.key)
-    setCurrentSelectedListId(list.key)
-  }
-
   return (
     <div>
       {!isEdited ? (
         <div className={clsx(isSelected && 'active', 'flex items-center justify-between px-3 hover:bg-accent dark:hover:bg-gray rounded-lg globalTransition w-full mb-1')}>
-          <button onClick={onNavigateToList} className='w-5/7 w-full text-left py-4'>
-            {updatedListName}
-          </button>
+          <MenuItem listKey={list.key}>{updatedListName}</MenuItem>
           <div className='w-2/7 flex flex-row'>
             <IconButton handleOnClick={() => setIsEdited(!isEdited)} icon={<Pencil strokeWidth={strokeWidth} size={iconSize} />} />
             <IconButton handleOnClick={onRemoveList} icon={<Trash strokeWidth={strokeWidth} size={iconSize} />} />
@@ -65,7 +58,7 @@ export default function List(props: Props) {
         </div>
       ) : (
         <div className='flex items-center justify-between p-3 bg-accent dark:bg-gray rounded-lg'>
-          <EditTextForm isEdited={isEdited} setIsEdited={setIsEdited} onSubmit={onUpdateListName} listName={updatedListName} setListName={setUpdatedListName} />
+          <EditTextForm isEdited={isEdited} setIsEdited={setIsEdited} onSubmit={onUpdateListName} name={updatedListName} setName={setUpdatedListName} />
         </div>
       )}
     </div>

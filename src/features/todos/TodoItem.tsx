@@ -60,7 +60,7 @@ export default function TodoItem(props: Props) {
       {!isTaskEdited && <CustomCheckbox checked={todo?.checked || false} handleOnCheck={handleOnCheck} disabled={todo?.task === ''} />}
       {isTaskEdited ? (
         <div className='w-full flex flex-row items-center justify-between'>
-          <TextAreaField handleOnSave={handleOnSave} inputValue={inputValue} placeholder='Edit task name' className={todo.key} setInputValue={setInputValue} />
+          <TextAreaField inputValue={inputValue} placeholder='Edit task name' className={todo.key} setInputValue={setInputValue} />
           <div className='flex flex-row items-center'>
             <IconButton handleOnClick={handleOnSave} icon={<Check />} />
             <IconButton handleOnClick={() => setIsTaskEdited(!isTaskEdited)} icon={<X />} />

@@ -8,16 +8,16 @@ type Props = {
   isEdited: boolean
   setIsEdited: (isEdited: boolean) => void
   onSubmit: (event: SyntheticEvent) => void
-  listName: string
-  setListName: (listName: string) => void
+  name: string
+  setName: (listName: string) => void
 }
 
 export default function EditTextForm(props: Props) {
-  const { isEdited, setIsEdited, onSubmit, listName, setListName } = props
+  const { isEdited, setIsEdited, onSubmit, name, setName } = props
 
   return (
     <form onSubmit={onSubmit} className='flex flex-row justify-between'>
-      <InputField hasCounter={false} inputValue={listName} setInputValue={setListName} customStyles='w-5/7' />
+      <InputField hasCounter={false} inputValue={name} setInputValue={setName} customStyles='w-5/7' />
       <div className='w-2/7 flex flex-row'>
         <IconButton icon={<Check strokeWidth={strokeWidth} size={iconSize} />} />
         <IconButton handleOnClick={() => setIsEdited(!isEdited)} icon={<X strokeWidth={strokeWidth} size={iconSize} />} />

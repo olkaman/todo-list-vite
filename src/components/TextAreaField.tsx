@@ -4,14 +4,13 @@ import clsx from 'clsx'
 
 type Props = {
   placeholder: string
-  handleOnSave: () => void
   setInputValue: Dispatch<SetStateAction<string>>
   inputValue: string
   className: string
 }
 
 export default function TextAreaField(props: Props) {
-  const { handleOnSave, inputValue, setInputValue, placeholder, className } = props
+  const { inputValue, setInputValue, placeholder, className } = props
   const currentNoOfChar = inputValue.length
   const ref = useRef<HTMLTextAreaElement>(null)
 
@@ -35,7 +34,7 @@ export default function TextAreaField(props: Props) {
   }
 
   return (
-    <form onSubmit={handleOnSave} className='relative w-full'>
+    <div className='relative w-full'>
       <textarea
         ref={ref}
         value={inputValue}
@@ -46,6 +45,6 @@ export default function TextAreaField(props: Props) {
         className={clsx(className, 'w-full formField')}
       />
       <div className='absolute right-0 text-xs'>{`${currentNoOfChar} / ${maxNoOfChar}`}</div>
-    </form>
+    </div>
   )
 }
