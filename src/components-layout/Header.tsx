@@ -1,6 +1,6 @@
 import { signOut } from 'firebase/auth'
 import { auth } from '../../firebase'
-import { useUserEmail } from '../stores/authStore'
+import { useUserEmail } from '../stores/userStore'
 import { useEffect, useState } from 'react'
 import { LogOut, Moon, Sun } from 'lucide-react'
 import IconButton from '../components/IconButton'

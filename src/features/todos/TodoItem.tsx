@@ -7,7 +7,7 @@ import { TodoItemType } from '../../utils/models'
 import clsx from 'clsx'
 import useListsStore from '../../stores/listStore'
 import { removeTodo, updateTodo } from '../../services/todos.service'
-import { useUserId } from '../../stores/authStore'
+import { useUserId } from '../../stores/userStore'
 
 type Props = {
   todo: TodoItemType

@@ -5,12 +5,12 @@ import HomePage from './pages/HomePage'
 import ProtectedRoute from './features/auth/ProtectedRoute'
 import PageNotFound from './pages/PageNotFound'
 import AuthContainer from './components-layout/AuthContainer'
-import useAuthStore from './stores/authStore'
+import useUserStore from './stores/userStore'
 import SignIn from './pages/SignIn'
 import TodoPage from './pages/TodoPage'
 
 function App() {
-  const isCurrentUser = useAuthStore((state) => state.isCurrentUser)
+  const isCurrentUser = useUserStore((state) => state.isCurrentUser)
 
   return (
     <AuthContainer>

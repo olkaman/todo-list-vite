@@ -8,7 +8,7 @@ import { removeList, updateListName } from '../../services/lists.service'
 import { TodoList } from '../../utils/models'
 import useListsStore from '../../stores/listStore'
 import clsx from 'clsx'
-import { useUserId } from '../../stores/authStore'
+import { useUserId } from '../../stores/userStore'
 
 type Props = {
   list: TodoList

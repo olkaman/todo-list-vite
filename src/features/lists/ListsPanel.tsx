@@ -5,7 +5,7 @@ import { fetchAllLists, saveNewList } from '../../services/lists.service'
 import List from './List'
 import useListsStore from '../../stores/listStore'
 import { useNavigate } from 'react-router-dom'
-import { useUserId } from '../../stores/authStore'
+import { useUserId } from '../../stores/userStore'
 
 export default function ListsPanel() {
   const setLists = useListsStore((state) => state.setLists)

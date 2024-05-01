@@ -22,7 +22,7 @@ const initialState = {
   isCurrentUser: false,
 }
 
-const useAuthStore = create<State & Action, [['zustand/devtools', never]]>(
+const useUserStore = create<State & Action, [['zustand/devtools', never]]>(
   devtools((set) => ({
     ...initialState,
     setIsCurrentUser: (isCurrentUser) => set(() => ({ isCurrentUser }), false, 'Set is current user'),
@@ -34,8 +34,8 @@ const useAuthStore = create<State & Action, [['zustand/devtools', never]]>(
   }))
 )
 
-export const useUserEmail = () => useAuthStore((state) => state.user.email)
-export const useUserId = () => useAuthStore((state) => state.user.id)
+export const useUserEmail = () => useUserStore((state) => state.user.email)
+export const useUserId = () => useUserStore((state) => state.user.id)
 
 function setUserEmail(email: string): UserStoreType {
   return (state) => {
@@ -51,4 +51,4 @@ function setUserId(id: string): UserStoreType {
   }
 }
 
-export default useAuthStore
+export default useUserStore

@@ -1,6 +1,6 @@
 import { ReactElement, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import useAuthStore from '../stores/authStore'
+import useUserStore from '../stores/userStore'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../../firebase'
 import useListsStore from '../stores/listStore'
@@ -14,9 +14,9 @@ export default function AuthContainer(props: Props) {
 
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const navigate = useNavigate()
-  const setUserEmail = useAuthStore((state) => state.setUserEmail)
-  const setIsCurrentUser = useAuthStore((state) => state.setIsCurrentUser)
-  const setUserId = useAuthStore((state) => state.setUserId)
+  const setUserEmail = useUserStore((state) => state.setUserEmail)
+  const setIsCurrentUser = useUserStore((state) => state.setIsCurrentUser)
+  const setUserId = useUserStore((state) => state.setUserId)
   const currentSelectedList = useListsStore((state) => state.currentSelectedListId)
   const reset = useListsStore((state) => state.reset)
 
