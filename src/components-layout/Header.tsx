@@ -5,18 +5,16 @@ import { useEffect, useState } from 'react'
 import { LogOut, Moon, Sun } from 'lucide-react'
 import IconButton from '../components/IconButton'
 import { iconSize, strokeWidth } from '../utils/settings'
+import { getValueFromLocalStorage, saveToLocalStorage } from '../utils/localStorageActions'
 
 export default function Header() {
   const userEmail = useUserEmail()
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    const value = window.localStorage.getItem('darkMode')
-    return value === 'true'
-  })
+  const [isDarkMode, setIsDarkMode] = useState(() => getValueFromLocalStorage('darkMode') === 'true')
 
   useEffect(() => {
     const body = document.querySelector('body')
     isDarkMode ? body?.classList.add('dark') : body?.classList.remove('dark')
-    window.localStorage.setItem('darkMode', isDarkMode.toString())
+    saveToLocalStorage('darkMode', isDarkMode.toString())
   }, [isDarkMode])
 
   const onSignOut = () => {
