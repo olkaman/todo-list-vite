@@ -19,13 +19,12 @@ export default function Header() {
 
   return (
     <header className='p-6 flex flex-row justify-between'>
-      <div>
-        <IconButton
-          icon={isDarkMode ? <Sun strokeWidth={strokeWidth} size={iconSize} /> : <Moon strokeWidth={strokeWidth} size={iconSize} />}
-          handleOnClick={() => setIsDarkMode(!isDarkMode)}
-          customStyles='boxShadow containerStyles p-2 rounded-lg'
-        />
-      </div>
+      <IconButton
+        icon={isDarkMode ? <Sun strokeWidth={strokeWidth} size={iconSize} /> : <Moon strokeWidth={strokeWidth} size={iconSize} />}
+        handleOnClick={() => setIsDarkMode(!isDarkMode)}
+        customStyles='boxShadow containerStyles p-2 rounded-lg'
+      />
+
       <div className='flex items-center'>
         <div>{userEmail}</div>
         <IconButton icon={<LogOut strokeWidth={strokeWidth} size={iconSize} />} handleOnClick={() => signOut(auth)} customStyles='boxShadow containerStyles p-2 rounded-lg' />
