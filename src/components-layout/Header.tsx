@@ -17,10 +17,6 @@ export default function Header() {
     saveToLocalStorage('darkMode', isDarkMode.toString())
   }, [isDarkMode])
 
-  const onSignOut = () => {
-    signOut(auth)
-  }
-
   return (
     <header className='p-6 flex flex-row justify-between'>
       <div>
@@ -32,7 +28,7 @@ export default function Header() {
       </div>
       <div className='flex items-center'>
         <div>{userEmail}</div>
-        <IconButton icon={<LogOut strokeWidth={strokeWidth} size={iconSize} />} handleOnClick={onSignOut} customStyles='boxShadow containerStyles p-2 rounded-lg' />
+        <IconButton icon={<LogOut strokeWidth={strokeWidth} size={iconSize} />} handleOnClick={() => signOut(auth)} customStyles='boxShadow containerStyles p-2 rounded-lg' />
       </div>
     </header>
   )
