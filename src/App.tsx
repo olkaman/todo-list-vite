@@ -8,31 +8,29 @@ import AuthContainer from './components-layout/AuthContainer'
 import useUserStore from './stores/userStore'
 import SignIn from './pages/SignIn'
 import TodoPage from './pages/TodoPage'
+import ResetPassword from './pages/ResetPassword'
 
 function App() {
   const isCurrentUser = useUserStore((state) => state.isCurrentUser)
 
   return (
     <AuthContainer>
-      <>
-        <div>
-          <Routes>
-            <Route path='/' element={<SignIn />} />
-            <Route path='register' element={<Register />} />
-            <Route
-              path='home'
-              element={
-                <ProtectedRoute user={isCurrentUser}>
-                  <HomePage />
-                </ProtectedRoute>
-              }
-            >
-              <Route path=':listKey' element={<TodoPage />} />
-            </Route>
-            <Route path='*' element={<PageNotFound />} />
-          </Routes>
-        </div>
-      </>
+      <Routes>
+        <Route path='/' element={<SignIn />} />
+        <Route path='register' element={<Register />} />
+        <Route path='reset-password' element={<ResetPassword />} />
+        <Route
+          path='home'
+          element={
+            <ProtectedRoute user={isCurrentUser}>
+              <HomePage />
+            </ProtectedRoute>
+          }
+        >
+          <Route path=':listKey' element={<TodoPage />} />
+        </Route>
+        <Route path='*' element={<PageNotFound />} />
+      </Routes>
     </AuthContainer>
   )
 }

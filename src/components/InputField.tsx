@@ -6,10 +6,11 @@ type Props = {
   setInputValue: (inputValue: string) => void
   placeholder?: string
   customStyles: string
+  id: string
 }
 
 export default function InputField(props: Props) {
-  const { hasCounter, inputValue, setInputValue, placeholder, customStyles } = props
+  const { hasCounter, inputValue, setInputValue, placeholder, customStyles, id } = props
   const currentNoOfChar = inputValue.length
   const maxNoOfChar = 200
 
@@ -26,6 +27,7 @@ export default function InputField(props: Props) {
         placeholder={placeholder}
         maxLength={maxNoOfChar}
         rows={1}
+        id={id}
       />
       {hasCounter && <div>{`${currentNoOfChar} / ${maxNoOfChar}`}</div>}
     </>

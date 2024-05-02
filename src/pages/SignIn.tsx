@@ -16,6 +16,9 @@ export default function SignIn() {
         console.log(result)
       })
       .catch((error) => {
+        const errorCode = error.code
+        const errorMessage = error.message
+        console.log(errorCode, errorMessage)
         if (error.code === 'auth/invalid-credential') {
           setError('Invalid email or password')
         }
@@ -26,6 +29,9 @@ export default function SignIn() {
     <>
       <h2>Sign in</h2>
       <AuthForm onSubmit={onSubmit} buttonLabel='Sign in' email={email} password={password} setEmail={setEmail} setPassword={setPassword} />
+      <div>
+        <Link to={'/reset-password'}>Forgot your password?</Link>
+      </div>
       <div>{error}</div>
       New user? <Link to='register'>Register</Link>
     </>

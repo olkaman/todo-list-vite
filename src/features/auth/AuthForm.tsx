@@ -1,4 +1,5 @@
-import { FormEvent, FormEventHandler } from 'react'
+import { FormEventHandler } from 'react'
+import InputField from '../../components/InputField'
 
 type Props = {
   onSubmit: FormEventHandler<HTMLFormElement>
@@ -15,10 +16,10 @@ export default function AuthForm(props: Props) {
   return (
     <form onSubmit={onSubmit}>
       <label htmlFor='email'>Email</label>
-      <input id='email' type='email' value={email} onChange={(e: FormEvent<HTMLInputElement>) => setEmail(e.currentTarget.value)} />
+      <InputField hasCounter={false} inputValue={email} setInputValue={setEmail} customStyles={''} id='email' />
 
       <label htmlFor='password'>Password</label>
-      <input id='password' type='password' value={password} onChange={(e: FormEvent<HTMLInputElement>) => setPassword(e.currentTarget.value)} />
+      <InputField hasCounter={false} inputValue={password} setInputValue={setPassword} customStyles={''} id='password' />
 
       <button type='submit'>{buttonLabel}</button>
     </form>
