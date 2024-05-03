@@ -25,13 +25,11 @@ export default function List(props: Props) {
   const isSelected = currentSelectedList === list.key
   const navigate = useNavigate()
   const userId = useUserId()
-  const [isToastOpen, setIsToastOpen] = useState(false)
 
   const onUpdateListName = () => {
     if (!updatedListName) return
 
     setIsEdited(false)
-    setIsToastOpen(true)
     updateListName(userId, updatedListName, list)
       .then(() => {
         toast.success('Event has been created')
@@ -40,7 +38,7 @@ export default function List(props: Props) {
         console.log(error)
       })
   }
-  console.log(isToastOpen)
+
   const onRemoveList = () => {
     console.log(list)
     removeList(userId, list.listId)

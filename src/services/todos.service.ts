@@ -20,13 +20,7 @@ export const fetchAllTodos = async (userId: string, listId: string) => {
 
 export const saveNewTodo = (userId: string, newTodo: TodoItemType, listId: string) => {
   const newRef = push(ref(database, `/lists/${userId}/${listId}/todos`))
-  set(newRef, newTodo)
-    .then(() => {
-      alert('todo was saved')
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+  return set(newRef, newTodo)
 }
 
 export const updateTodo = async (userId: string, updatedTodo: TodoItemType, listId: string) => {

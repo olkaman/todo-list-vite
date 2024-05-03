@@ -25,7 +25,7 @@ export default function Layout(props: Props) {
         {sidebar}
       </section>
       <div className='ml-80 w-full'>
-        <section className={clsx(isShadowVisible && 'shadow-md dark:shadow-lg', 'bg-bgColor-appBg dark:bg-gray  sticky top-0 left-0 z-10')}>{header}</section>
+        <section className={clsx(isShadowVisible && 'shadow-md dark:shadow-lg', 'bg-bgColor-appBg dark:bg-gray sticky top-0 left-0 z-10')}>{header}</section>
         <section className='py-6 px-20'>{content}</section>
       </div>
     </main>

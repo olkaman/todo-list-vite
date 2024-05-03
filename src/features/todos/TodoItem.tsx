@@ -27,7 +27,7 @@ export default function TodoItem(props: Props) {
 
   const handleOnSave = () => {
     setIsTaskEdited(!isTaskEdited)
-    editTaskValue({ ...todo, task: inputValue })
+    editTaskValue({ ...todo, task: inputValue.trim() })
   }
 
   const handleOnCheck = () => {

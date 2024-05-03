@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom'
 import useListsStore, { useCurrentListTodos, useListIdByKey } from '../stores/listStore'
 import { fetchAllTodos, saveNewTodo } from '../services/todos.service'
 import { useUserId } from '../stores/userStore'
+import { toast } from 'sonner'
 
 export default function TodoPage() {
   const todos = useCurrentListTodos()
@@ -39,7 +40,9 @@ export default function TodoPage() {
     }
     console.log('ppp', listId)
     addTodoToCurrentList(newTodo)
-    saveNewTodo(userId, newTodo, listId)
+    saveNewTodo(userId, newTodo, listId).then(() => {
+      toast.success('To do item was added')
+    })
     setNewTaskName('')
     fetchTodos()
   }

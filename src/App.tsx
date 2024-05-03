@@ -12,6 +12,8 @@ import ResetPassword from './pages/ResetPassword'
 import ResetConfirm from './pages/ResetConfirm'
 import UserPage from './pages/UserPage'
 import { Toaster } from 'sonner'
+import clsx from 'clsx'
+import { CircleCheck, CircleX } from 'lucide-react'
 
 function App() {
   const isCurrentUser = useUserStore((state) => state.isCurrentUser)
@@ -45,7 +47,22 @@ function App() {
           ></Route>
           <Route path='*' element={<PageNotFound />} />
         </Routes>
-        <Toaster richColors position='top-right' theme={isDarkMode ? 'dark' : 'light'} />
+        <Toaster
+          position='top-center'
+          icons={{
+            success: <CircleCheck color={isDarkMode ? '#fff' : '#333'} strokeWidth={1.5} size={24} />,
+            error: <CircleX color={isDarkMode ? '#fff' : '#333'} strokeWidth={1.5} size={24} />,
+          }}
+          toastOptions={{
+            unstyled: true,
+            duration: 2000,
+            classNames: {
+              toast: 'border-l-accent px-6 py-4 rounded-md border-l-2 min-w-80 flex items-center shadow-xl',
+              title: clsx(isDarkMode ? 'text-darkMode-text' : 'text-lightMode-text', 'font-sans font-normal ml-3'),
+              success: clsx(isDarkMode ? 'bg-darkMode-grayDark' : 'bg-lightMode-white', 'border-0 rounded'),
+            },
+          }}
+        />
       </>
     </AuthContainer>
   )

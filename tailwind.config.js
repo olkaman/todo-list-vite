@@ -9,7 +9,7 @@ export default {
       },
       colors: {
         textColor: {
-          darkMode: '#fff',
+          darkMode: '#ebebeb',
           DEFAULT: '#333',
         },
         bgColor: {
@@ -22,6 +22,18 @@ export default {
           DEFAULT: '#373737',
           dark: '#232323',
         },
+        darkMode: {
+          text: '#ebebeb',
+          appBg: '#373737',
+          grayLight: '#808080',
+          gray: '#373737',
+          grayDark: '#232323',
+        },
+        lightMode: {
+          text: '#333',
+          appBg: '#eff0eb',
+          white: '#fff',
+        },
         accent: 'var(--accent)',
       },
       height: {
@@ -30,4 +42,4 @@ export default {
     },
   },
   plugins: [],
-};
+}

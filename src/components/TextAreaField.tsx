@@ -29,7 +29,7 @@ export default function TextAreaField(props: Props) {
   }
 
   const handleOnEditTask = (e: FormEvent<HTMLTextAreaElement>) => {
-    setInputValue(e.currentTarget.value.trim())
+    setInputValue(e.currentTarget.value)
     setTextArea()
   }
 
