@@ -15,7 +15,7 @@ export default function AddNewForm(props: Props) {
 
   return (
     <form onSubmit={onSubmit} className='mt-2 mb-4 flex items-center justify-between'>
-      <InputField hasCounter={false} inputValue={inputValue} setInputValue={setInputValue} placeholder={'Enter new list name'} customStyles='w-full' />
+      <InputField type='text' hasCounter={false} inputValue={inputValue} setInputValue={setInputValue} placeholder={'Enter new list name'} customStyles='w-full' />
       <IconButton icon={<CirclePlus strokeWidth={strokeWidth} size={iconSize} />} customStyles='p-2' />
     </form>
   )

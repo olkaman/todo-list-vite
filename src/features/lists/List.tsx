@@ -24,20 +24,20 @@ export default function List(props: Props) {
   const isSelected = currentSelectedList === list.key
   const navigate = useNavigate()
   const userId = useUserId()
+  const [isToastOpen, setIsToastOpen] = useState(false)
 
   const onUpdateListName = () => {
     if (!updatedListName) return
 
     setIsEdited(false)
+    setIsToastOpen(true)
     updateListName(userId, updatedListName, list)
-      .then(() => {
-        alert('list name was saved')
-      })
+      .then(() => {})
       .catch((error) => {
         console.log(error)
       })
   }
-
+  console.log(isToastOpen)
   const onRemoveList = () => {
     console.log(list)
     removeList(userId, list.listId)
@@ -47,20 +47,22 @@ export default function List(props: Props) {
   }
 
   return (
-    <div>
-      {!isEdited ? (
-        <div className={clsx(isSelected && 'active', 'flex items-center justify-between px-3 hover:bg-accent dark:hover:bg-gray rounded-lg globalTransition w-full mb-1')}>
-          <MenuItem listKey={list.key}>{updatedListName}</MenuItem>
-          <div className='w-2/7 flex flex-row'>
-            <IconButton handleOnClick={() => setIsEdited(!isEdited)} icon={<Pencil strokeWidth={strokeWidth} size={iconSize} />} />
-            <IconButton handleOnClick={onRemoveList} icon={<Trash strokeWidth={strokeWidth} size={iconSize} />} />
+    <>
+      <div>
+        {!isEdited ? (
+          <div className={clsx(isSelected && 'active', 'flex items-center justify-between px-3 hover:bg-accent dark:hover:bg-gray rounded-lg globalTransition w-full mb-1')}>
+            <MenuItem listKey={list.key}>{updatedListName}</MenuItem>
+            <div className='w-2/7 flex flex-row'>
+              <IconButton handleOnClick={() => setIsEdited(!isEdited)} icon={<Pencil strokeWidth={strokeWidth} size={iconSize} />} />
+              <IconButton handleOnClick={onRemoveList} icon={<Trash strokeWidth={strokeWidth} size={iconSize} />} />
+            </div>
           </div>
-        </div>
-      ) : (
-        <div className='flex items-center justify-between p-3 bg-accent dark:bg-gray rounded-lg'>
-          <EditTextForm isEdited={isEdited} setIsEdited={setIsEdited} onSubmit={onUpdateListName} name={updatedListName} setName={setUpdatedListName} />
-        </div>
-      )}
-    </div>
+        ) : (
+          <div className='flex items-center justify-between p-3 bg-accent dark:bg-gray rounded-lg'>
+            <EditTextForm isEdited={isEdited} setIsEdited={setIsEdited} onSubmit={onUpdateListName} name={updatedListName} setName={setUpdatedListName} />
+          </div>
+        )}
+      </div>
+    </>
   )
 }

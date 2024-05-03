@@ -16,10 +16,10 @@ export default function AuthForm(props: Props) {
   return (
     <form onSubmit={onSubmit}>
       <label htmlFor='email'>Email</label>
-      <InputField hasCounter={false} inputValue={email} setInputValue={setEmail} customStyles={''} id='email' />
+      <InputField type='email' hasCounter={false} inputValue={email} setInputValue={setEmail} id='email' />
 
       <label htmlFor='password'>Password</label>
-      <InputField hasCounter={false} inputValue={password} setInputValue={setPassword} customStyles={''} id='password' />
+      <InputField type='password' hasCounter={false} inputValue={password} setInputValue={setPassword} id='password' />
 
       <button type='submit'>{buttonLabel}</button>
     </form>

@@ -8,6 +8,7 @@ import clsx from 'clsx'
 import useListsStore from '../../stores/listStore'
 import { removeTodo, updateTodo } from '../../services/todos.service'
 import { useUserId } from '../../stores/userStore'
+import { iconSize, strokeWidth } from '../../utils/settings'
 
 type Props = {
   todo: TodoItemType
@@ -62,8 +63,8 @@ export default function TodoItem(props: Props) {
         <div className='w-full flex flex-row items-center justify-between'>
           <TextAreaField inputValue={inputValue} placeholder='Edit task name' className={todo.key} setInputValue={setInputValue} />
           <div className='flex flex-row items-center'>
-            <IconButton handleOnClick={handleOnSave} icon={<Check />} />
-            <IconButton handleOnClick={() => setIsTaskEdited(!isTaskEdited)} icon={<X />} />
+            <IconButton handleOnClick={handleOnSave} icon={<Check strokeWidth={strokeWidth} size={iconSize} />} />
+            <IconButton handleOnClick={() => setIsTaskEdited(!isTaskEdited)} icon={<X strokeWidth={strokeWidth} size={iconSize} />} />
           </div>
         </div>
       ) : (
@@ -73,7 +74,7 @@ export default function TodoItem(props: Props) {
           </button>
           <div className='flex items-center'>
             <p className='text-xs'>{new Date(todo?.date || '').toLocaleString()}</p>
-            <IconButton handleOnClick={handleRemove} icon={<Trash />} />
+            <IconButton handleOnClick={handleRemove} icon={<Trash strokeWidth={strokeWidth} size={iconSize} />} />
           </div>
         </div>
       )}

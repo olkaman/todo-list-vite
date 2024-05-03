@@ -17,7 +17,7 @@ export default function EditTextForm(props: Props) {
 
   return (
     <form onSubmit={onSubmit} className='flex flex-row justify-between'>
-      <InputField hasCounter={false} inputValue={name} setInputValue={setName} customStyles='w-5/7' />
+      <InputField type='text' hasCounter={false} inputValue={name} setInputValue={setName} customStyles='w-5/7' />
       <div className='w-2/7 flex flex-row'>
         <IconButton icon={<Check strokeWidth={strokeWidth} size={iconSize} />} />
         <IconButton handleOnClick={() => setIsEdited(!isEdited)} icon={<X strokeWidth={strokeWidth} size={iconSize} />} />

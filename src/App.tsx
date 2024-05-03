@@ -9,6 +9,8 @@ import useUserStore from './stores/userStore'
 import SignIn from './pages/SignIn'
 import TodoPage from './pages/TodoPage'
 import ResetPassword from './pages/ResetPassword'
+import ResetConfirm from './pages/ResetConfirm'
+import UserPage from './pages/UserPage'
 
 function App() {
   const isCurrentUser = useUserStore((state) => state.isCurrentUser)
@@ -19,6 +21,7 @@ function App() {
         <Route path='/' element={<SignIn />} />
         <Route path='register' element={<Register />} />
         <Route path='reset-password' element={<ResetPassword />} />
+        <Route path='reset-confirmation' element={<ResetConfirm />} />
         <Route
           path='home'
           element={
@@ -29,6 +32,14 @@ function App() {
         >
           <Route path=':listKey' element={<TodoPage />} />
         </Route>
+        <Route
+          path='user-page'
+          element={
+            <ProtectedRoute user={isCurrentUser}>
+              <UserPage />
+            </ProtectedRoute>
+          }
+        ></Route>
         <Route path='*' element={<PageNotFound />} />
       </Routes>
     </AuthContainer>

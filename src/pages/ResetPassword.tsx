@@ -5,6 +5,7 @@ import { sendPasswordResetEmail } from 'firebase/auth'
 import { Link } from 'react-router-dom'
 import IconButton from '../components/IconButton'
 import { SendHorizontal } from 'lucide-react'
+import { iconSize, strokeWidth } from '../utils/settings'
 
 export default function ResetPassword() {
   const [email, setEmail] = useState('')
@@ -28,8 +29,8 @@ export default function ResetPassword() {
     <>
       Enter your email, and then we will send you a link to reset your password
       <form onSubmit={handleResetPassword}>
-        <InputField hasCounter={false} inputValue={email} setInputValue={setEmail} customStyles='' />
-        <IconButton icon={<SendHorizontal />} />
+        <InputField type='email' hasCounter={false} inputValue={email} setInputValue={setEmail} />
+        <IconButton icon={<SendHorizontal strokeWidth={strokeWidth} size={iconSize} />} />
       </form>
       <Link to={'/'}>Go back to sign in page</Link>
     </>
