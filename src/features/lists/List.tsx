@@ -10,6 +10,7 @@ import useListsStore from '../../stores/listStore'
 import clsx from 'clsx'
 import { useUserId } from '../../stores/userStore'
 import MenuItem from '../../components/MenuItem'
+import { toast } from 'sonner'
 
 type Props = {
   list: TodoList
@@ -32,7 +33,9 @@ export default function List(props: Props) {
     setIsEdited(false)
     setIsToastOpen(true)
     updateListName(userId, updatedListName, list)
-      .then(() => {})
+      .then(() => {
+        toast.success('Event has been created')
+      })
       .catch((error) => {
         console.log(error)
       })

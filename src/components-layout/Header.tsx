@@ -1,6 +1,6 @@
 import { signOut } from 'firebase/auth'
 import { auth } from '../../firebase'
-import { useUserEmail } from '../stores/userStore'
+import useUserStore, { useUserEmail } from '../stores/userStore'
 import { useEffect, useState } from 'react'
 import { LogOut, Moon, Sun } from 'lucide-react'
 import IconButton from '../components/IconButton'
@@ -11,11 +11,13 @@ import { Link } from 'react-router-dom'
 export default function Header() {
   const userEmail = useUserEmail()
   const [isDarkMode, setIsDarkMode] = useState(() => getValueFromLocalStorage('darkMode') === 'true')
+  const setIsDarkModeOn = useUserStore((state) => state.setIsDarkModeOn)
 
   useEffect(() => {
     const body = document.querySelector('body')
     isDarkMode ? body?.classList.add('dark') : body?.classList.remove('dark')
     saveToLocalStorage('darkMode', isDarkMode.toString())
+    setIsDarkModeOn(isDarkMode)
   }, [isDarkMode])
 
   return (
