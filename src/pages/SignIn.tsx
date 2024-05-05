@@ -31,8 +31,8 @@ export default function SignIn() {
       <div className='absolute top-5 right-5'>
         <DarkModeButton />
       </div>
-      <section className='card p-12 rounded-md text-center shadow-md'>
-        <h2 className='mb-6'>Sign in</h2>
+      <section className='card p-12 rounded-md text-center shadow-md max-w-lg'>
+        <h2 className='mb-6 font-medium'>Sign in</h2>
         <AuthForm
           onSubmit={onSubmit}
           buttonLabel='Sign in'

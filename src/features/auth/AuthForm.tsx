@@ -20,12 +20,12 @@ export default function AuthForm(props: Props) {
       <label htmlFor='email' className='text-xs dark:text-darkMode-placeholder'>
         *Email
       </label>
-      <InputField type='email' hasCounter={false} inputValue={email} setInputValue={setEmail} id='email' customStyles='mb-4' />
+      <InputField type='email' hasCounter={false} inputValue={email} setInputValue={setEmail} id='email' customStyles='mb-4' placeholder='E-mail address' />
 
       <label htmlFor='password' className='text-xs dark:text-darkMode-placeholder'>
         *Password
       </label>
-      <InputField type='password' hasCounter={false} inputValue={password} setInputValue={setPassword} id='password' customStyles='mb-8' />
+      <InputField type='password' hasCounter={false} inputValue={password} setInputValue={setPassword} id='password' customStyles='mb-8' placeholder='Password' />
 
       <Button customStyles='mb-3' disabled={disabled}>
         {buttonLabel}

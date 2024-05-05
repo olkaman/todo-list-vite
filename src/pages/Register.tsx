@@ -34,8 +34,8 @@ export default function Register() {
       <div className='absolute top-5 right-5'>
         <DarkModeButton />
       </div>
-      <section className='card p-12 rounded-md text-center shadow-md'>
-        <h2 className='mb-6'>Register</h2>
+      <section className='card p-12 rounded-md text-center shadow-md max-w-lg'>
+        <h2 className='mb-6 font-medium'>Register</h2>
         <AuthForm
           onSubmit={onSubmit}
           buttonLabel='Register account'
