@@ -3,6 +3,7 @@ import AuthForm from '../features/auth/AuthForm'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../firebase'
 import { Link } from 'react-router-dom'
+import DarkModeButton from '../components/DarkModeButton'
 
 export default function SignIn() {
   const [email, setEmail] = useState<string>('')
@@ -26,7 +27,10 @@ export default function SignIn() {
   }
 
   return (
-    <div className='flex flex-col items-center justify-center h-screen'>
+    <div className='flex flex-col items-center justify-center h-screen relative'>
+      <div className='absolute top-5 right-5'>
+        <DarkModeButton />
+      </div>
       <section className='card p-12 rounded-md text-center shadow-md'>
         <h2 className='mb-6'>Sign in</h2>
         <AuthForm

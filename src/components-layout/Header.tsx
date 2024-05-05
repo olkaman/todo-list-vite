@@ -1,33 +1,18 @@
 import { signOut } from 'firebase/auth'
 import { auth } from '../../firebase'
-import useUserStore, { useUserEmail } from '../stores/userStore'
-import { useEffect, useState } from 'react'
-import { LogOut, Moon, Sun } from 'lucide-react'
+import { useUserEmail } from '../stores/userStore'
+import { LogOut } from 'lucide-react'
 import IconButton from '../components/IconButton'
 import { iconSize, strokeWidth } from '../utils/settings'
-import { getValueFromLocalStorage, saveToLocalStorage } from '../utils/localStorageActions'
 import { Link } from 'react-router-dom'
+import DarkModeButton from '../components/DarkModeButton'
 
 export default function Header() {
   const userEmail = useUserEmail()
-  const [isDarkMode, setIsDarkMode] = useState(() => getValueFromLocalStorage('darkMode') === 'true')
-  const setIsDarkModeOn = useUserStore((state) => state.setIsDarkModeOn)
-
-  useEffect(() => {
-    const body = document.querySelector('body')
-    isDarkMode ? body?.classList.add('dark') : body?.classList.remove('dark')
-    saveToLocalStorage('darkMode', isDarkMode.toString())
-    setIsDarkModeOn(isDarkMode)
-  }, [isDarkMode])
 
   return (
     <header className='p-6 flex flex-row justify-between'>
-      <IconButton
-        icon={isDarkMode ? <Sun strokeWidth={strokeWidth} size={iconSize} /> : <Moon strokeWidth={strokeWidth} size={iconSize} />}
-        handleOnClick={() => setIsDarkMode(!isDarkMode)}
-        customStyles='boxShadow card p-2 rounded-lg'
-      />
-
+      <DarkModeButton />
       <div className='flex items-center'>
         <Link to='../user-page'>{userEmail}</Link>
         <IconButton icon={<LogOut strokeWidth={strokeWidth} size={iconSize} />} handleOnClick={() => signOut(auth)} customStyles='boxShadow card p-2 rounded-lg' />
