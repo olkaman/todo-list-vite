@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import IconButton from './IconButton'
 import { Moon, Sun } from 'lucide-react'
 import useUserStore from '../stores/userStore'
