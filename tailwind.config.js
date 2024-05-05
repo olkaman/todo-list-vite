@@ -24,6 +24,7 @@ export default {
         },
         darkMode: {
           text: '#ebebeb',
+          placeholder: '#b8b8b8',
           appBg: '#373737',
           grayLight: '#808080',
           gray: '#373737',
@@ -35,6 +36,11 @@ export default {
           white: '#fff',
         },
         accent: 'var(--accent)',
+        accentDark: 'var(--accentDark)',
+        accentDarkMode: 'var(--accent)',
+        accentDarkModeHover: 'var(--accentDark)',
+        accentLightMode: 'var(--accentLightMode)',
+        accentLightModeHover: 'var(--accentLightModeHover)',
       },
       height: {
         lists: 'calc(100vh - 200px)',

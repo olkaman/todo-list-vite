@@ -7,6 +7,11 @@
 @layer base {
   :root {
     --accent: #c3ff00;
+    --accentDark: #b6eb0c;
+    --accentDarkMode: #c3ff00;
+    --accentDarkModeHover: #b6eb0c;
+    --accentLightMode: #48ab90;
+    --accentLightModeHover: #2e806a;
   }
 
   h1 {
@@ -30,12 +35,16 @@
   @apply shadow-md dark:shadow-lg;
 }
 
-.containerStyles {
-  @apply bg-bgColor dark:bg-gray-dark;
+.card {
+  @apply bg-lightMode-white dark:bg-darkMode-grayDark;
 }
 
 .formField {
   @apply border rounded p-2 border-gray-light dark:bg-gray-dark focus:outline-none focus:ring-accent focus:ring-1;
+}
+
+.link {
+  @apply text-accentLightMode hover:text-accentLightModeHover dark:text-accentDarkMode dark:hover:text-accentDarkModeHover globalTransition;
 }
 
 .active {

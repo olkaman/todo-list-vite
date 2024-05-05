@@ -25,12 +25,12 @@ export default function Header() {
       <IconButton
         icon={isDarkMode ? <Sun strokeWidth={strokeWidth} size={iconSize} /> : <Moon strokeWidth={strokeWidth} size={iconSize} />}
         handleOnClick={() => setIsDarkMode(!isDarkMode)}
-        customStyles='boxShadow containerStyles p-2 rounded-lg'
+        customStyles='boxShadow card p-2 rounded-lg'
       />
 
       <div className='flex items-center'>
         <Link to='../user-page'>{userEmail}</Link>
-        <IconButton icon={<LogOut strokeWidth={strokeWidth} size={iconSize} />} handleOnClick={() => signOut(auth)} customStyles='boxShadow containerStyles p-2 rounded-lg' />
+        <IconButton icon={<LogOut strokeWidth={strokeWidth} size={iconSize} />} handleOnClick={() => signOut(auth)} customStyles='boxShadow card p-2 rounded-lg' />
       </div>
     </header>
   )

@@ -20,7 +20,7 @@ export default function Layout(props: Props) {
   })
 
   return (
-    <main className='flex flex-row text-textColor dark:text-textColor-darkMode'>
+    <main className='flex flex-row'>
       <section ref={ref} className='fixed top-0 left-0 z-20 p-3 bg-bgColor dark:bg-gray-dark shadow-xl dark:shadow-black dark:shadow-xl w-80 h-screen'>
         {sidebar}
       </section>

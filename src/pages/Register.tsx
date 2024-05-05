@@ -29,11 +29,26 @@ export default function Register() {
   }
 
   return (
-    <>
-      <h2>Register</h2>
-      <AuthForm onSubmit={onSubmit} buttonLabel='Register account' email={email} password={password} setEmail={setEmail} setPassword={setPassword} />
-      <div>{error}</div>
-      Already have account? <Link to='/'>Sign in</Link>
-    </>
+    <div className='flex flex-col items-center justify-center h-screen'>
+      <section className='card p-12 rounded-md text-center shadow-md'>
+        <h2 className='mb-6'>Register</h2>
+        <AuthForm
+          onSubmit={onSubmit}
+          buttonLabel='Register account'
+          email={email}
+          password={password}
+          setEmail={setEmail}
+          setPassword={setPassword}
+          disabled={email === '' || password === ''}
+        />
+        <div>{error}</div>
+        <div className='mt-6'>
+          Already have account?{' '}
+          <Link to='/' className='link'>
+            Sign in
+          </Link>
+        </div>
+      </section>
+    </div>
   )
 }

@@ -26,14 +26,31 @@ export default function SignIn() {
   }
 
   return (
-    <>
-      <h2>Sign in</h2>
-      <AuthForm onSubmit={onSubmit} buttonLabel='Sign in' email={email} password={password} setEmail={setEmail} setPassword={setPassword} />
-      <div>
-        <Link to={'/reset-password'}>Forgot your password?</Link>
-      </div>
-      <div>{error}</div>
-      New user? <Link to='register'>Register</Link>
-    </>
+    <div className='flex flex-col items-center justify-center h-screen'>
+      <section className='card p-12 rounded-md text-center shadow-md'>
+        <h2 className='mb-6'>Sign in</h2>
+        <AuthForm
+          onSubmit={onSubmit}
+          buttonLabel='Sign in'
+          email={email}
+          password={password}
+          setEmail={setEmail}
+          setPassword={setPassword}
+          disabled={email === '' || password === ''}
+        />
+        <div>
+          <Link className='link' to={'/reset-password'}>
+            Forgot your password?
+          </Link>
+        </div>
+        <div>{error}</div>
+        <div className='mt-6'>
+          New user?{' '}
+          <Link to='register' className='link'>
+            Register
+          </Link>
+        </div>
+      </section>
+    </div>
   )
 }

@@ -55,7 +55,7 @@ export default function TodoItem(props: Props) {
     <div
       className={clsx(
         isTaskEdited && 'dark:border dark:border-gray-dark dark:border-l-accent',
-        'containerStyles boxShadow rounded-xl w-full mb-5 p-6 flex flex-row items-center justify-between'
+        'card boxShadow rounded-xl w-full mb-5 p-6 flex flex-row items-center justify-between'
       )}
     >
       {!isTaskEdited && <CustomCheckbox checked={todo?.checked || false} handleOnCheck={handleOnCheck} disabled={todo?.task === ''} />}
