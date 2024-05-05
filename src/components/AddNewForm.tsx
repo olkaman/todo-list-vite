@@ -2,10 +2,10 @@ import IconButton from './IconButton'
 import { CirclePlus } from 'lucide-react'
 import { iconSize, strokeWidth } from '../utils/settings'
 import InputField from './InputField'
-import { FormEvent } from 'react'
+import { SyntheticEvent } from 'react'
 
 type Props = {
-  onSubmit: (event: FormEvent<HTMLInputElement>) => void
+  onSubmit: (event: SyntheticEvent) => void
   inputValue: string
   setInputValue: (listName: string) => void
 }

@@ -1,5 +1,5 @@
 import TodoItem from '../features/todos/TodoItem'
-import { FormEvent, useEffect, useState } from 'react'
+import { SyntheticEvent, useEffect, useState } from 'react'
 import { TodoItemType } from '../utils/models'
 import AddNewForm from '../components/AddNewForm'
 import { useParams } from 'react-router-dom'
@@ -29,7 +29,7 @@ export default function TodoPage() {
     fetchTodos()
   }, [listId, userId])
 
-  const onAddNewTodo = (e: FormEvent<HTMLInputElement>) => {
+  const onAddNewTodo = (e: SyntheticEvent) => {
     e.preventDefault()
     const newTodo: TodoItemType = {
       key: Math.floor(Math.random() * 10000).toString(),

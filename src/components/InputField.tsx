@@ -27,7 +27,6 @@ export default function InputField(props: Props) {
         onChange={handleOnEditTask}
         placeholder={placeholder}
         maxLength={maxNoOfChar}
-        rows={1}
         id={id}
         type={type}
       />

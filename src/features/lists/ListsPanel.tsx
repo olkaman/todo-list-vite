@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from 'react'
+import { SyntheticEvent, useEffect, useState } from 'react'
 import AddNewList from '../../components/AddNewForm'
 import { TodoList } from '../../utils/models'
 import { fetchAllLists, saveNewList } from '../../services/lists.service'
@@ -30,7 +30,7 @@ export default function ListsPanel() {
     fetchLists()
   }, [userId])
 
-  const addNewList = (e: FormEvent<HTMLInputElement>) => {
+  const addNewList = (e: SyntheticEvent) => {
     e.preventDefault()
     const newList: TodoList = {
       key: Math.floor(Math.random() * 10000).toString(),
