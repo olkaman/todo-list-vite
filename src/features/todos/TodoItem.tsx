@@ -24,6 +24,7 @@ export default function TodoItem(props: Props) {
   const updateTodoItemInCurrentList = useListsStore((state) => state.updateTodoItemInCurrentList)
   const removeTodosFromCurrentList = useListsStore((state) => state.removeTodosFromCurrentList)
   const userId = useUserId()
+  const isTaskReady = todo.checked
 
   const handleOnSave = () => {
     setIsTaskEdited(!isTaskEdited)
@@ -55,7 +56,8 @@ export default function TodoItem(props: Props) {
     <div
       className={clsx(
         isTaskEdited && 'dark:border dark:border-gray-dark dark:border-l-accent',
-        'card boxShadow rounded-xl w-full mb-5 p-6 flex flex-row items-center justify-between'
+        isTaskReady && 'opacity-40 hover:opacity-100',
+        'group/todoItem card boxShadow rounded-xl w-full mb-5 px-6 py-3 flex flex-row items-center justify-between hover:scale-101 hover:shadow-2xl dark:hover:shadow-darkMode-grayDark globalTransition'
       )}
     >
       {!isTaskEdited && <CustomCheckbox checked={todo?.checked || false} handleOnCheck={handleOnCheck} disabled={todo?.task === ''} />}
@@ -69,7 +71,11 @@ export default function TodoItem(props: Props) {
         </div>
       ) : (
         <div className='flex flex-row justify-between items-center w-full'>
-          <button onClick={() => setIsTaskEdited(!isTaskEdited)} disabled={todo?.checked} className='text-left'>
+          <button
+            onClick={() => setIsTaskEdited(!isTaskEdited)}
+            disabled={todo?.checked}
+            className={clsx(isTaskReady && 'line-through', !isTaskReady && 'group-hover/todoItem:text-accent', 'text-left py-5 disabled:cursor-not-allowed')}
+          >
             {todo?.task !== '' ? todo?.task : <i>Enter task name</i>}
           </button>
           <div className='flex items-center'>

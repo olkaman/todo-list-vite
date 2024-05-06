@@ -45,6 +45,9 @@ export default {
       height: {
         lists: 'calc(100vh - 200px)',
       },
+      scale: {
+        101: '1.01',
+      },
     },
   },
   plugins: [],

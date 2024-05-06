@@ -16,6 +16,8 @@ export default function TodoPage() {
   const loadTodosToCurrentList = useListsStore((state) => state.loadTodosToCurrentList)
   const [newTaskName, setNewTaskName] = useState('')
   const userId = useUserId()
+  const readyTasksNumber = todos.filter((todo) => todo.checked).length
+  const totalTasksNumber = todos.length
 
   const fetchTodos = () => {
     fetchAllTodos(userId, listId)
@@ -50,6 +52,7 @@ export default function TodoPage() {
   return (
     <section>
       <AddNewForm onSubmit={onAddNewTodo} inputValue={newTaskName} setInputValue={setNewTaskName} />
+      <div className='text-center mb-4 px-4 py-2'>{`Ready tasks: ${readyTasksNumber} / ${totalTasksNumber}`}</div>
       {todos.map((todo) => {
         return <TodoItem key={todo.key} todo={todo} listId={listId} />
       })}
