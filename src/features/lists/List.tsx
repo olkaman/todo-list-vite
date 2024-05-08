@@ -51,11 +51,20 @@ export default function List(props: Props) {
     <>
       <div>
         {!isEdited ? (
-          <div className={clsx(isSelected && 'active', 'flex items-center justify-between px-3 hover:bg-accent dark:hover:bg-gray rounded-lg globalTransition w-full mb-1')}>
+          <div
+            className={clsx(
+              isSelected && 'active',
+              'group/listItem flex items-center justify-between px-3 hover:bg-accent dark:hover:bg-gray rounded-lg globalTransition w-full mb-1 '
+            )}
+          >
             <MenuItem listKey={list.key}>{updatedListName}</MenuItem>
             <div className='w-2/7 flex flex-row'>
-              <IconButton handleOnClick={() => setIsEdited(!isEdited)} icon={<Pencil strokeWidth={strokeWidth} size={iconSize} />} />
-              <IconButton handleOnClick={onRemoveList} icon={<Trash strokeWidth={strokeWidth} size={iconSize} />} />
+              <IconButton
+                handleOnClick={() => setIsEdited(!isEdited)}
+                icon={<Pencil strokeWidth={strokeWidth} size={iconSize} />}
+                customStyles='hidden group-hover/listItem:block'
+              />
+              <IconButton handleOnClick={onRemoveList} icon={<Trash strokeWidth={strokeWidth} size={iconSize} />} customStyles='hidden group-hover/listItem:block' />
             </div>
           </div>
         ) : (
