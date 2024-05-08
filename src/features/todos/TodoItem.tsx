@@ -58,7 +58,7 @@ export default function TodoItem(props: Props) {
         isTaskEdited && 'dark:border dark:border-gray-dark dark:border-l-accent py-6',
         !isTaskEdited && 'py-4',
         isTaskReady && 'opacity-40 hover:opacity-100',
-        'group/todoItem card boxShadow rounded-xl w-full mb-5 px-6 flex flex-row items-center justify-between hover:scale-101 hover:shadow-2xl dark:hover:shadow-darkMode-grayDark globalTransition'
+        'group/todoItem card boxShadow rounded-lg w-full mb-5 px-6 flex flex-row items-center justify-between hover:scale-101 hover:shadow-2xl hover:border-l-accentDark hover:border-l-2 dark:hover:shadow-darkMode-grayDark globalTransition'
       )}
     >
       {!isTaskEdited && <CustomCheckbox checked={todo?.checked || false} handleOnCheck={handleOnCheck} disabled={todo?.task === ''} />}
