@@ -31,7 +31,7 @@ export default {
           grayDark: '#232323',
         },
         lightMode: {
-          text: '#333',
+          text: '#444',
           appBg: '#eff0eb',
           white: '#fff',
         },

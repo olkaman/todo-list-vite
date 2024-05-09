@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Pencil, Trash } from 'lucide-react'
 import IconButton from '../../components/IconButton'
 import { iconSize, strokeWidth } from '../../utils/settings'
@@ -11,6 +11,7 @@ import clsx from 'clsx'
 import { useUserId } from '../../stores/userStore'
 import MenuItem from '../../components/MenuItem'
 import { toast } from 'sonner'
+import { Modal } from '../../components/Modal'
 
 type Props = {
   list: TodoList
@@ -25,6 +26,7 @@ export default function List(props: Props) {
   const isSelected = currentSelectedList === list.key
   const navigate = useNavigate()
   const userId = useUserId()
+  const modalRef = useRef<HTMLDialogElement>(null)
 
   const onUpdateListName = () => {
     if (!updatedListName) return
@@ -39,8 +41,12 @@ export default function List(props: Props) {
       })
   }
 
+  const onOpenModal = () => {
+    if (!modalRef.current) return
+    modalRef.current.showModal()
+  }
+
   const onRemoveList = () => {
-    console.log(list)
     removeList(userId, list.listId)
     removeCurrentList(list.key)
     navigate('/home')
@@ -64,7 +70,7 @@ export default function List(props: Props) {
                 icon={<Pencil strokeWidth={strokeWidth} size={iconSize} />}
                 customStyles='hidden group-hover/listItem:block'
               />
-              <IconButton handleOnClick={onRemoveList} icon={<Trash strokeWidth={strokeWidth} size={iconSize} />} customStyles='hidden group-hover/listItem:block' />
+              <IconButton handleOnClick={onOpenModal} icon={<Trash strokeWidth={strokeWidth} size={iconSize} />} customStyles='hidden group-hover/listItem:block' />
             </div>
           </div>
         ) : (
@@ -73,6 +79,11 @@ export default function List(props: Props) {
           </div>
         )}
       </div>
+      <Modal handleOnCancel={() => modalRef.current?.close()} handleOnConfirm={onRemoveList} title='Remove list?' confirmButtonLabel='Remove' ref={modalRef}>
+        <p>
+          Are you sure you want to remove list named <span className='font-semibold'>{`'${list.listName}'`}</span>?
+        </p>
+      </Modal>
     </>
   )
 }
