@@ -14,7 +14,9 @@ export default function Header() {
     <header className='p-6 flex flex-row justify-between'>
       <DarkModeButton />
       <div className='flex items-center'>
-        <Link to='../user-page'>{userEmail}</Link>
+        <Link to='../user-page' className='link'>
+          {userEmail}
+        </Link>
         <IconButton icon={<LogOut strokeWidth={strokeWidth} size={iconSize} />} handleOnClick={() => signOut(auth)} customStyles='boxShadow card p-2 rounded-lg' />
       </div>
     </header>

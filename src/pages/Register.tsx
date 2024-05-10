@@ -9,13 +9,10 @@ export default function Register() {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [error, setError] = useState('')
-  console.log('xczcx')
 
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     if (!email || !password) return
     e.preventDefault()
-    console.log(e)
-    console.log('ss')
     setPassword('')
     setEmail('')
     createUserWithEmailAndPassword(auth, email, password)

@@ -10,6 +10,7 @@ import { removeTodo, updateTodo } from '../../services/todos.service'
 import { useUserId } from '../../stores/userStore'
 import { iconSize, strokeWidth } from '../../utils/settings'
 import { Modal } from '../../components/Modal'
+import { ButtonStyleTypes } from '../../utils/globalTypes'
 
 type Props = {
   todo: TodoItemType
@@ -93,7 +94,14 @@ export default function TodoItem(props: Props) {
           </div>
         )}
       </div>
-      <Modal handleOnCancel={() => modalRef.current?.close()} handleOnConfirm={removeTodos} title='Remove list?' confirmButtonLabel='Remove' ref={modalRef}>
+      <Modal
+        buttonStyleType={ButtonStyleTypes.Primary}
+        handleOnCancel={() => modalRef.current?.close()}
+        handleOnConfirm={removeTodos}
+        title='Remove list?'
+        confirmButtonLabel='Remove'
+        ref={modalRef}
+      >
         <p>
           Are you sure you want to remove the task: <span className='font-semibold'>{`'${todo.task}'`}</span>?
         </p>
