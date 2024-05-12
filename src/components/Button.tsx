@@ -11,7 +11,7 @@ type Props = {
 
 export default function Button(props: Props) {
   const { handleOnClick, children, customStyles, disabled, styleType } = props
-  console.log(styleType)
+
   return (
     <button
       onClick={handleOnClick}

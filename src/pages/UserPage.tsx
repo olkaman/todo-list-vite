@@ -33,14 +33,11 @@ export default function UserPage() {
     if (!user || !userId) return
 
     lists.forEach((list) => {
-      console.log(list)
       removeList(userId, list.listId)
     })
 
     deleteUser(user)
       .then(() => {
-        console.log('1', userId)
-
         toast.success('Your account has been removed')
       })
       .catch((error) => {

@@ -40,7 +40,7 @@ export default function TodoPage() {
       date: Date.now(),
       id: '',
     }
-    console.log('ppp', listId)
+
     addTodoToCurrentList(newTodo)
     saveNewTodo(userId, newTodo, listId).then(() => {
       toast.success('To do item was added')

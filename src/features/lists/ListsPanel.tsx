@@ -1,34 +1,42 @@
 import { SyntheticEvent, useEffect, useState } from 'react'
 import AddNewList from '../../components/AddNewForm'
 import { TodoList } from '../../utils/models'
-import { fetchAllLists, saveNewList } from '../../services/lists.service'
+import { saveNewList } from '../../services/lists.service'
 import List from './List'
 import useListsStore from '../../stores/listStore'
 import { useNavigate } from 'react-router-dom'
 import { useUserId } from '../../stores/userStore'
+import { ref, onValue } from 'firebase/database'
+import { database } from '../../../firebase'
 
 export default function ListsPanel() {
-  const setLists = useListsStore((state) => state.setLists)
+  const setListsInStore = useListsStore((state) => state.setLists)
   const lists = useListsStore((state) => state.lists)
-  const addList = useListsStore((state) => state.addList)
+  const addListToStore = useListsStore((state) => state.addList)
   const setCurrentSelectedListId = useListsStore((state) => state.setCurrentSelectedListId)
   const currentSelectedListId = useListsStore((state) => state.currentSelectedListId)
   const [newListName, setNewListName] = useState('')
   const navigate = useNavigate()
   const userId = useUserId()
 
-  const fetchLists = () => {
-    fetchAllLists(userId).then((allLists: TodoList[]) => {
-      setLists(allLists)
-      if (!currentSelectedListId && allLists.length > 0) {
-        setCurrentSelectedListId(allLists[0].key)
-      }
+  useEffect(() => {
+    const dataRef = ref(database, `/lists/${userId}`)
+    onValue(dataRef, (snapshot) => {
+      const allLists = Object.values(snapshot.val()) as TodoList[]
+      const listsWithId = Object.keys(snapshot.val()).map((listId, index) => {
+        return { ...allLists[index], listId }
+      })
+      console.log('aaa', listsWithId)
+      setListsInStore(listsWithId)
     })
-  }
+  }, [])
 
   useEffect(() => {
-    fetchLists()
-  }, [userId])
+    if (!currentSelectedListId && lists.length > 0) {
+      console.log('fffffffuuuuuuuck')
+      setCurrentSelectedListId(lists[0].key)
+    }
+  }, [lists])
 
   const addNewList = (e: SyntheticEvent) => {
     e.preventDefault()
@@ -38,12 +46,11 @@ export default function ListsPanel() {
       listName: newListName,
     }
 
-    addList(newList)
+    addListToStore(newList)
     saveNewList(userId, newList)
     setCurrentSelectedListId(newList.key)
     navigate(`${newList.key}`)
     setNewListName('')
-    fetchLists()
   }
 
   return (

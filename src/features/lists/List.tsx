@@ -12,6 +12,7 @@ import { useUserId } from '../../stores/userStore'
 import MenuItem from '../../components/MenuItem'
 import { toast } from 'sonner'
 import { Modal } from '../../components/Modal'
+import { ButtonStyleTypes } from '../../utils/globalTypes'
 
 type Props = {
   list: TodoList
@@ -79,7 +80,14 @@ export default function List(props: Props) {
           </div>
         )}
       </div>
-      <Modal handleOnCancel={() => modalRef.current?.close()} handleOnConfirm={onRemoveList} title='Remove list?' confirmButtonLabel='Remove' ref={modalRef}>
+      <Modal
+        handleOnCancel={() => modalRef.current?.close()}
+        handleOnConfirm={onRemoveList}
+        title='Remove list?'
+        confirmButtonLabel='Remove'
+        ref={modalRef}
+        buttonStyleType={ButtonStyleTypes.Primary}
+      >
         <p>
           Are you sure you want to remove list named <span className='font-semibold'>{`'${list.listName}'`}</span>?
         </p>

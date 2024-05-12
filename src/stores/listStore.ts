@@ -33,9 +33,9 @@ const useListsStore = create<State & Action, [['zustand/devtools', never]]>(
     ...initialState,
     setLists: (lists) => set(() => ({ lists }), false, 'Set lists'),
     addList: (list) => set(addList(list), false, 'Add list'),
-    removeList: (listKey) => set(removeList(listKey), false, 'Add list'),
-    setCurrentSelectedListId: (listId) => set(setCurrentSelectedListId(listId), false, 'Add list'),
-    addTodosToCurrentList: (todo) => set(addTodosToCurrentList(todo), false, 'Add todo'),
+    removeList: (listKey) => set(removeList(listKey), false, 'Remove list'),
+    setCurrentSelectedListId: (listId) => set(setCurrentSelectedListId(listId), false, 'Set current selected list id'),
+    addTodosToCurrentList: (todo) => set(addTodosToCurrentList(todo), false, 'Add todos to current list'),
     loadTodosToCurrentList: (todos) => set(loadTodosToCurrentList(todos), false, 'Load todos to current list'),
     updateTodoItemInCurrentList: (todo) => set(updateTodoItemInCurrentList(todo), false, 'Update todo in current list'),
     removeTodosFromCurrentList: (todoKey) => set(removeTodosFromCurrentList(todoKey), false, 'Remove todo in current list'),
@@ -66,7 +66,6 @@ export const useCurrentListTodos = () => useListsStore((state) => state.currentL
 
 function setCurrentSelectedListId(listId: string): ListStoreType {
   return (state) => {
-    console.log('wwww', listId)
     return { ...state, currentSelectedListId: listId }
   }
 }
