@@ -73,7 +73,7 @@ export default function TodoItem(props: Props) {
           isTaskEdited && 'dark:border dark:border-gray-dark dark:border-l-accent py-6',
           !isTaskEdited && 'py-4',
           isTaskReady && 'opacity-40 hover:opacity-100',
-          'group/todoItem card boxShadow hover:shadow-2xl rounded-lg w-full mb-5 px-6 flex flex-row items-center justify-between hover:scale-101 border-l-lightMode-white border-l-2 hover:border-l-2 hover:border-l-accentLightModeText dark:border-l-darkMode-gray dark:hover:border-l-accent dark:hover:shadow-darkMode-grayDark globalTransition'
+          'group/todoItem card boxShadow hover:shadow-2xl rounded-lg w-full mb-5 px-6 flex flex-row items-center justify-between hover:scale-101 border-l-lightMode-white border-l-2  hover:border-l-2 hover:border-l-accentLightModeText dark:border-l-darkMode-gray dark:hover:border-l-accent dark:hover:shadow-darkMode-grayDark globalTransition'
         )}
       >
         {!isTaskEdited && <CustomCheckbox checked={todo?.checked || false} handleOnCheck={handleOnCheck} disabled={todo?.task === ''} />}
@@ -91,10 +91,10 @@ export default function TodoItem(props: Props) {
               onClick={() => setIsTaskEdited(!isTaskEdited)}
               disabled={todo?.checked}
               className={clsx(
-                isTaskReady && 'line-through',
+                isTaskReady && 'line-through ',
                 !isTaskReady &&
-                  'group-hover/todoItem:text-accentLightModeText group-hover/todoItem:underline group-hover/todoItem:underline-offset-2 dark:group-hover/todoItem:text-accent',
-                'text-left py-3 disabled:cursor-not-allowed'
+                  'break-words w-full max-w-[800px] group-hover/todoItem:text-accentLightModeText group-hover/todoItem:underline group-hover/todoItem:underline-offset-2 dark:group-hover/todoItem:text-accent',
+                'text-left py-3 disabled:cursor-not-allowed break-words pr-6'
               )}
             >
               {todo?.task !== '' ? todo?.task : <i>Enter task name</i>}

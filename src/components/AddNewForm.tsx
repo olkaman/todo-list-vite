@@ -9,10 +9,11 @@ type Props = {
   inputValue: string
   setInputValue: (listName: string) => void
   placeholder?: string
+  counterMax: number
 }
 
 export default function AddNewForm(props: Props) {
-  const { inputValue, setInputValue, onSubmit, placeholder } = props
+  const { inputValue, setInputValue, onSubmit, placeholder, counterMax } = props
 
   const clearField = () => {
     setInputValue('')
@@ -21,7 +22,7 @@ export default function AddNewForm(props: Props) {
   return (
     <section className='relative'>
       <form onSubmit={onSubmit} className='mt-2 mb-4 flex items-center justify-between'>
-        <InputField type='text' hasCounter={false} inputValue={inputValue} setInputValue={setInputValue} placeholder={placeholder} customStyles='w-full' />
+        <InputField type='text' hasCounter counterMax={counterMax} inputValue={inputValue} setInputValue={setInputValue} placeholder={placeholder} customStyles='w-full' />
       </form>
       {inputValue !== '' && <IconButton handleOnClick={clearField} icon={<CircleX strokeWidth={strokeWidth} size={iconSize} />} customStyles='p-2 absolute top-[5px] right-0.5' />}
     </section>

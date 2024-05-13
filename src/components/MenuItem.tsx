@@ -18,7 +18,7 @@ export default function MenuItem(props: Props) {
   }
 
   return (
-    <button onClick={onNavigateToList} className='w-5/7 w-full text-left py-4'>
+    <button onClick={onNavigateToList} className='w-5/7 max-w-52 w-full text-left py-4 break-words'>
       {children}
     </button>
   )

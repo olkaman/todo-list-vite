@@ -46,7 +46,7 @@ export default function TodoPage() {
     addTodoToCurrentList(newTodo)
     saveNewTodo(userId, newTodo, listId)
       .then(() => {
-        toast.success(`Task ${newTaskName} was added`)
+        toast.success(`Task was added`)
       })
       .catch(() => {
         toast.error('Something went wrong')
@@ -57,7 +57,7 @@ export default function TodoPage() {
 
   return (
     <section>
-      <AddNewForm onSubmit={onAddNewTodo} inputValue={newTaskName} setInputValue={setNewTaskName} placeholder='Add new task' />
+      <AddNewForm onSubmit={onAddNewTodo} inputValue={newTaskName} setInputValue={setNewTaskName} placeholder='Add new task' counterMax={200} />
       <div className='text-center mb-4 px-4 py-2'>{`Ready tasks: ${readyTasksNumber} / ${totalTasksNumber}`}</div>
       {todos.map((todo) => {
         return <TodoItem key={todo.key} todo={todo} listId={listId} />

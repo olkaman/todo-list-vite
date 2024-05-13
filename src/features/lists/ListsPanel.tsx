@@ -63,8 +63,8 @@ export default function ListsPanel() {
     <>
       <h2>Todos</h2>
       <h3 className='p-3'>Your lists:</h3>
-      <AddNewList onSubmit={addNewList} inputValue={newListName} setInputValue={setNewListName} placeholder='Add new list name' />
-      <nav className='overflow-auto h-lists'>
+      <AddNewList onSubmit={addNewList} inputValue={newListName} setInputValue={setNewListName} placeholder='Add new list name' counterMax={50} />
+      <nav className='overflow-auto h-lists mt-12'>
         {lists.map((list: TodoList) => {
           return <List key={list.key} list={list} />
         })}

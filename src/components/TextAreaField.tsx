@@ -44,7 +44,7 @@ export default function TextAreaField(props: Props) {
         rows={1}
         className={clsx(className, 'w-full formField')}
       />
-      <div className='absolute right-0 text-xs'>{`${currentNoOfChar} / ${maxNoOfChar}`}</div>
+      <div className='absolute right-0 text-xs text-darkMode-grayLight'>{`${currentNoOfChar} / ${maxNoOfChar}`}</div>
     </div>
   )
 }
