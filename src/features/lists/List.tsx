@@ -30,8 +30,6 @@ export default function List(props: Props) {
   const modalRef = useRef<HTMLDialogElement>(null)
 
   const onUpdateListName = () => {
-    if (!updatedListName) return
-
     setIsEdited(false)
     updateListName(userId, updatedListName, list)
       .then(() => {
@@ -71,7 +69,7 @@ export default function List(props: Props) {
               'group/listItem flex items-center justify-between px-3 hover:bg-accent dark:hover:bg-darkMode-gray rounded-lg globalTransition w-full mb-1'
             )}
           >
-            <MenuItem listKey={list.key}>{updatedListName}</MenuItem>
+            <MenuItem listKey={list.key}>{updatedListName !== '' ? updatedListName : <i>Enter list name</i>}</MenuItem>
             <div className='w-2/7 flex flex-row'>
               <IconButton
                 handleOnClick={() => setIsEdited(!isEdited)}
