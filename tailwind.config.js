@@ -32,15 +32,13 @@ export default {
         },
         lightMode: {
           text: '#444',
+
           appBg: '#eff0eb',
           white: '#fff',
         },
         accent: 'var(--accent)',
         accentDark: 'var(--accentDark)',
-        accentDarkMode: 'var(--accent)',
-        accentDarkModeHover: 'var(--accentDark)',
-        accentLightMode: 'var(--accentLightMode)',
-        accentLightModeHover: 'var(--accentLightModeHover)',
+        accentLightModeText: 'var(--accentLightModeText)',
       },
       height: {
         lists: 'calc(100vh - 200px)',

@@ -8,10 +8,7 @@
   :root {
     --accent: #c3ff00;
     --accentDark: #b6eb0c;
-    --accentDarkMode: #c3ff00;
-    --accentDarkModeHover: #b6eb0c;
-    --accentLightMode: #48ab90;
-    --accentLightModeHover: #2e806a;
+    --accentLightModeText: #667a23;
   }
 
   h1 {
@@ -44,11 +41,11 @@
 }
 
 .link {
-  @apply text-accentLightMode hover:text-accentLightModeHover dark:text-accentDarkMode dark:hover:text-accentDarkModeHover globalTransition;
+  @apply text-accentLightModeText hover:underline hover:underline-offset-4 hover:text-accentLightModeText dark:text-accent dark:hover:text-accentDark globalTransition;
 }
 
 .active {
-  @apply bg-accent dark:bg-gray;
+  @apply bg-accent dark:bg-gray dark:text-accent;
 }
 
 /* @layer components {
