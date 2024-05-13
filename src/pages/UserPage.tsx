@@ -40,7 +40,7 @@ export default function UserPage() {
       .then(() => {
         toast.success('Your account has been removed')
       })
-      .catch((error) => {
+      .catch(() => {
         // An error ocurred
         // ...
       })
