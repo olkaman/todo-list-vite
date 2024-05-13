@@ -24,7 +24,9 @@ export default function TodoPage() {
       .then((allTodos) => {
         loadTodosToCurrentList(allTodos ?? [])
       })
-      .catch(() => {})
+      .catch(() => {
+        toast.error('Something went wrong')
+      })
   }
 
   useEffect(() => {
@@ -42,9 +44,13 @@ export default function TodoPage() {
     }
 
     addTodoToCurrentList(newTodo)
-    saveNewTodo(userId, newTodo, listId).then(() => {
-      toast.success('To do item was added')
-    })
+    saveNewTodo(userId, newTodo, listId)
+      .then(() => {
+        toast.success(`Task ${newTaskName} was added`)
+      })
+      .catch(() => {
+        toast.error('Something went wrong')
+      })
     setNewTaskName('')
     fetchTodos()
   }

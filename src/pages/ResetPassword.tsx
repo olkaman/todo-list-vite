@@ -18,7 +18,7 @@ export default function ResetPassword() {
 
     sendPasswordResetEmail(auth, email)
       .then(() => {
-        toast.success('Password has been sent')
+        toast.success('Password has been sent to given email address')
         navigate('/reset-confirmation')
       })
       .catch((error) => {
@@ -26,6 +26,7 @@ export default function ResetPassword() {
         const errorMessage = error.message
         console.log(errorCode, errorMessage)
         // ..
+        toast.error('Password has been sent to given email address')
       })
   }
 

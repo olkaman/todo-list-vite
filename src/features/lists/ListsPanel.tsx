@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { useUserId } from '../../stores/userStore'
 import { ref, onValue } from 'firebase/database'
 import { database } from '../../../firebase'
+import { toast } from 'sonner'
 
 export default function ListsPanel() {
   const setListsInStore = useListsStore((state) => state.setLists)
@@ -26,14 +27,12 @@ export default function ListsPanel() {
       const listsWithId = Object.keys(snapshot.val()).map((listId, index) => {
         return { ...allLists[index], listId }
       })
-      console.log('aaa', listsWithId)
       setListsInStore(listsWithId)
     })
   }, [])
 
   useEffect(() => {
     if (!currentSelectedListId && lists.length > 0) {
-      console.log('fffffffuuuuuuuck')
       setCurrentSelectedListId(lists[0].key)
     }
   }, [lists])
@@ -45,10 +44,17 @@ export default function ListsPanel() {
       listId: '',
       listName: newListName,
     }
-
     addListToStore(newList)
-    saveNewList(userId, newList)
     setCurrentSelectedListId(newList.key)
+
+    saveNewList(userId, newList)
+      .then(() => {
+        toast.success(`List ${newListName} was added`)
+      })
+      .catch(() => {
+        toast.error('Something went wrong')
+      })
+
     navigate(`${newList.key}`)
     setNewListName('')
   }

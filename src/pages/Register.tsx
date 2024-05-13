@@ -4,6 +4,7 @@ import { auth } from '../../firebase'
 import AuthForm from '../features/auth/AuthForm'
 import { Link } from 'react-router-dom'
 import DarkModeButton from '../components/DarkModeButton'
+import { toast } from 'sonner'
 
 export default function Register() {
   const [email, setEmail] = useState<string>('')
@@ -17,11 +18,12 @@ export default function Register() {
     setEmail('')
     createUserWithEmailAndPassword(auth, email, password)
       .then((user) => {
-        console.log(user.user)
+        toast.success(`Your account for ${user.user.email} was succesfully created!`)
       })
       .catch((e) => {
         console.log(e.message, e.code)
         setError(e.message)
+        toast.error('Something went wrong')
         return
       })
   }

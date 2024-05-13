@@ -35,10 +35,10 @@ export default function List(props: Props) {
     setIsEdited(false)
     updateListName(userId, updatedListName, list)
       .then(() => {
-        toast.success('Event has been created')
+        toast.success(`List name was updated to ${updatedListName}`)
       })
-      .catch((error) => {
-        console.log(error)
+      .catch(() => {
+        toast.error('Something went wrong')
       })
   }
 
@@ -49,7 +49,14 @@ export default function List(props: Props) {
 
   const onRemoveList = () => {
     removeList(userId, list.listId)
+      .then(() => {
+        toast.success(`List ${list.listName} was deleted`)
+      })
+      .catch(() => {
+        toast.error('Something went wrong')
+      })
     removeCurrentList(list.key)
+
     navigate('/home')
     window.location.reload()
   }
@@ -61,7 +68,7 @@ export default function List(props: Props) {
           <div
             className={clsx(
               isSelected && 'active',
-              'group/listItem flex items-center justify-between px-3 hover:bg-accent dark:hover:bg-gray rounded-lg globalTransition w-full mb-1 '
+              'group/listItem flex items-center justify-between px-3 hover:bg-accent dark:hover:bg-gray rounded-lg globalTransition w-full mb-1'
             )}
           >
             <MenuItem listKey={list.key}>{updatedListName}</MenuItem>

@@ -30,5 +30,5 @@ export const updateTodo = async (userId: string, updatedTodo: TodoItemType, list
 
 export const removeTodo = (userId: string, todo: TodoItemType, listId: string) => {
   const dbRef = ref(database, `/lists/${userId}/${listId}/todos/${todo.id}`)
-  remove(dbRef)
+  return remove(dbRef)
 }

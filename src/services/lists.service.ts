@@ -9,16 +9,10 @@ export const updateListName = async (userId: string, newListName: string, list: 
 
 export const saveNewList = (userId: string, newList: TodoList) => {
   const newRef = push(ref(database, `/lists/${userId}/`))
-  set(newRef, newList)
-    .then(() => {
-      alert('list was saved')
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+  return set(newRef, newList)
 }
 
 export const removeList = (userId: string, listId: string) => {
   const dbRef = ref(database, `/lists/${userId}/${listId}`)
-  remove(dbRef)
+  return remove(dbRef)
 }

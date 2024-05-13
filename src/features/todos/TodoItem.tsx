@@ -11,6 +11,7 @@ import { useUserId } from '../../stores/userStore'
 import { iconSize, strokeWidth } from '../../utils/settings'
 import { Modal } from '../../components/Modal'
 import { ButtonStyleTypes } from '../../utils/globalTypes'
+import { toast } from 'sonner'
 
 type Props = {
   todo: TodoItemType
@@ -42,10 +43,10 @@ export default function TodoItem(props: Props) {
     updateTodoItemInCurrentList(updatedTodo)
     updateTodo(userId, updatedTodo, listId)
       .then(() => {
-        // alert('todos were saved');
+        toast.success(`Task was updated`)
       })
-      .catch((error) => {
-        console.log(error)
+      .catch(() => {
+        toast.error('Something went wrong')
       })
   }
 
@@ -56,6 +57,12 @@ export default function TodoItem(props: Props) {
 
   const removeTodos = () => {
     removeTodo(userId, todo, listId)
+      .then(() => {
+        toast.success(`Task ${todo.task} was removed`)
+      })
+      .catch(() => {
+        toast.error('Something went wrong')
+      })
     removeTodosFromCurrentList(todo.key)
   }
 
@@ -66,7 +73,7 @@ export default function TodoItem(props: Props) {
           isTaskEdited && 'dark:border dark:border-gray-dark dark:border-l-accent py-6',
           !isTaskEdited && 'py-4',
           isTaskReady && 'opacity-40 hover:opacity-100',
-          'group/todoItem card boxShadow rounded-lg w-full mb-5 px-6 flex flex-row items-center justify-between hover:scale-101 hover:shadow-2xl hover:border-l-accentDark hover:border-l-2 dark:hover:shadow-darkMode-grayDark globalTransition'
+          'group/todoItem card boxShadow hover:shadow-2xl rounded-lg w-full mb-5 px-6 flex flex-row items-center justify-between hover:scale-101 border-l-lightMode-white border-l-2 hover:border-l-2 hover:border-l-accentLightModeText dark:border-l-darkMode-gray dark:hover:border-l-accent dark:hover:shadow-darkMode-grayDark globalTransition'
         )}
       >
         {!isTaskEdited && <CustomCheckbox checked={todo?.checked || false} handleOnCheck={handleOnCheck} disabled={todo?.task === ''} />}
@@ -83,7 +90,12 @@ export default function TodoItem(props: Props) {
             <button
               onClick={() => setIsTaskEdited(!isTaskEdited)}
               disabled={todo?.checked}
-              className={clsx(isTaskReady && 'line-through', !isTaskReady && 'group-hover/todoItem:text-accent', 'text-left py-3 disabled:cursor-not-allowed')}
+              className={clsx(
+                isTaskReady && 'line-through',
+                !isTaskReady &&
+                  'group-hover/todoItem:text-accentLightModeText group-hover/todoItem:underline group-hover/todoItem:underline-offset-2 dark:group-hover/todoItem:text-accent',
+                'text-left py-3 disabled:cursor-not-allowed'
+              )}
             >
               {todo?.task !== '' ? todo?.task : <i>Enter task name</i>}
             </button>

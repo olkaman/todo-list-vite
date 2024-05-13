@@ -4,6 +4,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../firebase'
 import { Link } from 'react-router-dom'
 import DarkModeButton from '../components/DarkModeButton'
+import { toast } from 'sonner'
 
 export default function SignIn() {
   const [email, setEmail] = useState<string>('')
@@ -13,8 +14,8 @@ export default function SignIn() {
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
     signInWithEmailAndPassword(auth, email, password)
-      .then((result) => {
-        console.log(result)
+      .then(() => {
+        toast.success('You are in!')
       })
       .catch((error) => {
         const errorCode = error.code
@@ -23,6 +24,7 @@ export default function SignIn() {
         if (error.code === 'auth/invalid-credential') {
           setError('Invalid email or password')
         }
+        toast.error('Something went wrong')
       })
   }
 
