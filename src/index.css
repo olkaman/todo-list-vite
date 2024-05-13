@@ -37,7 +37,7 @@
 }
 
 .formField {
-  @apply border rounded p-3 border-gray-200 dark:border-gray-100/20 dark:bg-gray-dark focus:outline-none focus:ring-accent focus:ring-1;
+  @apply border rounded p-3 border-gray-200 dark:border-gray-100/20 dark:bg-darkMode-grayDark focus:outline-none focus:ring-accent focus:ring-1;
 }
 
 .link {
@@ -45,7 +45,7 @@
 }
 
 .active {
-  @apply bg-accent dark:bg-gray dark:text-accent;
+  @apply bg-accent dark:bg-darkMode-gray dark:text-accent;
 }
 
 /* @layer components {

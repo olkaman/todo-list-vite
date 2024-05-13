@@ -8,20 +8,6 @@ export default {
         sans: ['Inter', 'sans-serif'],
       },
       colors: {
-        textColor: {
-          darkMode: '#ebebeb',
-          DEFAULT: '#333',
-        },
-        bgColor: {
-          darkMode: '#373737',
-          DEFAULT: '#fff',
-          appBg: '#eff0eb',
-        },
-        gray: {
-          light: '#808080',
-          DEFAULT: '#373737',
-          dark: '#232323',
-        },
         darkMode: {
           text: '#ebebeb',
           placeholder: '#b8b8b8',
@@ -32,7 +18,6 @@ export default {
         },
         lightMode: {
           text: '#444',
-
           appBg: '#eff0eb',
           white: '#fff',
         },

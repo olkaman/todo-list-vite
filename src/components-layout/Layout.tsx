@@ -21,11 +21,11 @@ export default function Layout(props: Props) {
 
   return (
     <main className='flex flex-row'>
-      <section ref={ref} className='fixed top-0 left-0 z-20 p-3 bg-bgColor dark:bg-gray-dark shadow-xl dark:shadow-black dark:shadow-xl w-80 h-screen'>
+      <section ref={ref} className='fixed top-0 left-0 z-20 p-3 bg-lightMode-white dark:bg-darkMode-grayDark shadow-xl dark:shadow-black dark:shadow-xl w-80 h-screen'>
         {sidebar}
       </section>
       <div className='ml-80 w-full'>
-        <section className={clsx(isShadowVisible && 'shadow-md dark:shadow-lg', 'bg-bgColor-appBg dark:bg-gray sticky top-0 left-0 z-10')}>{header}</section>
+        <section className={clsx(isShadowVisible && 'shadow-md dark:shadow-lg', 'bg-lightMode-appBg dark:bg-darkMode-gray sticky top-0 left-0 z-10')}>{header}</section>
         <section className='py-6 px-20'>{content}</section>
       </div>
     </main>

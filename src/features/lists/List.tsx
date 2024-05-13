@@ -68,7 +68,7 @@ export default function List(props: Props) {
           <div
             className={clsx(
               isSelected && 'active',
-              'group/listItem flex items-center justify-between px-3 hover:bg-accent dark:hover:bg-gray rounded-lg globalTransition w-full mb-1'
+              'group/listItem flex items-center justify-between px-3 hover:bg-accent dark:hover:bg-darkMode-gray rounded-lg globalTransition w-full mb-1'
             )}
           >
             <MenuItem listKey={list.key}>{updatedListName}</MenuItem>
@@ -82,7 +82,7 @@ export default function List(props: Props) {
             </div>
           </div>
         ) : (
-          <div className='flex items-center justify-between p-3 bg-accent dark:bg-gray rounded-lg'>
+          <div className='flex items-center justify-between p-3 bg-accent dark:bg-darkMode-gray rounded-lg'>
             <EditTextForm isEdited={isEdited} setIsEdited={setIsEdited} onSubmit={onUpdateListName} name={updatedListName} setName={setUpdatedListName} />
           </div>
         )}
