@@ -17,7 +17,7 @@ export default function Button(props: Props) {
       onClick={handleOnClick}
       disabled={disabled}
       className={clsx(
-        styleType === ButtonStyleTypes.Primary && 'bg-accent text-lightMode-white',
+        styleType === ButtonStyleTypes.Primary && 'bg-accent text-lightMode-text',
         styleType === ButtonStyleTypes.Secondary && 'bg-none text-darkMode-gray hover:text-lightMode-white dark:hover:text-darkMode-gray',
         styleType === ButtonStyleTypes.Warning && 'bg-red-600 text-lightMode-white  dark:text-lightMode-white  hover:bg-red-700 dark:hover:bg-red-700',
         `${customStyles} globalTransition py-3 px-6 hover:bg-accentDark dark:text-darkMode-gray text-xs font-medium rounded uppercase disabled:bg-darkMode-grayLight disabled:opacity-60 disabled:cursor-not-allowed`

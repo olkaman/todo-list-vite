@@ -57,7 +57,7 @@ export default function TodoPage() {
 
   return (
     <section>
-      <AddNewForm onSubmit={onAddNewTodo} inputValue={newTaskName} setInputValue={setNewTaskName} />
+      <AddNewForm onSubmit={onAddNewTodo} inputValue={newTaskName} setInputValue={setNewTaskName} placeholder='Add new task' />
       <div className='text-center mb-4 px-4 py-2'>{`Ready tasks: ${readyTasksNumber} / ${totalTasksNumber}`}</div>
       {todos.map((todo) => {
         return <TodoItem key={todo.key} todo={todo} listId={listId} />
