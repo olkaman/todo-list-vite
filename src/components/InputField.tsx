@@ -21,15 +21,7 @@ export default function InputField(props: Props) {
 
   return (
     <>
-      <input
-        className={`${customStyles} border rounded p-3.5 pr-9 border-gray-200 dark:border-gray-100/20 dark:bg-gray-dark focus:outline-none focus:ring-accent focus:ring-1`}
-        value={inputValue}
-        onChange={handleOnEditTask}
-        placeholder={placeholder}
-        maxLength={counterMax}
-        id={id}
-        type={type}
-      />
+      <input className={`${customStyles} pr-9 formField`} value={inputValue} onChange={handleOnEditTask} placeholder={placeholder} maxLength={counterMax} id={id} type={type} />
       {hasCounter && <div className='absolute right-0 -bottom-5 text-xs text-darkMode-grayLight'>{`${currentNoOfChar} / ${counterMax}`}</div>}
     </>
   )
