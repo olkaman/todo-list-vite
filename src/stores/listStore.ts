@@ -29,20 +29,23 @@ const initialState = {
 }
 
 const useListsStore = create<State & Action, [['zustand/devtools', never]]>(
-  devtools((set) => ({
-    ...initialState,
-    setLists: (lists) => set(() => ({ lists }), false, 'Set lists'),
-    addList: (list) => set(addList(list), false, 'Add list'),
-    removeList: (listKey) => set(removeList(listKey), false, 'Remove list'),
-    setCurrentSelectedListId: (listId) => set(setCurrentSelectedListId(listId), false, 'Set current selected list id'),
-    addTodosToCurrentList: (todo) => set(addTodosToCurrentList(todo), false, 'Add todos to current list'),
-    loadTodosToCurrentList: (todos) => set(loadTodosToCurrentList(todos), false, 'Load todos to current list'),
-    updateTodoItemInCurrentList: (todo) => set(updateTodoItemInCurrentList(todo), false, 'Update todo in current list'),
-    removeTodosFromCurrentList: (todoKey) => set(removeTodosFromCurrentList(todoKey), false, 'Remove todo in current list'),
-    reset: () => {
-      set(initialState)
-    },
-  }))
+  devtools(
+    (set) => ({
+      ...initialState,
+      setLists: (lists) => set(() => ({ lists }), false, 'Set lists'),
+      addList: (list) => set(addList(list), false, 'Add list'),
+      removeList: (listKey) => set(removeList(listKey), false, 'Remove list'),
+      setCurrentSelectedListId: (listId) => set(setCurrentSelectedListId(listId), false, 'Set current selected list id'),
+      addTodosToCurrentList: (todo) => set(addTodosToCurrentList(todo), false, 'Add todos to current list'),
+      loadTodosToCurrentList: (todos) => set(loadTodosToCurrentList(todos), false, 'Load todos to current list'),
+      updateTodoItemInCurrentList: (todo) => set(updateTodoItemInCurrentList(todo), false, 'Update todo in current list'),
+      removeTodosFromCurrentList: (todoKey) => set(removeTodosFromCurrentList(todoKey), false, 'Remove todo in current list'),
+      reset: () => {
+        set(initialState)
+      },
+    }),
+    { name: 'list store' }
+  )
 )
 
 export const useLists = () => useListsStore((state) => state.lists)

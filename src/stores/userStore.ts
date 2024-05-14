@@ -25,16 +25,19 @@ const initialState = {
 }
 
 const useUserStore = create<State & Action, [['zustand/devtools', never]]>(
-  devtools((set) => ({
-    ...initialState,
-    setIsCurrentUser: (isCurrentUser) => set(() => ({ isCurrentUser }), false, 'Set is current user'),
-    setUserId: (id) => set(setUserId(id), false, 'Set user id'),
-    setUserEmail: (email) => set(setUserEmail(email), false, 'Set user email'),
-    setIsDarkModeOn: (isDarkModeOn) => set(setIsDarkModeOn(isDarkModeOn), false, 'Set is dark mode on'),
-    reset: () => {
-      set(initialState)
-    },
-  }))
+  devtools(
+    (set) => ({
+      ...initialState,
+      setIsCurrentUser: (isCurrentUser) => set(() => ({ isCurrentUser }), false, 'Set is current user'),
+      setUserId: (id) => set(setUserId(id), false, 'Set user id'),
+      setUserEmail: (email) => set(setUserEmail(email), false, 'Set user email'),
+      setIsDarkModeOn: (isDarkModeOn) => set(setIsDarkModeOn(isDarkModeOn), false, 'Set is dark mode on'),
+      reset: () => {
+        set(initialState)
+      },
+    }),
+    { name: 'user store' }
+  )
 )
 
 export const useUserEmail = () => useUserStore((state) => state.user.email)
