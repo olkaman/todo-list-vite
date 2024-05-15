@@ -48,8 +48,24 @@
   @apply hover:scale-115 hover:text-accentLightModeText dark:hover:text-accent;
 }
 
+.button {
+  @apply py-3 px-6 hover:bg-accentDark dark:text-darkMode-gray text-xs font-medium rounded uppercase disabled:bg-darkMode-grayLight disabled:opacity-60 disabled:cursor-not-allowed;
+}
+
 .active {
   @apply bg-accent dark:bg-darkMode-gray dark:text-accent;
+}
+
+.label {
+  @apply text-xs dark:text-darkMode-placeholder;
+}
+
+.h3 {
+  @apply font-semibold text-lg;
+}
+
+.h4 {
+  @apply font-semibold;
 }
 
 /* @layer components {

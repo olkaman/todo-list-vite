@@ -7,13 +7,15 @@ type Props = {
   handleOnConfirm: () => void
   children: ReactNode
   title: string
-  confirmButtonLabel: string
+  confirmButtonLabel?: string
+  cancelButtonLabel?: string
   disabled?: boolean
   buttonStyleType: ButtonStyleTypes
+  hasPrimaryButton?: boolean
 }
 
 export const Modal = forwardRef<HTMLDialogElement, Props>((props, ref) => {
-  const { handleOnCancel, handleOnConfirm, children, title, confirmButtonLabel, disabled, buttonStyleType } = props
+  const { handleOnCancel, handleOnConfirm, children, title, confirmButtonLabel, disabled, buttonStyleType, hasPrimaryButton = true, cancelButtonLabel = 'Cancel' } = props
 
   return (
     <dialog ref={ref} className='bg-black-300 p-6 rounded-lg w-[450px] backdrop:bg-black/60'>
@@ -21,11 +23,13 @@ export const Modal = forwardRef<HTMLDialogElement, Props>((props, ref) => {
       <p className='mb-8'>{children}</p>
       <div className='flex justify-end'>
         <Button styleType={ButtonStyleTypes.Secondary} handleOnClick={handleOnCancel} customStyles='mr-2'>
-          cancel
+          {cancelButtonLabel}
         </Button>
-        <Button styleType={buttonStyleType} handleOnClick={handleOnConfirm} disabled={disabled}>
-          {confirmButtonLabel}
-        </Button>
+        {hasPrimaryButton && (
+          <Button styleType={buttonStyleType} handleOnClick={handleOnConfirm} disabled={disabled}>
+            {confirmButtonLabel || ''}
+          </Button>
+        )}
       </div>
     </dialog>
   )

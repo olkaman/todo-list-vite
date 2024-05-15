@@ -18,12 +18,12 @@ export default function AuthForm(props: Props) {
 
   return (
     <form onSubmit={onSubmit} className='flex flex-col text-left   min-w-96'>
-      <label htmlFor='email' className='text-xs dark:text-darkMode-placeholder'>
+      <label htmlFor='email' className='label'>
         *Email
       </label>
       <InputField type='email' hasCounter={false} inputValue={email} setInputValue={setEmail} id='email' customStyles='mb-4' placeholder='E-mail address' />
 
-      <label htmlFor='password' className='text-xs dark:text-darkMode-placeholder'>
+      <label htmlFor='password' className='label'>
         *Password
       </label>
       <InputField type='password' hasCounter={false} inputValue={password} setInputValue={setPassword} id='password' customStyles='mb-8' placeholder='Password' />
