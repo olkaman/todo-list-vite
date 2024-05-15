@@ -40,7 +40,7 @@ export default function ResetPassword() {
         <p>Enter registered e-mail address. We will send you a link where you can create a new password for your account</p>
         <form onSubmit={handleResetPassword} className='flex flex-row mt-6 mb-8'>
           <InputField type='email' hasCounter={false} inputValue={email} setInputValue={setEmail} customStyles='w-full' placeholder='Enter e-mail address' />
-          <IconButton icon={<SendHorizontal strokeWidth={strokeWidth} size={iconSize} />} />
+          <IconButton icon={<SendHorizontal strokeWidth={strokeWidth} size={iconSize} />} customStyles='ml-3' />
         </form>
         <aside>
           <Link className='link' to={'/'}>

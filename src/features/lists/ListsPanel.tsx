@@ -49,7 +49,7 @@ export default function ListsPanel() {
 
     saveNewList(userId, newList)
       .then(() => {
-        toast.success(`List ${newListName} was added`)
+        toast.success(`List <strong>'${newListName}'</strong> was added`)
       })
       .catch(() => {
         toast.error('Something went wrong')

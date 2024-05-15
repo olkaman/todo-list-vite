@@ -17,7 +17,7 @@ export default function Header() {
         <Link to='../user-page' className='link'>
           {userEmail}
         </Link>
-        <IconButton icon={<LogOut strokeWidth={strokeWidth} size={iconSize} />} handleOnClick={() => signOut(auth)} customStyles='boxShadow card p-2 rounded-lg' />
+        <IconButton icon={<LogOut strokeWidth={strokeWidth} size={iconSize} />} handleOnClick={() => signOut(auth)} customStyles='boxShadow card p-2 rounded-lg ml-6' />
       </div>
     </header>
   )

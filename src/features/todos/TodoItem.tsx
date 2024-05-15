@@ -58,7 +58,7 @@ export default function TodoItem(props: Props) {
   const removeTodos = () => {
     removeTodo(userId, todo, listId)
       .then(() => {
-        toast.success(`Task ${todo.task} was removed`)
+        toast.success(`Task <strong>'${todo.task}'</strong> was removed`)
       })
       .catch(() => {
         toast.error('Something went wrong')
@@ -73,7 +73,7 @@ export default function TodoItem(props: Props) {
           isTaskEdited && 'dark:border dark:border-gray-dark dark:border-l-accent py-6',
           !isTaskEdited && 'py-4',
           isTaskReady && 'opacity-40 hover:opacity-100',
-          'group/todoItem card boxShadow hover:shadow-2xl rounded-lg w-full mb-5 px-6 flex flex-row items-center justify-between hover:scale-101 border-l-lightMode-white border-l-2  hover:border-l-2 hover:border-l-accentLightModeText dark:border-l-darkMode-gray dark:hover:border-l-accent dark:hover:shadow-darkMode-grayDark globalTransition'
+          'group/todoItem card boxShadow hover:shadow-2xl rounded-lg w-full mb-5 px-6 flex flex-row items-center justify-between hover:scale-101 border-l-lightMode-white border-l-2 hover:border-l-2 hover:border-l-accent dark:border-l-darkMode-gray dark:hover:border-l-accent dark:hover:shadow-darkMode-grayDark globalTransition'
         )}
       >
         {!isTaskEdited && <CustomCheckbox checked={todo?.checked || false} handleOnCheck={handleOnCheck} disabled={todo?.task === ''} />}
@@ -81,8 +81,8 @@ export default function TodoItem(props: Props) {
           <div className='w-full flex flex-row items-center justify-between'>
             <TextAreaField inputValue={inputValue} placeholder='Edit task name' className={todo.key} setInputValue={setInputValue} />
             <div className='flex flex-row items-center'>
-              <IconButton handleOnClick={handleOnSave} icon={<Check strokeWidth={strokeWidth} size={iconSize} />} />
-              <IconButton handleOnClick={() => setIsTaskEdited(!isTaskEdited)} icon={<X strokeWidth={strokeWidth} size={iconSize} />} />
+              <IconButton handleOnClick={handleOnSave} icon={<Check strokeWidth={strokeWidth} size={iconSize} />} customStyles='ml-3' />
+              <IconButton handleOnClick={() => setIsTaskEdited(!isTaskEdited)} icon={<X strokeWidth={strokeWidth} size={iconSize} />} customStyles='ml-3' />
             </div>
           </div>
         ) : (
@@ -100,8 +100,8 @@ export default function TodoItem(props: Props) {
               {todo?.task !== '' ? todo?.task : <i>Enter task name</i>}
             </button>
             <div className='flex items-center'>
-              <p className='text-xs'>{new Date(todo?.date || '').toLocaleString()}</p>
-              <IconButton handleOnClick={onOpenModal} icon={<Trash strokeWidth={strokeWidth} size={iconSize} />} />
+              <p className='text-xs text-right'>{new Date(todo?.date || '').toLocaleString()}</p>
+              <IconButton handleOnClick={onOpenModal} icon={<Trash strokeWidth={strokeWidth} size={iconSize} />} customStyles='ml-3' />
             </div>
           </div>
         )}
