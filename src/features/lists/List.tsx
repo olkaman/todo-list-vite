@@ -23,17 +23,20 @@ export default function List(props: Props) {
   const [isEdited, setIsEdited] = useState<boolean>(false)
   const [updatedListName, setUpdatedListName] = useState(list.listName)
   const removeCurrentList = useListsStore((state) => state.removeList)
+  const lists = useListsStore((state) => state.lists)
   const currentSelectedList = useListsStore((state) => state.currentSelectedListId)
+  const setCurrentSelectedListId = useListsStore((state) => state.setCurrentSelectedListId)
   const isSelected = currentSelectedList === list.key
   const navigate = useNavigate()
   const userId = useUserId()
   const modalRef = useRef<HTMLDialogElement>(null)
+  console.log(isSelected)
 
   const onUpdateListName = () => {
     setIsEdited(false)
     updateListName(userId, updatedListName, list)
       .then(() => {
-        toast.success(`List name was updated to ${updatedListName}`)
+        toast.success(`List name was changed to <strong>'${updatedListName}'</strong>`)
       })
       .catch(() => {
         toast.error('Something went wrong')
@@ -48,7 +51,7 @@ export default function List(props: Props) {
   const onRemoveList = () => {
     removeList(userId, list.listId)
       .then(() => {
-        toast.success(`List ${list.listName} was deleted`)
+        toast.success(`List <strong>'${list.listName}'</strong> was deleted`)
       })
       .catch(() => {
         toast.error('Something went wrong')
@@ -56,7 +59,9 @@ export default function List(props: Props) {
     removeCurrentList(list.key)
 
     navigate('/home')
-    window.location.reload()
+    if (lists.length > 0) {
+      setCurrentSelectedListId(lists[0].key)
+    }
   }
 
   return (
@@ -74,9 +79,9 @@ export default function List(props: Props) {
               <IconButton
                 handleOnClick={() => setIsEdited(!isEdited)}
                 icon={<Pencil strokeWidth={strokeWidth} size={iconSize} />}
-                customStyles='hidden group-hover/listItem:block'
+                customStyles='ml-2 hidden group-hover/listItem:block'
               />
-              <IconButton handleOnClick={onOpenModal} icon={<Trash strokeWidth={strokeWidth} size={iconSize} />} customStyles='hidden group-hover/listItem:block' />
+              <IconButton handleOnClick={onOpenModal} icon={<Trash strokeWidth={strokeWidth} size={iconSize} />} customStyles='ml-3 hidden group-hover/listItem:block' />
             </div>
           </div>
         ) : (
