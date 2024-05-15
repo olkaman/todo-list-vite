@@ -21,6 +21,10 @@ export default {
           appBg: '#eff0eb',
           white: '#fff',
         },
+        warning: {
+          DEFAULT: '#f53f0c',
+          dark: '#c9370e',
+        },
         accent: 'var(--accent)',
         accentDark: 'var(--accentDark)',
         accentLightModeText: 'var(--accentLightModeText)',
@@ -30,6 +34,7 @@ export default {
       },
       scale: {
         101: '1.01',
+        115: '1.15',
       },
     },
   },
