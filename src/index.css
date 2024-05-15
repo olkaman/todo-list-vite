@@ -44,6 +44,10 @@
   @apply text-accentLightModeText hover:underline hover:underline-offset-4 hover:text-accentLightModeText dark:text-accent dark:hover:text-accentDark globalTransition;
 }
 
+.iconButton {
+  @apply hover:scale-115 hover:text-accentLightModeText dark:hover:text-accent;
+}
+
 .active {
   @apply bg-accent dark:bg-darkMode-gray dark:text-accent;
 }

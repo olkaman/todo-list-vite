@@ -9,7 +9,7 @@ type Props = {
 function IconButton(props: Props) {
   const { handleOnClick, icon, customStyles } = props
   return (
-    <button onClick={handleOnClick} className={`${customStyles} ml-3 hover:text-accent hover:bg-darkMode-appBg hover:shadow-xl globalTransition`}>
+    <button onClick={handleOnClick} className={`${customStyles} iconButton globalTransition`}>
       {icon}
     </button>
   )
