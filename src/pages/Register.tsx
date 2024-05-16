@@ -5,26 +5,28 @@ import AuthForm from '../features/auth/AuthForm'
 import { Link } from 'react-router-dom'
 import DarkModeButton from '../components/DarkModeButton'
 import { toast } from 'sonner'
+import { getAuthErrors } from '../utils/getAuthErrors'
+import { FirebaseError } from 'firebase/app'
 
 export default function Register() {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
-  const [error, setError] = useState('')
 
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     if (!email || !password) return
     e.preventDefault()
-    setPassword('')
-    setEmail('')
+
     createUserWithEmailAndPassword(auth, email, password)
       .then((user) => {
         toast.success(`Your account for ${user.user.email} was succesfully created!`)
       })
-      .catch((e) => {
-        console.log(e.message, e.code)
-        setError(e.message)
-        toast.error('Something went wrong')
-        return
+      .catch((error: FirebaseError) => {
+        console.log(error.code)
+        getAuthErrors(error.code)
+      })
+      .finally(() => {
+        setPassword('')
+        setEmail('')
       })
   }
 
@@ -44,7 +46,6 @@ export default function Register() {
           setPassword={setPassword}
           disabled={email === '' || password === ''}
         />
-        <div>{error}</div>
         <div className='mt-6'>
           Already have account?{' '}
           <Link to='/' className='link'>
