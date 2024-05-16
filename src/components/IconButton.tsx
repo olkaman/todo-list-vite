@@ -1,15 +1,16 @@
-import { ReactElement } from 'react'
+import { ReactNode } from 'react'
 
 type Props = {
   handleOnClick?: () => void
-  icon: ReactElement
+  icon: ReactNode
   customStyles?: string
+  type?: 'button' | 'submit'
 }
 
 function IconButton(props: Props) {
-  const { handleOnClick, icon, customStyles } = props
+  const { handleOnClick, icon, customStyles, type } = props
   return (
-    <button onClick={handleOnClick} className={`${customStyles} iconButton globalTransition`}>
+    <button type={type} onClick={handleOnClick} className={`${customStyles} iconButton globalTransition`}>
       {icon}
     </button>
   )

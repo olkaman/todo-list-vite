@@ -39,7 +39,7 @@ export default function RemoveAccount() {
   }
   return (
     <>
-      <h3 className='h3 my-5'>Remove your account</h3>
+      <h3 className='h3 my-5'>Remove your account:</h3>
       <Button styleType={ButtonStyleTypes.Secondary} handleOnClick={onOpenModal}>
         Remove account
       </Button>

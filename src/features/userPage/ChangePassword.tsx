@@ -5,6 +5,10 @@ import { ButtonStyleTypes } from '../../utils/globalTypes'
 import { getAuth, updatePassword } from 'firebase/auth'
 import { toast } from 'sonner'
 import { Modal } from '../../components/Modal'
+import { getAuthErrors } from '../../utils/getAuthErrors'
+import { FirebaseError } from 'firebase/app'
+import { EyeOff, Eye } from 'lucide-react'
+import { strokeWidth, iconSize } from '../../utils/settings'
 
 export default function ChangePassword() {
   const [newPassword, setNewPassword] = useState('')
@@ -12,6 +16,7 @@ export default function ChangePassword() {
   const auth = getAuth()
   const user = auth.currentUser
   const modalRef = useRef<HTMLDialogElement>(null)
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
   const resetPassword = () => {
     if (!user) return
@@ -19,11 +24,14 @@ export default function ChangePassword() {
     updatePassword(user, newPassword)
       .then(() => {
         toast.success(`Yor password was updated`)
+      })
+      .catch((error: FirebaseError) => {
+        console.log(error, error.message, error.code)
+        getAuthErrors(error.code)
+      })
+      .finally(() => {
         setNewPassword('')
         setRepeatedPassword('')
-      })
-      .catch(() => {
-        toast.error(`Something went wrong`)
       })
   }
 
@@ -34,7 +42,7 @@ export default function ChangePassword() {
 
   return (
     <>
-      <section className='border-t border-b py-5 border-t-gray-200 dark:border-t-gray-100/20 mt-6'>
+      <section className='border-t border-b pb-8 pt-5 border-t-gray-200 dark:border-t-gray-100/20 mt-6'>
         <h4 className='h3 mb-3'>Change your password:</h4>
         <div className='flex flex-col mb-3 max-w-96'>
           <label htmlFor='password1' className='label'>
@@ -46,9 +54,22 @@ export default function ChangePassword() {
           <label htmlFor='password2' className='label'>
             Repeat password
           </label>
-          <InputField inputValue={repeatedPassword} setInputValue={setRepeatedPassword} type='password' id='password2' placeholder='Enter password again' />
+          <InputField
+            inputValue={repeatedPassword}
+            setInputValue={setRepeatedPassword}
+            type={isPasswordVisible ? 'text' : 'password'}
+            id='password2'
+            placeholder='Enter password again'
+            hasActionIcon
+            actionIcon={isPasswordVisible ? <EyeOff strokeWidth={strokeWidth} size={iconSize} /> : <Eye strokeWidth={strokeWidth} size={iconSize} />}
+            handleOnClickActionIcon={() => setIsPasswordVisible(!isPasswordVisible)}
+          />
         </div>
-        <Button styleType={ButtonStyleTypes.Primary} handleOnClick={newPassword === repeatedPassword && newPassword !== '' ? resetPassword : onOpenModal}>
+        <Button
+          styleType={ButtonStyleTypes.Primary}
+          handleOnClick={newPassword === repeatedPassword ? resetPassword : onOpenModal}
+          disabled={newPassword === '' || repeatedPassword === ''}
+        >
           Reset password
         </Button>
       </section>
@@ -61,7 +82,7 @@ export default function ChangePassword() {
         hasPrimaryButton={false}
         cancelButtonLabel='OK'
       >
-        Entered passwords are not equal or are not provided. Please enter proper passwords and try again
+        Entered passwords are not equal. Please enter proper passwords and try again
       </Modal>
     </>
   )
