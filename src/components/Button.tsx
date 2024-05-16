@@ -18,7 +18,8 @@ export default function Button(props: Props) {
       disabled={disabled}
       className={clsx(
         styleType === ButtonStyleTypes.Primary && 'bg-accent text-lightMode-text',
-        styleType === ButtonStyleTypes.Secondary && 'bg-none border border-gray-200 dark:border-gray-100/20 text-darkMode-gray hover:text-darkMode-gray hover:bg-accent',
+        styleType === ButtonStyleTypes.Secondary &&
+          'bg-none border border-gray-200 dark:border-gray-100/20 text-darkMode-gray dark:text-darkMode-text hover:text-darkMode-gray hover:bg-accent',
         styleType === ButtonStyleTypes.Warning && 'bg-warning text-lightMode-white  dark:text-lightMode-white  hover:bg-warning-dark',
         `${customStyles} globalTransition button`
       )}
