@@ -50,6 +50,17 @@ const useListsStore = create<State & Action, [['zustand/devtools', never]]>(
 
 export const useLists = () => useListsStore((state) => state.lists)
 
+export const useListByKey = (listKey: string) =>
+  useListsStore((state) => {
+    const list = state.lists.find((list) => list.key === listKey)
+
+    if (!list) {
+      throw new Error(`The list with key ${listKey} was not found`)
+    }
+
+    return list
+  })
+
 export const useListIdByKey = (listKey: string) =>
   useListsStore((state) => {
     const list = state.lists.find((list) => list.key === listKey)

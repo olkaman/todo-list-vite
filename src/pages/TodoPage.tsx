@@ -7,6 +7,7 @@ import useListsStore, { useCurrentListTodos, useListIdByKey } from '../stores/li
 import { fetchAllTodos, saveNewTodo } from '../services/todos.service'
 import { useUserId } from '../stores/userStore'
 import { toast } from 'sonner'
+import Counter from '../features/todos/Counter'
 
 export default function TodoPage() {
   const todos = useCurrentListTodos()
@@ -16,8 +17,6 @@ export default function TodoPage() {
   const loadTodosToCurrentList = useListsStore((state) => state.loadTodosToCurrentList)
   const [newTaskName, setNewTaskName] = useState('')
   const userId = useUserId()
-  const readyTasksNumber = todos.filter((todo) => todo.checked).length
-  const totalTasksNumber = todos.length
 
   const fetchTodos = () => {
     fetchAllTodos(userId, listId)
@@ -51,6 +50,7 @@ export default function TodoPage() {
       .catch(() => {
         toast.error('Something went wrong')
       })
+
     setNewTaskName('')
     fetchTodos()
   }
@@ -58,7 +58,7 @@ export default function TodoPage() {
   return (
     <section>
       <AddNewForm onSubmit={onAddNewTodo} inputValue={newTaskName} setInputValue={setNewTaskName} placeholder='Add new task' counterMax={200} />
-      <div className='text-center mb-4 px-4 py-2'>{`Ready tasks: ${readyTasksNumber} / ${totalTasksNumber}`}</div>
+      <Counter listKey={listKey} />
       {todos.map((todo) => {
         return <TodoItem key={todo.key} todo={todo} listId={listId} />
       })}
