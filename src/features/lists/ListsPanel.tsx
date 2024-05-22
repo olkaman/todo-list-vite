@@ -5,10 +5,12 @@ import { saveNewList } from '../../services/lists.service'
 import List from './List'
 import useListsStore from '../../stores/listStore'
 import { useNavigate } from 'react-router-dom'
-import { useUserId } from '../../stores/userStore'
+import { useIsDarkModeOn, useUserId } from '../../stores/userStore'
 import { ref, onValue } from 'firebase/database'
 import { database } from '../../../firebase'
 import { toast } from 'sonner'
+import myTodosLight from '../../assets/myTodosLight.svg'
+import myTodosDark from '../../assets/myTodosDark.svg'
 
 export default function ListsPanel() {
   const setListsInStore = useListsStore((state) => state.setLists)
@@ -19,6 +21,7 @@ export default function ListsPanel() {
   const [newListName, setNewListName] = useState('')
   const navigate = useNavigate()
   const userId = useUserId()
+  const isDarkMode = useIsDarkModeOn()
 
   useEffect(() => {
     const dataRef = ref(database, `/lists/${userId}`)
@@ -61,7 +64,7 @@ export default function ListsPanel() {
 
   return (
     <>
-      <h2>Todos</h2>
+      <img src={isDarkMode ? myTodosDark : myTodosLight} className='w-48 mt-4 mb-8 ml-3' />
       <AddNewList onSubmit={addNewList} inputValue={newListName} setInputValue={setNewListName} placeholder='Add new list name' counterMax={50} />
       <nav className='overflow-auto h-lists mt-12'>
         {lists.map((list: TodoList) => {
