@@ -57,9 +57,10 @@ function App() {
             unstyled: true,
             duration: 2000,
             classNames: {
-              toast: 'border-l-accent px-6 py-4 rounded-md border-l-2 min-w-80 flex items-center shadow-xl',
+              toast: 'px-6 py-4 border-0 rounded-md border-l-2 min-w-80 flex items-center shadow-xl',
               title: clsx(isDarkMode ? 'text-darkMode-text' : 'text-lightMode-text', 'font-sans font-normal ml-3'),
-              success: clsx(isDarkMode ? 'bg-darkMode-grayDark' : 'bg-lightMode-white', 'border-0 rounded'),
+              success: clsx(isDarkMode ? 'bg-darkMode-grayDark' : 'bg-lightMode-white', 'border-l-accent'),
+              error: clsx(isDarkMode ? 'bg-darkMode-grayDark' : 'bg-lightMode-white', 'border-l-warning'),
             },
           }}
         />
