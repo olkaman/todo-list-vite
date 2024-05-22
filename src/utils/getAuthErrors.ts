@@ -6,8 +6,8 @@ export const getAuthErrors = (errorCode: string) => {
   switch (errorCode) {
     case 'auth/requires-recent-login':
       signOut(auth)
-      return toast.error(`You have been logged in for long time. For security reasons, sign in again and then change your password`, {
-        duration: 8000,
+      return toast.error(`You have been logged out. Due to security reasons, please sign in again and then change your password`, {
+        duration: 9000,
       })
 
     case 'auth/weak-password':
