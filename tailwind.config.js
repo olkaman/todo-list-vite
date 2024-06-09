@@ -20,6 +20,7 @@ export default {
           text: '#444',
           appBg: '#eff0eb',
           white: '#fff',
+          placeholder: '#5a5a5a',
         },
         warning: {
           DEFAULT: '#f53f0c',
@@ -30,7 +31,8 @@ export default {
         accentLightModeText: 'var(--accentLightModeText)',
       },
       height: {
-        lists: 'calc(100vh - 200px)',
+        lists: 'calc(100vh - 220px)',
+        todos: 'calc(100vh - 260px)',
       },
       scale: {
         101: '1.01',

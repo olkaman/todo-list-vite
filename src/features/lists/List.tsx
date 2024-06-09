@@ -61,6 +61,8 @@ export default function List(props: Props) {
     navigate('/home')
     if (lists.length > 0) {
       setCurrentSelectedListId(lists[0].key)
+    } else {
+      setCurrentSelectedListId('')
     }
   }
 
