@@ -21,7 +21,6 @@ export default function Register() {
         toast.success(`Your account for ${user.user.email} was succesfully created!`)
       })
       .catch((error: FirebaseError) => {
-        console.log(error.code)
         getAuthErrors(error.code)
       })
       .finally(() => {

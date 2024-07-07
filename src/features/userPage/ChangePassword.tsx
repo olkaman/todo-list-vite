@@ -26,7 +26,6 @@ export default function ChangePassword() {
         toast.success(`Yor password was updated`)
       })
       .catch((error: FirebaseError) => {
-        console.log(error, error.message, error.code)
         getAuthErrors(error.code)
       })
       .finally(() => {

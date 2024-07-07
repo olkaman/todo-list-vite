@@ -43,6 +43,7 @@ export default function TodoItem(props: Props) {
     updateTodoItemInCurrentList(updatedTodo)
     updateTodo(userId, updatedTodo, listId)
       .then(() => {
+        console.log('updatedTodo', updatedTodo)
         toast.success(`Task was updated`)
       })
       .catch(() => {

@@ -18,8 +18,6 @@ export default function TodoPage() {
   const loadTodosToCurrentList = useListsStore((state) => state.loadTodosToCurrentList)
   const [newTaskName, setNewTaskName] = useState('')
   const userId = useUserId()
-  const lists = useLists()
-  console.log(lists)
 
   const fetchTodos = () => {
     fetchAllTodos(userId, listId)

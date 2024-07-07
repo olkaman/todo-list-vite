@@ -30,7 +30,6 @@ export default function List(props: Props) {
   const navigate = useNavigate()
   const userId = useUserId()
   const modalRef = useRef<HTMLDialogElement>(null)
-  console.log(isSelected)
 
   const onUpdateListName = () => {
     setIsEdited(false)
