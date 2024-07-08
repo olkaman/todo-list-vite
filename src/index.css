@@ -11,6 +11,10 @@
     --accentLightModeText: #667a23;
   }
 
+  body {
+    @apply bg-lightMode-appBg dark:bg-darkMode-appBg text-lightMode-text dark:text-darkMode-text text-sm font-normal dark:font-light;
+  }
+
   h1 {
     @apply text-2xl;
   }
@@ -68,6 +72,9 @@
   @apply font-semibold;
 }
 
+.todo {
+  @apply card boxShadow hover:shadow-2xl rounded-lg w-full mb-5 flex flex-row items-center justify-between hover:scale-101 border-l-lightMode-white border-l-2 hover:border-l-2 hover:border-l-accent dark:border-l-darkMode-gray dark:hover:border-l-accent dark:hover:shadow-darkMode-grayDark globalTransition touch-none;
+}
 /* @layer components {
   .iconButton {
     @apply bg-bgColor p-2 rounded-lg transition ease-in-out duration-700 hover:text-accent hover:bg-bgColor-darkMode hover:shadow-xl;

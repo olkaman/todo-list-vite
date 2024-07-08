@@ -12,6 +12,10 @@ import { iconSize, strokeWidth } from '../../utils/settings'
 import { Modal } from '../../components/Modal'
 import { ButtonStyleTypes } from '../../utils/globalTypes'
 import { toast } from 'sonner'
+import { useSortable } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
+import EditTaskButton from './EditTaskButton'
+import DragIcon from './DragIcon'
 
 type Props = {
   todo: TodoItemType
@@ -29,6 +33,8 @@ export default function TodoItem(props: Props) {
   const isTaskReady = todo.checked
   const modalRef = useRef<HTMLDialogElement>(null)
 
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: todo.id })
+
   const handleOnSave = () => {
     setIsTaskEdited(!isTaskEdited)
     editTaskValue({ ...todo, task: inputValue.trim() })
@@ -42,13 +48,8 @@ export default function TodoItem(props: Props) {
   const editTaskValue = (updatedTodo: TodoItemType) => {
     updateTodoItemInCurrentList(updatedTodo)
     updateTodo(userId, updatedTodo, listId)
-      .then(() => {
-        console.log('updatedTodo', updatedTodo)
-        toast.success(`Task was updated`)
-      })
-      .catch(() => {
-        toast.error('Something went wrong')
-      })
+      .then(() => toast.success(`Task was updated`))
+      .catch(() => toast.error('Something went wrong'))
   }
 
   const onOpenModal = () => {
@@ -58,54 +59,48 @@ export default function TodoItem(props: Props) {
 
   const removeTodos = () => {
     removeTodo(userId, todo, listId)
-      .then(() => {
-        toast.success(`Task <strong>'${todo.task}'</strong> was removed`)
-      })
-      .catch(() => {
-        toast.error('Something went wrong')
-      })
+      .then(() => toast.success(`Task <strong>'${todo.task}'</strong> was removed`))
+      .catch(() => toast.error('Something went wrong'))
     removeTodosFromCurrentList(todo.key)
+  }
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  }
+
+  if (isTaskEdited) {
+    return (
+      <div ref={setNodeRef} style={style} className='group/todoItem todo dark:border dark:border-gray-dark dark:border-l-accent py-6 pl-3 pr-6'>
+        <div className='w-full flex flex-row items-center justify-between'>
+          <DragIcon attributes={{ ...attributes }} listeners={{ ...listeners }} />
+          <TextAreaField inputValue={inputValue} placeholder='Edit task name' className={todo.key} setInputValue={setInputValue} />
+          <div className='flex flex-row items-center'>
+            <IconButton handleOnClick={handleOnSave} icon={<Check strokeWidth={strokeWidth} size={iconSize} />} customStyles='ml-3' />
+            <IconButton handleOnClick={() => setIsTaskEdited(!isTaskEdited)} icon={<X strokeWidth={strokeWidth} size={iconSize} />} customStyles='ml-3' />
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
     <>
-      <div
-        className={clsx(
-          isTaskEdited && 'dark:border dark:border-gray-dark dark:border-l-accent py-6',
-          !isTaskEdited && 'py-4',
-          isTaskReady && 'opacity-40 hover:opacity-100',
-          'group/todoItem card boxShadow hover:shadow-2xl rounded-lg w-full mb-5 px-6 flex flex-row items-center justify-between hover:scale-101 border-l-lightMode-white border-l-2 hover:border-l-2 hover:border-l-accent dark:border-l-darkMode-gray dark:hover:border-l-accent dark:hover:shadow-darkMode-grayDark globalTransition'
-        )}
-      >
-        {!isTaskEdited && <CustomCheckbox checked={todo?.checked || false} handleOnCheck={handleOnCheck} disabled={todo?.task === ''} />}
-        {isTaskEdited ? (
-          <div className='w-full flex flex-row items-center justify-between'>
-            <TextAreaField inputValue={inputValue} placeholder='Edit task name' className={todo.key} setInputValue={setInputValue} />
-            <div className='flex flex-row items-center'>
-              <IconButton handleOnClick={handleOnSave} icon={<Check strokeWidth={strokeWidth} size={iconSize} />} customStyles='ml-3' />
-              <IconButton handleOnClick={() => setIsTaskEdited(!isTaskEdited)} icon={<X strokeWidth={strokeWidth} size={iconSize} />} customStyles='ml-3' />
-            </div>
-          </div>
-        ) : (
-          <div className='flex flex-row justify-between items-center w-full'>
-            <button
-              onClick={() => setIsTaskEdited(!isTaskEdited)}
-              disabled={todo?.checked}
-              className={clsx(
-                isTaskReady && 'line-through ',
-                !isTaskReady &&
-                  'break-words w-full max-w-[800px] group-hover/todoItem:text-accentLightModeText group-hover/todoItem:underline group-hover/todoItem:underline-offset-2 dark:group-hover/todoItem:text-accent',
-                'text-left py-3 disabled:cursor-not-allowed break-words pr-6'
-              )}
-            >
+      <div ref={setNodeRef} style={style} className={clsx(' todo py-4 pl-3 pr-6', isTaskReady && 'opacity-40 hover:opacity-100', 'group/todoItem')}>
+        <div className='flex flex-row justify-between items-center w-full'>
+          <div className='flex justify-start items-center'>
+            <DragIcon attributes={{ ...attributes }} listeners={{ ...listeners }} />
+            <CustomCheckbox checked={todo?.checked || false} handleOnCheck={handleOnCheck} disabled={todo?.task === ''} />
+            <EditTaskButton todoChecked={todo?.checked} setIsTaskEdited={setIsTaskEdited} isTaskEdited={isTaskEdited} isTaskReady={isTaskReady}>
               {todo?.task !== '' ? todo?.task : <i>Enter task name</i>}
-            </button>
-            <div className='flex items-center'>
-              <p className='text-xs text-right'>{new Date(todo?.date || '').toLocaleString()}</p>
-              <IconButton handleOnClick={onOpenModal} icon={<Trash strokeWidth={strokeWidth} size={iconSize} />} customStyles='ml-3' />
-            </div>
+            </EditTaskButton>
           </div>
-        )}
+
+          <div className='flex items-center'>
+            <p className='text-xs text-right'>{new Date(todo?.date || '').toLocaleString()}</p>
+            <IconButton handleOnClick={onOpenModal} icon={<Trash strokeWidth={strokeWidth} size={iconSize} />} customStyles='ml-3' />
+          </div>
+        </div>
       </div>
       <Modal
         buttonStyleType={ButtonStyleTypes.Primary}
