@@ -14,6 +14,7 @@ import UserPage from './pages/UserPage'
 import { Toaster } from 'sonner'
 import clsx from 'clsx'
 import { CircleCheck, CircleX } from 'lucide-react'
+import Board from './pages/Board'
 
 function App() {
   const isCurrentUser = useUserStore((state) => state.isCurrentUser)
@@ -23,7 +24,8 @@ function App() {
     <AuthContainer>
       <>
         <Routes>
-          <Route path='/' element={<SignIn />} />
+          <Route path='/' element={<Board />} />
+          <Route path='reset-password' element={<Board />} />
           <Route path='register' element={<Register />} />
           <Route path='reset-password' element={<ResetPassword />} />
           <Route path='reset-confirmation' element={<ResetConfirm />} />
