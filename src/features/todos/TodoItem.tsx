@@ -71,8 +71,8 @@ export default function TodoItem(props: Props) {
 
   if (isTaskEdited) {
     return (
-      <div ref={setNodeRef} style={style} className='group/todoItem todo dark:border dark:border-gray-dark dark:border-l-accent py-6 pl-3 pr-6'>
-        <div className='w-full flex flex-row items-center justify-between'>
+      <div ref={setNodeRef} style={style}>
+        <div className='group/todoItem todo dark:border dark:border-gray-dark dark:border-l-accent py-6 pl-3 pr-6 w-full flex flex-row items-center justify-between'>
           <DragIcon attributes={{ ...attributes }} listeners={{ ...listeners }} />
           <TextAreaField inputValue={inputValue} placeholder='Edit task name' className={todo.key} setInputValue={setInputValue} />
           <div className='flex flex-row items-center'>
@@ -85,21 +85,19 @@ export default function TodoItem(props: Props) {
   }
 
   return (
-    <>
-      <div ref={setNodeRef} style={style} className={clsx(' todo py-4 pl-3 pr-6', isTaskReady && 'opacity-40 hover:opacity-100', 'group/todoItem')}>
-        <div className='flex flex-row justify-between items-center w-full'>
-          <div className='flex justify-start items-center'>
-            <DragIcon attributes={{ ...attributes }} listeners={{ ...listeners }} />
-            <CustomCheckbox checked={todo?.checked || false} handleOnCheck={handleOnCheck} disabled={todo?.task === ''} />
-            <EditTaskButton todoChecked={todo?.checked} setIsTaskEdited={setIsTaskEdited} isTaskEdited={isTaskEdited} isTaskReady={isTaskReady}>
-              {todo?.task !== '' ? todo?.task : <i>Enter task name</i>}
-            </EditTaskButton>
-          </div>
+    <div ref={setNodeRef} style={style}>
+      <div className={clsx(' todo py-4 pl-3 pr-6', isTaskReady && 'opacity-40 hover:opacity-100 group/todoItem flex flex-row justify-between items-center w-full')}>
+        <div className='flex justify-start items-center'>
+          <DragIcon attributes={{ ...attributes }} listeners={{ ...listeners }} />
+          <CustomCheckbox checked={todo?.checked || false} handleOnCheck={handleOnCheck} disabled={todo?.task === ''} />
+          <EditTaskButton todoChecked={todo?.checked} setIsTaskEdited={setIsTaskEdited} isTaskEdited={isTaskEdited} isTaskReady={isTaskReady}>
+            {todo?.task !== '' ? todo?.task : <i>Enter task name</i>}
+          </EditTaskButton>
+        </div>
 
-          <div className='flex items-center'>
-            <p className='text-xs text-right'>{new Date(todo?.date || '').toLocaleString()}</p>
-            <IconButton handleOnClick={onOpenModal} icon={<Trash strokeWidth={strokeWidth} size={iconSize} />} customStyles='ml-3' />
-          </div>
+        <div className='flex items-center'>
+          <p className='text-xs text-right'>{new Date(todo?.date || '').toLocaleString()}</p>
+          <IconButton handleOnClick={onOpenModal} icon={<Trash strokeWidth={strokeWidth} size={iconSize} />} customStyles='ml-3' />
         </div>
       </div>
       <Modal
@@ -114,6 +112,6 @@ export default function TodoItem(props: Props) {
           Are you sure you want to remove the task: <span className='font-semibold'>{`'${todo.task}'`}</span>?
         </p>
       </Modal>
-    </>
+    </div>
   )
 }
