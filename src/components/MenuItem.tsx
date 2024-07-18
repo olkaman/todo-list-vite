@@ -13,7 +13,7 @@ export default function MenuItem(props: Props) {
   const navigate = useNavigate()
 
   const onNavigateToList = () => {
-    navigate(listKey)
+    navigate(`../${listKey}`)
     setCurrentSelectedListId(listKey)
   }
 

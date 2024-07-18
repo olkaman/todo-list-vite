@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { Pencil, Trash } from 'lucide-react'
+import { ClipboardList, Pencil, Trash } from 'lucide-react'
 import IconButton from '../../components/IconButton'
 import { iconSize, strokeWidth } from '../../utils/settings'
 import EditTextForm from '../../components/EditTextForm'
@@ -16,17 +16,18 @@ import { ButtonStyleTypes } from '../../utils/globalTypes'
 
 type Props = {
   list: TodoList
+  canEditAndRemoveList?: boolean
 }
 
 export default function List(props: Props) {
-  const { list } = props
+  const { list, canEditAndRemoveList = true } = props
   const [isEdited, setIsEdited] = useState<boolean>(false)
   const [updatedListName, setUpdatedListName] = useState(list.listName)
   const removeCurrentList = useListsStore((state) => state.removeList)
   const lists = useListsStore((state) => state.lists)
-  const currentSelectedList = useListsStore((state) => state.currentSelectedListId)
+  const currentSelectedListId = useListsStore((state) => state.currentSelectedListId)
   const setCurrentSelectedListId = useListsStore((state) => state.setCurrentSelectedListId)
-  const isSelected = currentSelectedList === list.key
+  const isSelected = currentSelectedListId === list.key
   const navigate = useNavigate()
   const userId = useUserId()
   const modalRef = useRef<HTMLDialogElement>(null)
@@ -57,9 +58,8 @@ export default function List(props: Props) {
       })
     removeCurrentList(list.key)
 
-    navigate('/home')
     if (lists.length > 0) {
-      setCurrentSelectedListId(lists[0].key)
+      lists.length === 1 ? navigate('/') : navigate(`/${lists[0].key}`)
     } else {
       setCurrentSelectedListId('')
     }
@@ -75,15 +75,22 @@ export default function List(props: Props) {
               'group/listItem flex items-center justify-between px-3 hover:bg-accent dark:hover:bg-darkMode-gray rounded-lg globalTransition w-full mb-1'
             )}
           >
-            <MenuItem listKey={list.key}>{updatedListName !== '' ? updatedListName : <i>Enter list name</i>}</MenuItem>
-            <div className='w-2/7 flex flex-row'>
-              <IconButton
-                handleOnClick={() => setIsEdited(!isEdited)}
-                icon={<Pencil strokeWidth={strokeWidth} size={iconSize} />}
-                customStyles='ml-2 hidden group-hover/listItem:block'
-              />
-              <IconButton handleOnClick={onOpenModal} icon={<Trash strokeWidth={strokeWidth} size={iconSize} />} customStyles='ml-3 hidden group-hover/listItem:block' />
-            </div>
+            <MenuItem listKey={list.key}>
+              <span className='flex items-center'>
+                <ClipboardList strokeWidth={strokeWidth} size={iconSize} className='mr-2' />
+                {updatedListName !== '' ? updatedListName : <i>Enter list name</i>}
+              </span>
+            </MenuItem>
+            {canEditAndRemoveList && (
+              <div className='w-2/7 flex flex-row'>
+                <IconButton
+                  handleOnClick={() => setIsEdited(!isEdited)}
+                  icon={<Pencil strokeWidth={strokeWidth} size={iconSize} />}
+                  customStyles='ml-2 hidden group-hover/listItem:block'
+                />
+                <IconButton handleOnClick={onOpenModal} icon={<Trash strokeWidth={strokeWidth} size={iconSize} />} customStyles='ml-3 hidden group-hover/listItem:block' />
+              </div>
+            )}
           </div>
         ) : (
           <div className='flex items-center justify-between p-3 bg-accent dark:bg-darkMode-gray rounded-lg'>

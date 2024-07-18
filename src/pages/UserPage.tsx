@@ -1,21 +1,19 @@
 import { useUserEmail } from '../stores/userStore'
 import { Link } from 'react-router-dom'
 import DarkModeButton from '../components/DarkModeButton'
-import useListsStore from '../stores/listStore'
 import ChangePassword from '../features/userPage/ChangePassword'
 import RemoveAccount from '../features/userPage/RemoveAccount'
 
 export default function UserPage() {
   const userEmail = useUserEmail()
-  const currentSelectedListId = useListsStore((state) => state.currentSelectedListId)
 
   return (
     <div className='mx-12 my-8'>
       <div className='flex justify-between items-center relative mb-12'>
         <p>
           Go back to:{' '}
-          <Link to={`../home/${currentSelectedListId}`} className='link'>
-            Home page
+          <Link to={'/'} className='link'>
+            Home
           </Link>
         </p>
         <DarkModeButton />

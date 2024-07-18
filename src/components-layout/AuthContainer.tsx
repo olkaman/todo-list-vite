@@ -17,13 +17,11 @@ export default function AuthContainer(props: Props) {
   const setUserEmail = useUserStore((state) => state.setUserEmail)
   const setIsCurrentUser = useUserStore((state) => state.setIsCurrentUser)
   const setUserId = useUserStore((state) => state.setUserId)
-  const currentSelectedList = useListsStore((state) => state.currentSelectedListId)
   const reset = useListsStore((state) => state.reset)
 
   useEffect(() => {
     const subscribeToUserAuthChange = onAuthStateChanged(auth, (user) => {
       if (user) {
-        navigate(`/home/${currentSelectedList}`)
         setIsCurrentUser(true)
         setIsLoading(false)
         setUserEmail(user.email ?? '')
@@ -37,7 +35,7 @@ export default function AuthContainer(props: Props) {
 
       return () => subscribeToUserAuthChange()
     })
-  }, [currentSelectedList])
+  }, [])
 
   if (isLoading) {
     return <div>Loading ...</div>
