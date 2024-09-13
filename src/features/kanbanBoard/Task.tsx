@@ -1,9 +1,9 @@
 import { useSortable } from '@dnd-kit/sortable'
-import { KanbanTask } from '../../utils/models'
+import { KanbanTask, TodoItemType } from '../../utils/models'
 import { CSS } from '@dnd-kit/utilities'
 
 type Props = {
-  task: KanbanTask
+  task: TodoItemType
 }
 
 export default function Task(props: Props) {
@@ -25,7 +25,7 @@ export default function Task(props: Props) {
 
   return (
     <div style={style} ref={setNodeRef} {...attributes} {...listeners} className='bg-slate-400 p-3 cursor-move w-full mb-3'>
-      {task.title}
+      {task.task}
     </div>
   )
 }

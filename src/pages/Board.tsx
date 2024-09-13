@@ -1,10 +1,11 @@
 import { useMemo, useState } from 'react'
 import { DndContext, DragEndEvent, UniqueIdentifier, closestCorners, DragOverlay, DragStartEvent, DragOverEvent } from '@dnd-kit/core'
 import { SortableContext, arrayMove, horizontalListSortingStrategy } from '@dnd-kit/sortable'
-import { KanbanColumn, KanbanTask } from '../utils/models'
+import { KanbanColumn, TodoItemType } from '../utils/models'
 import Column from '../features/kanbanBoard/Column'
 import { createPortal } from 'react-dom'
 import Task from '../features/kanbanBoard/Task'
+import useListsStore, { useCurrentListTodos } from '../stores/listStore'
 
 export default function Board() {
   const initColumns = [
@@ -14,7 +15,7 @@ export default function Board() {
   ]
   const [columns, setColumns] = useState<KanbanColumn[]>(initColumns)
   const [activeColumn, setActiveColumn] = useState<KanbanColumn | null>(null)
-  const [activeTask, setActiveTask] = useState<KanbanTask | null>(null)
+  const [activeTask, setActiveTask] = useState<TodoItemType | null>(null)
   const columnsIds = useMemo(() => columns.map((col) => col.id), [columns])
 
   const initTasks = [
@@ -25,9 +26,11 @@ export default function Board() {
     { id: '8', title: 'Task5', colId: '3' },
     { id: '9', title: 'Task6', colId: '3' },
   ]
-  const [tasks, setTasks] = useState<KanbanTask[]>(initTasks)
+  // const [tasks, setTasks] = useState<KanbanTask[]>(initTasks)
+  const tasks = useCurrentListTodos()
+  const loadTodosToCurrentList = useListsStore((state) => state.loadTodosToCurrentList)
 
-  function getItemPos(id: UniqueIdentifier, array: KanbanColumn[] | KanbanTask[]) {
+  function getItemPos(id: UniqueIdentifier, array: KanbanColumn[] | TodoItemType[]) {
     return array.findIndex((col) => col.id === id)
   }
 
@@ -61,24 +64,37 @@ export default function Board() {
     if (!isActiveTask) return
 
     if (isActiveTask && isOverTask) {
-      setTasks((tasks) => {
-        const activeItem = getItemPos(active.id, tasks)
-        const overItem = getItemPos(over.id, tasks)
+      //   setTasks((tasks) => {
+      //     const activeItem = getItemPos(active.id, tasks)
+      //     const overItem = getItemPos(over.id, tasks)
 
-        tasks[activeItem].colId = tasks[overItem].colId
+      //     tasks[activeItem].colId = tasks[overItem].colId
 
-        return arrayMove(tasks, activeItem, overItem)
-      })
+      //     return arrayMove(tasks, activeItem, overItem)
+      //   })
+      const activeItem = getItemPos(active.id, tasks)
+      const overItem = getItemPos(over.id, tasks)
+
+      tasks[activeItem].colId = tasks[overItem].colId
+
+      const newTasks = arrayMove(tasks, activeItem, overItem)
+      loadTodosToCurrentList(newTasks)
     }
 
     if (isActiveTask && isOverColumn) {
-      setTasks((tasks) => {
-        const activeItem = getItemPos(active.id, tasks)
+      //   setTasks((tasks) => {
+      //     const activeItem = getItemPos(active.id, tasks)
 
-        tasks[activeItem].colId = over.id.toString()
+      //     tasks[activeItem].colId = over.id.toString()
 
-        return arrayMove(tasks, activeItem, activeItem)
-      })
+      //     return arrayMove(tasks, activeItem, activeItem)
+      //   })
+      const activeItem = getItemPos(active.id, tasks)
+
+      tasks[activeItem].colId = over.id.toString()
+
+      const newTasks = arrayMove(tasks, activeItem, activeItem)
+      loadTodosToCurrentList(newTasks)
     }
   }
   console.log(tasks)

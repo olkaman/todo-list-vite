@@ -1,12 +1,12 @@
 import { SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { KanbanColumn, KanbanTask } from '../../utils/models'
+import { KanbanColumn, KanbanTask, TodoItemType } from '../../utils/models'
 import { useMemo } from 'react'
 import Task from './Task'
 
 type Props = {
   column: KanbanColumn
-  tasks: KanbanTask[]
+  tasks: TodoItemType[]
 }
 
 export default function Column(props: Props) {
